@@ -1,6 +1,5 @@
 package de.aljoschanyang.capstoneprojectfiturae.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.aljoschanyang.capstoneprojectfiturae.models.UserDetailsDTO;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.UserRepo;
