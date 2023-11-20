@@ -1,5 +1,6 @@
 package de.aljoschanyang.capstoneprojectfiturae.services;
 
+import de.aljoschanyang.capstoneprojectfiturae.exceptions.NoSuchUserException;
 import de.aljoschanyang.capstoneprojectfiturae.models.User;
 import de.aljoschanyang.capstoneprojectfiturae.models.UserDetailsDTO;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.UserRepo;
@@ -16,5 +17,9 @@ public class UserService {
                 .id(null)
                 .name(userDetails.name())
                 .build());
+    }
+
+    public User getUserById (String id) {
+        return userRepo.findById(id).orElseThrow(NoSuchUserException::new);
     }
 }
