@@ -6,7 +6,7 @@ import java.util.List;
 
 @Builder
 public record WorkoutDetailsDTO(
-      User user,
+      String userId,
       String workoutName,
       WeekDay workoutDay,
       String description,
