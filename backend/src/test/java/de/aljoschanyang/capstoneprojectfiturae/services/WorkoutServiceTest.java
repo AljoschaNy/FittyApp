@@ -31,7 +31,7 @@ class WorkoutServiceTest {
     void addWorkout_whenUserExistsInDb_thenReturnWorkout() {
         Workout expected = Workout.builder()
                 .id("workoutId")
-                .user(user)
+                .userId(user.id())
                 .workoutName("Test workout")
                 .workoutDay(WeekDay.MONDAY)
                 .description("Test description")
