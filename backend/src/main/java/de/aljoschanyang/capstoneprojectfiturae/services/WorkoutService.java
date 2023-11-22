@@ -7,6 +7,8 @@ import de.aljoschanyang.capstoneprojectfiturae.repositories.WorkoutRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class WorkoutService {
@@ -18,7 +20,7 @@ public class WorkoutService {
 
         return workoutRepo.save(Workout.builder()
                         .id(null)
-                        .user(user)
+                        .userId(user.id())
                         .workoutName(workoutDetails.workoutName())
                         .workoutDay(workoutDetails.workoutDay())
                         .description(workoutDetails.description())
