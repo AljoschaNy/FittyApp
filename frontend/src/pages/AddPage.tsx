@@ -2,22 +2,8 @@ import "./AddPage.css";
 import {useNavigate} from "react-router-dom";
 import React, {useState} from "react";
 import axios from "axios";
+import {Workout} from "../types/types.ts";
 
-type WorkoutExercise = {
-    name: string,
-    setCount: number,
-    repsPerSet: number,
-    weightInKg: number;
-    breakInSec: number
-}
-
-type Workout = {
-    userId: string,
-    workoutName: string,
-    workoutDay: string,
-    description: string,
-    plan: WorkoutExercise[]
-}
 
 function AddPage() {
     const navigate = useNavigate();
@@ -102,7 +88,7 @@ function AddPage() {
                                     type={"text"}
                                     value={exerciseName}
                                     onChange={(event) => setExerciseName(event.target.value)}
-                                /> {exerciseName}
+                                />
                             </label><br/>
                             <label>Sets
                                 <input
