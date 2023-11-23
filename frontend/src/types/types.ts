@@ -13,3 +13,8 @@ export type Workout = {
     description: string,
     plan: WorkoutExercise[]
 }
+
+export type User = {
+    id: string,
+    name: string
+}
