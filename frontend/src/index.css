@@ -1,0 +1,28 @@
+/* General styles */
+:root {
+    --color-1: hsla(292, 69%, 15%, 100%);
+    --color-2: hsla(292, 69%, 30%, 100%);
+    --color-3: hsla(0, 0%, 22%, 100%);
+    --color-4: hsla(0, 0%, 90%, 100%);
+    --color-5: hsla(0, 0%, 90%, 60%);
+
+    --pages-header-height: 140px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 18px;
+    font-family: sans-serif;
+    color: var(--color-3);
+}
+
+/* Layout styles */
+.container {
+    width: 100%;
+    padding: 0 30px;
+}
