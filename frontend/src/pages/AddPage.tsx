@@ -4,8 +4,12 @@ import React, {useState} from "react";
 import axios from "axios";
 import {Workout} from "../types/types.ts";
 
+type Props = {
+    userId: string,
+    onWorkoutChange: () => void
+}
 
-function AddPage() {
+function AddPage({userId, onWorkoutChange}:Props) {
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -16,9 +20,9 @@ function AddPage() {
     const [weight, setWeight] = useState(0);
     const [breakTime, setBreakTime] = useState(0);
 
-    function addWorkout() {
+    function addWorkout(userId:string) {
         const newWorkoutData:Workout = {
-            userId:"655b5b283f332f4fcfbf02c0",
+            userId,
             workoutName: name,
             workoutDay:day,
             description: description,
@@ -34,7 +38,7 @@ function AddPage() {
         }
 
         axios.post('/api/workouts', newWorkoutData)
-            .then(() => console.log("Workout saved"))
+            .then(() => onWorkoutChange())
             .catch(error => {
                 console.error('Error adding data:', error);
             });
@@ -42,7 +46,7 @@ function AddPage() {
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>):void {
         event.preventDefault();
-        addWorkout();
+        addWorkout(userId);
         navigate("/");
     }
 
@@ -95,13 +99,16 @@ function AddPage() {
                                     type={"number"}
                                     value={sets}
                                     onChange={(event) => setSets(parseInt(event.target.value))}
+                                    required={true}
                                 />
                             </label><br/>
                             <label>Reps
                                 <input
                                     type={"number"}
                                     value={reps}
-                                    onChange={(event) => setReps(parseInt(event.target.value))}
+                                    onChange={(event) => {
+                                        event.target.value ? setReps(parseInt(event.target.value)) : setReps(0)
+                                    }}
                                 />
                             </label><br/>
                             <label>Weight

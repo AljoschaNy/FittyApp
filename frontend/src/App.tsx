@@ -11,6 +11,15 @@ function App() {
     const [isLoading, setIsLoading] = useState(true);
     const [workouts, setWorkouts] = useState<Workout[]>([]);
 
+    function fetchWorkouts() {
+        axios.get(`api/workouts/${user.id}`)
+            .then((response:AxiosResponse<Workout[]>) => {
+                setWorkouts(response.data);
+                setIsLoading(false);
+            })
+            .catch(error => console.error(error.message))
+    }
+
     useEffect(() => {
         const userId = "655b5b283f332f4fcfbf02c0";
         axios.get('api/users/' + userId)
@@ -23,14 +32,9 @@ function App() {
 
     useEffect(() => {
         if(isRegisteredUser) {
-            axios.get(`api/workouts/${user.id}`)
-                .then((response:AxiosResponse<Workout[]>) => {
-                    setWorkouts(response.data);
-                    setIsLoading(false);
-                })
-                .catch(error => console.error(error.message))
+            fetchWorkouts();
         }
-    }, [isRegisteredUser,user.id]);
+    }, [isRegisteredUser]);
 
     if(isLoading) {
         return <p> Is loading</p>
@@ -40,7 +44,7 @@ function App() {
         <>
             <Routes>
                 <Route path={"/"} element={<HomePage userName={user.name} workouts={workouts} />} />
-                <Route path={"/workout/add"} element={<AddPage />} />
+                <Route path={"/workout/add"} element={<AddPage userId={user.id} onWorkoutChange={fetchWorkouts}/>} />
             </Routes>
         </>
     )
