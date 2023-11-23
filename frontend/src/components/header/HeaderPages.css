@@ -1,0 +1,26 @@
+/* Header styles */
+.header-pages {
+    width: 100%;
+    padding: 60px 0 50px 30px;
+    color: var(--color-4);
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.header-pages,
+.position-fix-top {
+    height: var(--pages-header-height);
+}
+
+.header-pages-bg {
+    width: 420px;
+    height: 315px;
+    background: var(--color-1);
+    border-radius: 50%;
+    position: absolute;
+    left: -90px;
+    top: -175px;
+    z-index: -1;
+}

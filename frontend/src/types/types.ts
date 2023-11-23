@@ -37,3 +37,7 @@ export type AddPageProps = {
     userId: string,
     onWorkoutChange: () => void
 }
+
+export type HeaderPagesProps = {
+    pageTitle: string
+}

@@ -11,6 +11,7 @@ function App() {
     const [isRegisteredUser, setIsRegisteredUser] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [workouts, setWorkouts] = useState<Workout[]>([]);
+    const [error, setError] = useState("");
 
     function fetchWorkouts() {
         axios.get(`api/workouts/${user.id}`)
@@ -18,8 +19,13 @@ function App() {
                 setWorkouts(response.data);
                 setIsLoading(false);
             })
-            .catch(error => console.error(error.message))
+            .catch(error => {
+                console.error("Fehler beim Abrufen des Workouts: " + error);
+                setError("Fehler beim Abrufen des Workouts.");
+                setIsLoading(false);
+            })
     }
+
 
     useEffect(() => {
         const userId = "655b5b283f332f4fcfbf02c0";
@@ -39,6 +45,10 @@ function App() {
 
     if(isLoading) {
         return <p> Is loading</p>
+    }
+
+    if(error) {
+        return <p>{error}</p>
     }
 
     return (

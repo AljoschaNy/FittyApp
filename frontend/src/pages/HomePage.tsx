@@ -33,7 +33,7 @@ function HomePage({userName, workouts}:Readonly<HomeProps>) {
                     </div>
                 )
             })}
-            <button className={"btn-add-workout"} onClick={() => navigate("/workout/add")}>Add workout</button>
+            <button className={"btn-bottom-center-fixed"} onClick={() => navigate("/workout/add")}>Add workout</button>
         </>
 
     )

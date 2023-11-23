@@ -26,3 +26,13 @@ html {
     width: 100%;
     padding: 0 30px;
 }
+
+/* Button styles */
+.btn-bottom-center-fixed {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 10px;
+    left: calc(50vw - 35px);
+}

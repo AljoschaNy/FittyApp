@@ -1,12 +1,13 @@
 import {useNavigate} from "react-router-dom";
+import HeaderPages from "../components/header/HeaderPages.tsx";
 
 function DetailsPage() {
     const navigate = useNavigate();
 
     return (
         <>
-            <h2>Details Page</h2>
-            <button onClick={() => navigate("/")}>Home</button>
+            <HeaderPages pageTitle={"Details"} />
+            <button className={"btn-bottom-center-fixed"} onClick={() => navigate("/")}>Home</button>
         </>
     )
 }
