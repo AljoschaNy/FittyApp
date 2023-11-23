@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage.tsx";
 import {useEffect, useState} from "react";
 import {User, Workout} from "./types/types.ts";
 import axios, {AxiosResponse} from "axios";
+import DetailsPage from "./pages/DetailsPage.tsx";
 
 function App() {
     const [user, setUser] = useState<User>({id:"", name: ""});
@@ -45,6 +46,7 @@ function App() {
             <Routes>
                 <Route path={"/"} element={<HomePage userName={user.name} workouts={workouts} />} />
                 <Route path={"/workout/add"} element={<AddPage userId={user.id} onWorkoutChange={fetchWorkouts}/>} />
+                <Route path={"/workout/:id"} element={<DetailsPage />} />
             </Routes>
         </>
     )

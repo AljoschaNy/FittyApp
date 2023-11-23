@@ -28,6 +28,7 @@ function HomePage({userName, workouts}:Readonly<HomeProps>) {
                             <p>{workout.description}</p>
                             <p>{workout.plan.length} Exercise(s)</p>
                         </div>
+                        <button onClick={() => navigate(`/workout/${workout.id}`)}>Edit</button>
 
                     </div>
                 )
