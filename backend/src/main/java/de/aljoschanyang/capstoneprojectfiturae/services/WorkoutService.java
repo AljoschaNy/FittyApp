@@ -27,4 +27,9 @@ public class WorkoutService {
                         .plan(workoutDetails.plan())
                 .build());
     }
+
+    public List<Workout> getAllWorkoutsByUserId(String userId) {
+        userService.getUserById(userId);
+        return workoutRepo.findWorkoutsByUserId(userId);
+    }
 }

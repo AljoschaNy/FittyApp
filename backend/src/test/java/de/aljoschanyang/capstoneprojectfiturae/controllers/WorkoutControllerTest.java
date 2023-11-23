@@ -3,6 +3,7 @@ package de.aljoschanyang.capstoneprojectfiturae.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.aljoschanyang.capstoneprojectfiturae.models.User;
 import de.aljoschanyang.capstoneprojectfiturae.models.WeekDay;
+import de.aljoschanyang.capstoneprojectfiturae.models.Workout;
 import de.aljoschanyang.capstoneprojectfiturae.models.WorkoutDetailsDTO;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.UserRepo;
 import org.junit.jupiter.api.Test;
@@ -12,9 +13,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -70,6 +73,45 @@ class WorkoutControllerTest {
         mockMvc.perform(post(BASE_URI)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(workoutDetailsAsJson))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("The user is unknown"));
+    }
+
+    @Test
+    void getAllWorkoutsByValidUserId_thenExpectListOfWorkouts() throws Exception {
+        User validUser = new User("validUserId", "User1");
+        userRepo.save(validUser);
+
+        WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
+                .userId(validUser.id())
+                .workoutName("Test Workout")
+                .workoutDay(WeekDay.MONDAY)
+                .description("Test description")
+                .plan(List.of())
+                .build();
+        String workoutDetailsAsJson = objectMapper.writeValueAsString(workoutDetails);
+
+        MvcResult result = mockMvc.perform(post(BASE_URI)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(workoutDetailsAsJson))
+                        .andExpect(status().isOk())
+                        .andReturn();
+        String jsonResponse = result.getResponse().getContentAsString();
+        Workout workout = objectMapper.readValue(jsonResponse, Workout.class);
+
+        List<Workout> expected = List.of(workout);
+        String expectedAsJson = objectMapper.writeValueAsString(expected);
+
+        mockMvc.perform(get(BASE_URI + "/" + validUser.id()))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedAsJson));
+    }
+
+    @Test
+    void getAllWorkoutsByInvalidUserId_thenExpectNotFound() throws Exception {
+        String invalidUserId = "invalidUserId";
+
+        mockMvc.perform(get(BASE_URI + "/" + invalidUserId))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("The user is unknown"));
     }

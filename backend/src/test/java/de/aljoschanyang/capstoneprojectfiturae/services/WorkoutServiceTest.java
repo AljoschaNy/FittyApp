@@ -68,4 +68,37 @@ class WorkoutServiceTest {
         assertThrows(NoSuchUserException.class, () -> workoutService.addWorkout(workoutDetails));
         verify(mockUserRepo).findById("invalidUserId");
     }
+
+    @Test
+    void getAllWorkoutsByUserId_whenUserExists_thenReturnWorkouts() {
+        Workout workout1 = Workout.builder()
+                .id("workoutId")
+                .userId(user.id())
+                .workoutName("Test workout")
+                .workoutDay(WeekDay.MONDAY)
+                .description("Test description")
+                .plan(List.of())
+                .build();
+        List<Workout> expectedWorkouts = List.of(workout1);
+
+        when(mockUserRepo.findById(workout1.userId())).thenReturn(Optional.of(user));
+        when(mockWorkoutRepo.findWorkoutsByUserId(workout1.userId())).thenReturn(expectedWorkouts);
+
+        List<Workout> actualWorkouts = workoutService.getAllWorkoutsByUserId(workout1.userId());
+
+        verify(mockUserRepo).findById(workout1.userId());
+        verify(mockWorkoutRepo).findWorkoutsByUserId(workout1.userId());
+        assertEquals(expectedWorkouts, actualWorkouts);
+    }
+
+    @Test
+    void getAllWorkoutsByUserId_whenUserDoesNotExist_thenThrowException() {
+        String userId = "invalidUserId";
+
+        when(mockUserRepo.findById(userId)).thenThrow(new NoSuchUserException());
+
+        assertThrows(NoSuchUserException.class, () -> workoutService.getAllWorkoutsByUserId(userId));
+        verify(mockUserRepo).findById(userId);
+        verify(mockWorkoutRepo, never()).findWorkoutsByUserId(anyString());
+    }
 }
