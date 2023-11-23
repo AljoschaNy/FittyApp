@@ -23,4 +23,9 @@ public class WorkoutController {
     public List<Workout> getAllWorkoutsByUserId(@PathVariable String userId) {
         return workoutService.getAllWorkoutsByUserId(userId);
     }
+
+    @GetMapping("/details/{id}")
+    public Workout getWorkoutById(@PathVariable String id) {
+        return workoutService.getWorkoutById(id);
+    }
 }
