@@ -1,13 +1,8 @@
 import "./HomePage.css";
 import {useNavigate} from "react-router-dom";
-import {Workout} from "../types/types.ts";
+import {HomeProps, Workout} from "../types/types.ts";
 
-type Props = {
-    userName: string,
-    workouts: Workout[],
-}
-
-function HomePage({userName, workouts}:Props) {
+function HomePage({userName, workouts}:Readonly<HomeProps>) {
     const navigate = useNavigate();
 
     return(
@@ -22,9 +17,9 @@ function HomePage({userName, workouts}:Props) {
             </header>
             <div className={"position-fix-home"}></div>
             <h2>Recent Workouts</h2>
-            {workouts.map((workout:Workout, index) => {
+            {workouts.map((workout:Workout) => {
                 return(
-                    <div key={index} className={"workout-card"}>
+                    <div key={workout.id} className={"workout-card"}>
                         <div className={"workout-card-head"}>
                             <h3>{workout.workoutName}</h3>
                             <p>{workout.workoutDay}</p>

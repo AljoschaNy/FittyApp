@@ -7,6 +7,15 @@ export type WorkoutExercise = {
 }
 
 export type Workout = {
+    id: string,
+    userId: string,
+    workoutName: string,
+    workoutDay: string,
+    description: string,
+    plan: WorkoutExercise[]
+}
+
+export type WorkoutNoId = {
     userId: string,
     workoutName: string,
     workoutDay: string,
@@ -17,4 +26,14 @@ export type Workout = {
 export type User = {
     id: string,
     name: string
+}
+
+export type HomeProps = {
+    userName: string,
+    workouts: Workout[]
+}
+
+export type AddPageProps = {
+    userId: string,
+    onWorkoutChange: () => void
 }

@@ -2,18 +2,13 @@ import "./AddPage.css";
 import {useNavigate} from "react-router-dom";
 import React, {useState} from "react";
 import axios from "axios";
-import {Workout} from "../types/types.ts";
+import {AddPageProps, WorkoutNoId} from "../types/types.ts";
 
-type Props = {
-    userId: string,
-    onWorkoutChange: () => void
-}
-
-function AddPage({userId, onWorkoutChange}:Props) {
+function AddPage({userId, onWorkoutChange}:Readonly<AddPageProps>) {
     const navigate = useNavigate();
-    const [name, setName] = useState("");
+    const [workoutName, setWorkoutName] = useState("");
     const [description, setDescription] = useState("");
-    const [day, setDay] = useState("");
+    const [workoutDay, setWorkoutDay] = useState("");
     const [exerciseName, setExerciseName] = useState("");
     const [sets, setSets] = useState(0);
     const [reps, setReps] = useState(0);
@@ -21,11 +16,11 @@ function AddPage({userId, onWorkoutChange}:Props) {
     const [breakTime, setBreakTime] = useState(0);
 
     function addWorkout(userId:string) {
-        const newWorkoutData:Workout = {
+        const newWorkoutData:WorkoutNoId = {
             userId,
-            workoutName: name,
-            workoutDay:day,
-            description: description,
+            workoutName,
+            workoutDay,
+            description,
             plan: [
                 {
                     name: exerciseName,
@@ -64,8 +59,8 @@ function AddPage({userId, onWorkoutChange}:Props) {
                             Name
                             <input
                                 type={"text"}
-                                value={name}
-                                onChange={(event) => setName(event.target.value)}
+                                value={workoutName}
+                                onChange={(event) => setWorkoutName(event.target.value)}
                             />
                         </label><br/>
                         <label>
@@ -80,8 +75,8 @@ function AddPage({userId, onWorkoutChange}:Props) {
                             Day
                             <input
                                 type={"text"}
-                                value={day}
-                                onChange={(event) => setDay(event.target.value)}
+                                value={workoutDay}
+                                onChange={(event) => setWorkoutDay(event.target.value)}
                             />
                         </label><br/>
 

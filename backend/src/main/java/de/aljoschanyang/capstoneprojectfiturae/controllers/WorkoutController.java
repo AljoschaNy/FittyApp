@@ -19,8 +19,8 @@ public class WorkoutController {
         return workoutService.addWorkout(workoutDetailsDTO);
     }
 
-    @GetMapping("/{id}")
-    public List<Workout> getAllWorkoutsByUserId(@PathVariable String id) {
-        return workoutService.getAllWorkoutsByUserId(id);
+    @GetMapping("/{userId}")
+    public List<Workout> getAllWorkoutsByUserId(@PathVariable String userId) {
+        return workoutService.getAllWorkoutsByUserId(userId);
     }
 }
