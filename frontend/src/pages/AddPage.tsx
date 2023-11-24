@@ -75,6 +75,7 @@ function AddPage({userId, onWorkoutChange}:Readonly<AddPageProps>) {
                                 type={"text"}
                                 value={workoutDay}
                                 onChange={(event) => setWorkoutDay(event.target.value)}
+                                required={true}
                             />
                         </label><br/>
 
@@ -125,8 +126,8 @@ function AddPage({userId, onWorkoutChange}:Readonly<AddPageProps>) {
             <div className={"position-fix"}></div>
             <div className={"container"}>
                 <footer className={"footer-add-page"}>
-                        <button onClick={() => navigate("/")}>cancel</button>
-                        <button type={"submit"} form={"workout-form"}>save</button>
+                    <button onClick={() => navigate("/")}>cancel</button>
+                    <button type={"submit"} form={"workout-form"}>save</button>
                 </footer>
             </div>
         </>

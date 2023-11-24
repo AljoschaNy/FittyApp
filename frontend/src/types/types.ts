@@ -29,7 +29,7 @@ export type User = {
 }
 
 export type HomeProps = {
-    userName: string,
+    userId: string,
     workouts: Workout[]
 }
 
