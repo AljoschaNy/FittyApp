@@ -1,0 +1,17 @@
+/* Footer styles */
+.footer-form-pages,
+.position-fix-bottom {
+    height: var(--pages-footer-height);
+}
+
+.footer-form-pages {
+    width: 100%;
+    background: yellow;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
