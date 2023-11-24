@@ -22,7 +22,7 @@ function DetailsPage() {
                 console.error('Error fetching data:', error);
                 setError(true);
             });
-    }, []);
+    });
 
     if (isLoading) {
         return (
@@ -64,8 +64,12 @@ function DetailsPage() {
                         </div>
                     </div>
                 ))}
-                <button className={"btn-bottom-center-fixed"} onClick={() => navigate("/")}>Home</button>
             </fieldset>
+            <button onClick={() => navigate(
+                `/workout/${workout?.id}/edit`,
+                {state:{workout:workout}}
+            )}>Edit</button>
+            <button className={"btn-bottom-center-fixed"} onClick={() => navigate("/")}>Home</button>
         </>
     )
 }

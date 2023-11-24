@@ -36,3 +36,12 @@ html {
     bottom: 10px;
     left: calc(50vw - 35px);
 }
+
+.btn-top-right-fixed {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}

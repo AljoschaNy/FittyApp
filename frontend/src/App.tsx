@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {Workout} from "./types/types.ts";
 import axios from "axios";
 import DetailsPage from "./pages/DetailsPage.tsx";
+import EditPage from "./pages/EditPage.tsx";
 
 function App() {
     const [workouts, setWorkouts] = useState<Workout[]>([]);
@@ -30,6 +31,7 @@ function App() {
                 <Route path={"/"} element={<HomePage userId={userId} workouts={workouts} />} />
                 <Route path={"/workout/add"} element={<AddPage userId={userId} onWorkoutChange={fetchWorkouts}/>} />
                 <Route path={"/workout/:id"} element={<DetailsPage />} />
+                <Route path={"/workout/:id/edit"} element={<EditPage />} />
             </Routes>
         </>
     )

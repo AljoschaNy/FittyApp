@@ -49,7 +49,6 @@ function AddPage({userId, onWorkoutChange}:Readonly<AddPageProps>) {
     return (
         <>
             <HeaderPages pageTitle={"New Workout"} />
-            <div className={"position-fix"}></div>
             <div className={"container"}>
                 <main className={"main-add-page"}>
                     <form id={"workout-form"} onSubmit={handleSubmit}>
