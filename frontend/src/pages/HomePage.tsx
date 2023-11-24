@@ -1,9 +1,17 @@
 import "./HomePage.css";
 import {useNavigate} from "react-router-dom";
 import {HomeProps, Workout} from "../types/types.ts";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
-function HomePage({userName, workouts}:Readonly<HomeProps>) {
+function HomePage({userId, workouts}:Readonly<HomeProps>) {
     const navigate = useNavigate();
+    const [userName, setUserName] = useState("User")
+
+    useEffect(() => {
+        axios.get(`/api/users/${userId}`)
+            .then(response => setUserName(response.data.name))
+    });
 
     return(
         <>
@@ -28,11 +36,12 @@ function HomePage({userName, workouts}:Readonly<HomeProps>) {
                             <p>{workout.description}</p>
                             <p>{workout.plan.length} Exercise(s)</p>
                         </div>
+                        <button onClick={() => navigate(`/workout/${workout.id}`)}>Details</button>
 
                     </div>
                 )
             })}
-            <button className={"btn-add-workout"} onClick={() => navigate("/workout/add")}>Add workout</button>
+            <button className={"btn-bottom-center-fixed"} onClick={() => navigate("/workout/add")}>Add workout</button>
         </>
 
     )

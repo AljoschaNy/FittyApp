@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import React, {useState} from "react";
 import axios from "axios";
 import {AddPageProps, WorkoutNoId} from "../types/types.ts";
+import HeaderPages from "../components/header/HeaderPages.tsx";
 
 function AddPage({userId, onWorkoutChange}:Readonly<AddPageProps>) {
     const navigate = useNavigate();
@@ -47,10 +48,7 @@ function AddPage({userId, onWorkoutChange}:Readonly<AddPageProps>) {
 
     return (
         <>
-            <header className={"header-add-page"}>
-                <div className={"page-header-bg"}></div>
-                <h2>New Workout</h2>
-            </header>
+            <HeaderPages pageTitle={"New Workout"} />
             <div className={"position-fix"}></div>
             <div className={"container"}>
                 <main className={"main-add-page"}>
@@ -77,6 +75,7 @@ function AddPage({userId, onWorkoutChange}:Readonly<AddPageProps>) {
                                 type={"text"}
                                 value={workoutDay}
                                 onChange={(event) => setWorkoutDay(event.target.value)}
+                                required={true}
                             />
                         </label><br/>
 
@@ -127,8 +126,8 @@ function AddPage({userId, onWorkoutChange}:Readonly<AddPageProps>) {
             <div className={"position-fix"}></div>
             <div className={"container"}>
                 <footer className={"footer-add-page"}>
-                        <button onClick={() => navigate("/")}>cancel</button>
-                        <button type={"submit"} form={"workout-form"}>save</button>
+                    <button onClick={() => navigate("/")}>cancel</button>
+                    <button type={"submit"} form={"workout-form"}>save</button>
                 </footer>
             </div>
         </>

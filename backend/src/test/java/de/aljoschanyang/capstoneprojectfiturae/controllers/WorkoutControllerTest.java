@@ -35,7 +35,7 @@ class WorkoutControllerTest {
 
     @Test
     @DirtiesContext
-    void addWorkout_withValidData_thenExpectSuccess() throws Exception {
+    void addWorkout_whenUserExistsInDb_thenReturnWorkout() throws Exception {
         User validUser = new User("validUserId", "User1");
         userRepo.save(validUser);
 
@@ -60,7 +60,7 @@ class WorkoutControllerTest {
 
     @Test
     @DirtiesContext
-    void addWorkout_withInvalidData_thenExpectUserNotFoundException() throws Exception {
+    void addWorkout_whenUserDoesNotExistInDb_thenThrowException() throws Exception {
         WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
                 .userId("invalidUserId")
                 .workoutName("Test Workout")
@@ -78,7 +78,8 @@ class WorkoutControllerTest {
     }
 
     @Test
-    void getAllWorkoutsByValidUserId_thenExpectListOfWorkouts() throws Exception {
+    @DirtiesContext
+    void getAllWorkoutsByUserId_whenUserExists_thenReturnWorkouts() throws Exception {
         User validUser = new User("validUserId", "User1");
         userRepo.save(validUser);
 
@@ -108,11 +109,49 @@ class WorkoutControllerTest {
     }
 
     @Test
-    void getAllWorkoutsByInvalidUserId_thenExpectNotFound() throws Exception {
+    void getAllWorkoutsByUserId_whenUserDoesNotExist_thenThrowException() throws Exception {
         String invalidUserId = "invalidUserId";
 
         mockMvc.perform(get(BASE_URI + "/" + invalidUserId))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("The user is unknown"));
+    }
+
+    @Test
+    @DirtiesContext
+    void getWorkoutById_whenIdIsValid_thenReturnWorkout() throws Exception {
+        User validUser = new User("validUserId", "User1");
+        userRepo.save(validUser);
+
+        WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
+                .userId(validUser.id())
+                .workoutName("Test Workout")
+                .workoutDay(WeekDay.MONDAY)
+                .description("Test description")
+                .plan(List.of())
+                .build();
+        String workoutDetailsAsJson = objectMapper.writeValueAsString(workoutDetails);
+
+        MvcResult result = mockMvc.perform(post(BASE_URI)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(workoutDetailsAsJson))
+                .andExpect(status().isOk())
+                .andReturn();
+        String jsonResponse = result.getResponse().getContentAsString();
+        Workout workout = objectMapper.readValue(jsonResponse, Workout.class);
+        String workoutAsJson = objectMapper.writeValueAsString(workout);
+
+        mockMvc.perform(get(BASE_URI + "/details/" + workout.id()))
+                .andExpect(status().isOk())
+                .andExpect(content().json(workoutAsJson));
+    }
+
+    @Test
+    void getWorkoutById_whenIdIsInvalid_thenThrowException() throws Exception {
+        String invalidId = "invalidId";
+
+        mockMvc.perform(get(BASE_URI + "/details/" + invalidId))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("The workout is unknown"));
     }
 }

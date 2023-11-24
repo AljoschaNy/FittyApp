@@ -1,5 +1,6 @@
 package de.aljoschanyang.capstoneprojectfiturae.services;
 
+import de.aljoschanyang.capstoneprojectfiturae.exceptions.NoSuchWorkoutException;
 import de.aljoschanyang.capstoneprojectfiturae.models.User;
 import de.aljoschanyang.capstoneprojectfiturae.models.Workout;
 import de.aljoschanyang.capstoneprojectfiturae.models.WorkoutDetailsDTO;
@@ -31,5 +32,9 @@ public class WorkoutService {
     public List<Workout> getAllWorkoutsByUserId(String userId) {
         userService.getUserById(userId);
         return workoutRepo.findWorkoutsByUserId(userId);
+    }
+
+    public Workout getWorkoutById(String id) {
+        return workoutRepo.findById(id).orElseThrow(NoSuchWorkoutException::new);
     }
 }

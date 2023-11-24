@@ -1,6 +1,7 @@
 package de.aljoschanyang.capstoneprojectfiturae.services;
 
 import de.aljoschanyang.capstoneprojectfiturae.exceptions.NoSuchUserException;
+import de.aljoschanyang.capstoneprojectfiturae.exceptions.NoSuchWorkoutException;
 import de.aljoschanyang.capstoneprojectfiturae.models.User;
 import de.aljoschanyang.capstoneprojectfiturae.models.WeekDay;
 import de.aljoschanyang.capstoneprojectfiturae.models.Workout;
@@ -100,5 +101,30 @@ class WorkoutServiceTest {
         assertThrows(NoSuchUserException.class, () -> workoutService.getAllWorkoutsByUserId(userId));
         verify(mockUserRepo).findById(userId);
         verify(mockWorkoutRepo, never()).findWorkoutsByUserId(anyString());
+    }
+
+    @Test
+    void getWorkoutById_whenIdIsValid_thenReturnWorkout() {
+        Workout expected = Workout.builder()
+                .id("validWorkoutId")
+                .userId("1")
+                .workoutName("Test workout")
+                .workoutDay(WeekDay.MONDAY)
+                .description("Test description")
+                .plan(List.of())
+                .build();
+
+        when(mockWorkoutRepo.findById(any(String.class))).thenReturn(Optional.of(expected));
+        Workout actual = workoutService.getWorkoutById(expected.id());
+
+        verify(mockWorkoutRepo).findById(expected.id());
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void getWorkoutById_whenIdIsInvalid_thenThrowException() {
+        when(mockWorkoutRepo.findById(any(String.class))).thenThrow(NoSuchWorkoutException.class);
+        assertThrows(NoSuchWorkoutException.class, () -> workoutService.getWorkoutById("invalidId"));
+        verify(mockWorkoutRepo).findById("invalidId");
     }
 }

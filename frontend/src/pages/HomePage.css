@@ -42,12 +42,3 @@
     padding: 5px;
     border: 1px solid black;
 }
-
-.btn-add-workout {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    position: fixed;
-    bottom: 10px;
-    left: calc(50vw - 35px);
-}
