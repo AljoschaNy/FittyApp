@@ -1,11 +1,10 @@
 package de.aljoschanyang.capstoneprojectfiturae.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.aljoschanyang.capstoneprojectfiturae.models.User;
-import de.aljoschanyang.capstoneprojectfiturae.models.WeekDay;
-import de.aljoschanyang.capstoneprojectfiturae.models.Workout;
-import de.aljoschanyang.capstoneprojectfiturae.models.WorkoutDetailsDTO;
+import de.aljoschanyang.capstoneprojectfiturae.models.*;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.UserRepo;
+import de.aljoschanyang.capstoneprojectfiturae.repositories.WorkoutRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,8 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -28,6 +26,8 @@ class WorkoutControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private WorkoutRepo workoutRepo;
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -151,6 +151,61 @@ class WorkoutControllerTest {
         String invalidId = "invalidId";
 
         mockMvc.perform(get(BASE_URI + "/details/" + invalidId))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("The workout is unknown"));
+    }
+
+    @Test
+    void editWorkout_whenValidData_thenReturnWorkout() throws Exception {
+        Workout workoutBefore = Workout.builder()
+                .id("1")
+                .userId("User1")
+                .workoutName("Test Workout")
+                .workoutDay(WeekDay.MONDAY)
+                .description("Test description")
+                .plan(List.of())
+                .build();
+
+        WorkoutEditDTO workoutEdit = WorkoutEditDTO.builder()
+                .workoutName("Changed Workout")
+                .workoutDay(WeekDay.FRIDAY)
+                .description("Changed description")
+                .plan(List.of())
+                .build();
+
+        Workout expected = Workout.builder()
+                .id("1")
+                .userId("User1")
+                .workoutName(workoutEdit.workoutName())
+                .workoutDay(workoutEdit.workoutDay())
+                .description(workoutEdit.description())
+                .plan(workoutEdit.plan())
+                .build();
+
+        String expectedAsJson = objectMapper.writeValueAsString(expected);
+        String workoutEditAsJson = objectMapper.writeValueAsString(workoutEdit);
+        workoutRepo.save(workoutBefore);
+
+        mockMvc.perform(put(BASE_URI + "/edit/" + workoutBefore.id())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(workoutEditAsJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedAsJson));
+    }
+
+    @Test
+    void editWorkout_whenInvalidData_thenThrowException() throws Exception {
+        WorkoutEditDTO workoutEdit = WorkoutEditDTO.builder()
+                .workoutName("Changed Workout")
+                .workoutDay(WeekDay.FRIDAY)
+                .description("Changed description")
+                .plan(List.of())
+                .build();
+
+        String workoutEditAsJson = objectMapper.writeValueAsString(workoutEdit);
+        mockMvc.perform(put(BASE_URI + "/edit/invalidId")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(workoutEditAsJson))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("The workout is unknown"));
     }
