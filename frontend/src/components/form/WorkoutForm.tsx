@@ -73,90 +73,88 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
         formType === "edit" && navigate(`/workout/${initialWorkout.id}`);
     }
     return (
-        <>
-            <div className={"container"}>
-                <main className={"main-add-page"}>
-                    <form id={"workout-form"} onSubmit={handleSubmit}>
-                        <label>
-                            Name
-                            <input
-                                type={"text"}
-                                value={workout.workoutName}
-                                onChange={(event) => handleWorkoutChange(event)}
-                            />
-                        </label><br/>
-                        <label>
-                            Description
-                            <input
-                                type={"text"}
-                                value={workout.description}
-                                onChange={(event) => handleWorkoutChange(event)}
-                            />
-                        </label><br/>
-                        <label>
-                            Day
-                            <input
-                                type={"text"}
-                                value={workout.workoutDay}
-                                onChange={(event) => handleWorkoutChange(event)}
-                                required={true}
-                            />
-                        </label><br/>
+        <div className={"container"}>
+            <main className={"main-add-page"}>
+                <form id={"workout-form"} onSubmit={handleSubmit}>
+                    <label>
+                        Name
+                        <input
+                            type={"text"}
+                            value={workout.workoutName}
+                            onChange={(event) => handleWorkoutChange(event)}
+                        />
+                    </label><br/>
+                    <label>
+                        Description
+                        <input
+                            type={"text"}
+                            value={workout.description}
+                            onChange={(event) => handleWorkoutChange(event)}
+                        />
+                    </label><br/>
+                    <label>
+                        Day
+                        <input
+                            type={"text"}
+                            value={workout.workoutDay}
+                            onChange={(event) => handleWorkoutChange(event)}
+                            required={true}
+                        />
+                    </label><br/>
 
-                        <fieldset>
-                            <legend>Exercise</legend>
-                            {exercises.map((exercise:WorkoutExercise) => (
-                                <div key={exercise.id}>
-                                    <label>Name
-                                        <input
-                                            type={"text"}
-                                            name={"name"}
-                                            value={exercise.name}
-                                            onChange={(event) => handleExerciseChange(exercise.id,event)}
-                                        />
-                                    </label><br/>
-                                    <label>Sets
-                                        <input
-                                            type={"number"}
-                                            name={"setCount"}
-                                            value={exercise.setCount}
-                                            onChange={(event) => handleExerciseChange(exercise.id,event)}
-                                        />
-                                    </label><br/>
-                                    <label>Reps
-                                        <input
-                                            type={"number"}
-                                            name={"repsPerSet"}
-                                            value={exercise.repsPerSet}
-                                            onChange={(event) => handleExerciseChange(exercise.id,event)}
-                                        />
-                                    </label><br/>
-                                    <label>Weight in kg
-                                        <input
-                                            type={"number"}
-                                            name={"weightInKg"}
-                                            value={exercise.weightInKg}
-                                            onChange={(event) => handleExerciseChange(exercise.id,event)}
-                                        />
-                                    </label><br/>
-                                    <label>Break in sec
-                                        <input
-                                            type={"number"}
-                                            name={"breakInSec"}
-                                            value={exercise.breakInSec}
-                                            onChange={(event) => handleExerciseChange(exercise.id,event)}
-                                        />
-                                    </label><br/>
-                                    <button type={"button"} onClick={() => deleteExerciseForm(exercise.id)}>Delete</button>
-                                </div>
-                            ))}
+                    <fieldset>
+                        <legend>Exercise</legend>
+                        {exercises.map((exercise:WorkoutExercise) => (
+                            <div key={exercise.id}>
+                                <label>Name
+                                    <input
+                                        type={"text"}
+                                        name={"name"}
+                                        value={exercise.name}
+                                        onChange={(event) => handleExerciseChange(exercise.id,event)}
+                                    />
+                                </label><br/>
+                                <label>Sets
+                                    <input
+                                        type={"number"}
+                                        name={"setCount"}
+                                        value={exercise.setCount}
+                                        onChange={(event) => handleExerciseChange(exercise.id,event)}
+                                    />
+                                </label><br/>
+                                <label>Reps
+                                    <input
+                                        type={"number"}
+                                        name={"repsPerSet"}
+                                        value={exercise.repsPerSet}
+                                        onChange={(event) => handleExerciseChange(exercise.id,event)}
+                                    />
+                                </label><br/>
+                                <label>Weight in kg
+                                    <input
+                                        type={"number"}
+                                        name={"weightInKg"}
+                                        value={exercise.weightInKg}
+                                        onChange={(event) => handleExerciseChange(exercise.id,event)}
+                                    />
+                                </label><br/>
+                                <label>Break in sec
+                                    <input
+                                        type={"number"}
+                                        name={"breakInSec"}
+                                        value={exercise.breakInSec}
+                                        onChange={(event) => handleExerciseChange(exercise.id,event)}
+                                    />
+                                </label><br/>
+                                <button type={"button"} onClick={() => deleteExerciseForm(exercise.id)}>Delete</button>
+                            </div>
+                        ))}
 
-                        </fieldset>
-                        <button type={"button"} onClick={addNewExerciseForm}>Add</button>
-                    </form>
-                </main>
-            </div>
-        </>
+                    </fieldset>
+                    <button type={"button"} onClick={addNewExerciseForm}>Add</button>
+                </form>
+            </main>
+        </div>
     );
 }
 

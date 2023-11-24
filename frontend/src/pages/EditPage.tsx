@@ -2,12 +2,9 @@ import {useLocation} from "react-router-dom";
 import HeaderPages from "../components/header/HeaderPages.tsx";
 import FooterFormPages from "../components/footer/FooterFormPages.tsx";
 import WorkoutForm from "../components/form/WorkoutForm.tsx";
+import {EditPageProps} from "../types/types.ts";
 
-type EditPageProps = {
-    onWorkoutChange: () => void
-}
-
-function EditPage({onWorkoutChange}: EditPageProps) {
+function EditPage({onWorkoutChange}: Readonly<EditPageProps>) {
     const location = useLocation();
     const workout = location.state.workout;
 
