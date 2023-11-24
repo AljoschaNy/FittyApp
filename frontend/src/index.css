@@ -7,6 +7,7 @@
     --color-5: hsla(0, 0%, 90%, 60%);
 
     --pages-header-height: 140px;
+    --pages-footer-height: 100px;
 }
 
 * {

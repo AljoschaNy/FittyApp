@@ -41,3 +41,17 @@ export type AddPageProps = {
 export type HeaderPagesProps = {
     pageTitle: string
 }
+
+export type ExerciseType = {
+    id: number,
+    name: string,
+    setCount: number,
+    repsPerSet: number,
+    weightInKg: number,
+    breakInSec: number
+}
+
+export type FooterFormPagesType = {
+    cancelDestination: string,
+    formId: string
+}
