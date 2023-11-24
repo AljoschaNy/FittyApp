@@ -4,6 +4,7 @@ import de.aljoschanyang.capstoneprojectfiturae.exceptions.NoSuchWorkoutException
 import de.aljoschanyang.capstoneprojectfiturae.models.User;
 import de.aljoschanyang.capstoneprojectfiturae.models.Workout;
 import de.aljoschanyang.capstoneprojectfiturae.models.WorkoutDetailsDTO;
+import de.aljoschanyang.capstoneprojectfiturae.models.WorkoutEditDTO;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.WorkoutRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,17 @@ public class WorkoutService {
 
     public Workout getWorkoutById(String id) {
         return workoutRepo.findById(id).orElseThrow(NoSuchWorkoutException::new);
+    }
+
+    public Workout editWorkout(String id, WorkoutEditDTO workoutDetails) {
+        Workout legacy = getWorkoutById(id);
+        return workoutRepo.save(Workout.builder()
+                        .id(legacy.id())
+                        .userId(legacy.userId())
+                        .workoutName(workoutDetails.workoutName())
+                        .workoutDay(workoutDetails.workoutDay())
+                        .description(workoutDetails.description())
+                        .plan(workoutDetails.plan())
+                .build());
     }
 }
