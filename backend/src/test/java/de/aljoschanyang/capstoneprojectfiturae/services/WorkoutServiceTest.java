@@ -2,10 +2,7 @@ package de.aljoschanyang.capstoneprojectfiturae.services;
 
 import de.aljoschanyang.capstoneprojectfiturae.exceptions.NoSuchUserException;
 import de.aljoschanyang.capstoneprojectfiturae.exceptions.NoSuchWorkoutException;
-import de.aljoschanyang.capstoneprojectfiturae.models.User;
-import de.aljoschanyang.capstoneprojectfiturae.models.WeekDay;
-import de.aljoschanyang.capstoneprojectfiturae.models.Workout;
-import de.aljoschanyang.capstoneprojectfiturae.models.WorkoutDetailsDTO;
+import de.aljoschanyang.capstoneprojectfiturae.models.*;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.UserRepo;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.WorkoutRepo;
 import org.junit.jupiter.api.Test;
@@ -125,6 +122,56 @@ class WorkoutServiceTest {
     void getWorkoutById_whenIdIsInvalid_thenThrowException() {
         when(mockWorkoutRepo.findById(any(String.class))).thenThrow(NoSuchWorkoutException.class);
         assertThrows(NoSuchWorkoutException.class, () -> workoutService.getWorkoutById("invalidId"));
+        verify(mockWorkoutRepo).findById("invalidId");
+    }
+
+    @Test
+    void editWorkout_whenValidData_thenReturnWorkout() {
+        Workout legacyWorkout = Workout.builder()
+                .id("validWorkoutId")
+                .userId("1")
+                .workoutName("Test workout")
+                .workoutDay(WeekDay.MONDAY)
+                .description("Test description")
+                .plan(List.of())
+                .build();
+
+        WorkoutEditDTO workoutEdit = WorkoutEditDTO.builder()
+                .workoutName("Changed workout")
+                .workoutDay(WeekDay.FRIDAY)
+                .description("Changed description")
+                .plan(List.of())
+                .build();
+
+        Workout expected = Workout.builder()
+                .id("validWorkoutId")
+                .userId("1")
+                .workoutName("Changed workout")
+                .workoutDay(WeekDay.FRIDAY)
+                .description("Changed description")
+                .plan(List.of())
+                .build();
+
+        when(mockWorkoutRepo.findById(legacyWorkout.id())).thenReturn(Optional.of(legacyWorkout));
+        when(mockWorkoutRepo.save(any(Workout.class))).thenReturn(expected);
+
+        Workout actual = workoutService.editWorkout(legacyWorkout.id(),workoutEdit);
+        verify(mockWorkoutRepo).findById(legacyWorkout.id());
+        verify(mockWorkoutRepo).save(expected);
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void editWorkout_whenInvalidData_thenThrowException() {
+        WorkoutEditDTO workoutEdit = WorkoutEditDTO.builder()
+                .workoutName("Changed workout")
+                .workoutDay(WeekDay.FRIDAY)
+                .description("Changed description")
+                .plan(List.of())
+                .build();
+
+        when(mockWorkoutRepo.findById(any(String.class))).thenThrow(NoSuchWorkoutException.class);
+        assertThrows(NoSuchWorkoutException.class, () -> workoutService.editWorkout("invalidId",workoutEdit));
         verify(mockWorkoutRepo).findById("invalidId");
     }
 }
