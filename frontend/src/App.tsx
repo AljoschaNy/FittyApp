@@ -31,7 +31,7 @@ function App() {
                 <Route path={"/"} element={<HomePage userId={userId} workouts={workouts} />} />
                 <Route path={"/workout/add"} element={<AddPage userId={userId} onWorkoutChange={fetchWorkouts}/>} />
                 <Route path={"/workout/:id"} element={<DetailsPage />} />
-                <Route path={"/workout/:id/edit"} element={<EditPage />} />
+                <Route path={"/workout/:id/edit"} element={<EditPage onWorkoutChange={fetchWorkouts} />} />
             </Routes>
         </>
     )
