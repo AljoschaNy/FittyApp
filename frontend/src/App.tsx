@@ -9,12 +9,13 @@ import EditPage from "./pages/EditPage.tsx";
 
 function App() {
     const [workouts, setWorkouts] = useState<Workout[]>([]);
-    const userId = "655b5b283f332f4fcfbf02c0";
+    const [isLoading, setIslLoading] = useState(true);
 
     function fetchWorkouts() {
-        axios.get(`api/workouts/${userId}`)
+        axios.get(`/api/workouts`)
             .then((response) => {
                 setWorkouts(response.data);
+                setIslLoading(false);
             })
             .catch(error => {
                 console.error("Fehler beim Abrufen des Workouts: " + error);
@@ -25,11 +26,15 @@ function App() {
         fetchWorkouts();
     }, []);
 
+    if(isLoading) {
+        return <p></p>
+    }
+
     return (
         <>
             <Routes>
-                <Route path={"/"} element={<HomePage userId={userId} workouts={workouts} />} />
-                <Route path={"/workout/add"} element={<AddPage userId={userId} onWorkoutChange={fetchWorkouts}/>} />
+                <Route path={"/"} element={<HomePage userId={workouts[0].userId} workouts={workouts} />} />
+                <Route path={"/workout/add"} element={<AddPage userId={workouts[0].userId} onWorkoutChange={fetchWorkouts}/>} />
                 <Route path={"/workout/:id"} element={<DetailsPage />} />
                 <Route path={"/workout/:id/edit"} element={<EditPage onWorkoutChange={fetchWorkouts} />} />
             </Routes>

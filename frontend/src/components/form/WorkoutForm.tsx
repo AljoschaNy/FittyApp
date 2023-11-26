@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Workout, WorkoutExercise, WorkoutNoId} from "../../types/types.ts";
 import axios from "axios";
 
@@ -24,10 +24,17 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
         }));
     }
 
-    function handleExerciseChange(id:number, event:React.ChangeEvent<HTMLInputElement>) {
+    useEffect(() => {
+        if (initialWorkout.plan.length > 0) {
+            const maxId = Math.max(...initialWorkout.plan.map(exercise => exercise.id));
+            setNextId(maxId + 1);
+        }
+    }, [initialWorkout]);
+
+    function handleExerciseChange(indexToChange:number, event:React.ChangeEvent<HTMLInputElement>) {
         const {name, value} = event.target;
-        const updatedExercises = exercises.map(exercise => {
-            return exercise.id === id ? {...exercise, [name]: value} : exercise;
+        const updatedExercises = exercises.map((exercise,index) => {
+            return index === indexToChange ? {...exercise, [name]: value} : exercise;
         });
         setExercises(updatedExercises);
     }
@@ -44,8 +51,8 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
         setNextId(nextId+1);
     }
 
-    function deleteExerciseForm(id:number) {
-        setExercises(exercises.filter(exercise => exercise.id !== id))
+    function deleteExerciseForm(indexToDelete:number) {
+        setExercises(exercises.filter((_exercise:WorkoutExercise,index:number) => index !== indexToDelete))
     }
 
     function modifyWorkout() {
@@ -70,7 +77,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
         event.preventDefault();
         modifyWorkout();
         formType === "new" && navigate("/");
-        formType === "edit" && navigate(`/workout/${initialWorkout.id}`);
+        formType === "edit" && navigate(`/workout/${initialWorkout.id}`, {state:{updated:true}});
     }
     return (
         <div className={"container"}>
@@ -80,6 +87,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                         Name
                         <input
                             type={"text"}
+                            name={"workoutName"}
                             value={workout.workoutName}
                             onChange={(event) => handleWorkoutChange(event)}
                         />
@@ -88,6 +96,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                         Description
                         <input
                             type={"text"}
+                            name={"description"}
                             value={workout.description}
                             onChange={(event) => handleWorkoutChange(event)}
                         />
@@ -96,6 +105,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                         Day
                         <input
                             type={"text"}
+                            name={"workoutDay"}
                             value={workout.workoutDay}
                             onChange={(event) => handleWorkoutChange(event)}
                             required={true}
@@ -104,14 +114,15 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
 
                     <fieldset>
                         <legend>Exercise</legend>
-                        {exercises.map((exercise:WorkoutExercise) => (
-                            <div key={exercise.id}>
+                        {exercises.map((exercise:WorkoutExercise,index) => (
+
+                            <div key={`${exercise.id} - ${index}`}>
                                 <label>Name
                                     <input
                                         type={"text"}
                                         name={"name"}
                                         value={exercise.name}
-                                        onChange={(event) => handleExerciseChange(exercise.id,event)}
+                                        onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
                                 <label>Sets
@@ -119,7 +130,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                         type={"number"}
                                         name={"setCount"}
                                         value={exercise.setCount}
-                                        onChange={(event) => handleExerciseChange(exercise.id,event)}
+                                        onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
                                 <label>Reps
@@ -127,7 +138,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                         type={"number"}
                                         name={"repsPerSet"}
                                         value={exercise.repsPerSet}
-                                        onChange={(event) => handleExerciseChange(exercise.id,event)}
+                                        onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
                                 <label>Weight in kg
@@ -135,7 +146,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                         type={"number"}
                                         name={"weightInKg"}
                                         value={exercise.weightInKg}
-                                        onChange={(event) => handleExerciseChange(exercise.id,event)}
+                                        onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
                                 <label>Break in sec
@@ -143,10 +154,10 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                         type={"number"}
                                         name={"breakInSec"}
                                         value={exercise.breakInSec}
-                                        onChange={(event) => handleExerciseChange(exercise.id,event)}
+                                        onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
-                                <button type={"button"} onClick={() => deleteExerciseForm(exercise.id)}>Delete</button>
+                                <button type={"button"} onClick={() => deleteExerciseForm(index)}>Delete</button>
                             </div>
                         ))}
 
