@@ -10,9 +10,10 @@ import EditPage from "./pages/EditPage.tsx";
 function App() {
     const [workouts, setWorkouts] = useState<Workout[]>([]);
     const [isLoading, setIslLoading] = useState(true);
+    const userId = "655b5b283f332f4fcfbf02c0";
 
     function fetchWorkouts() {
-        axios.get(`/api/workouts`)
+        axios.get(`/api/workouts/${userId}`)
             .then((response) => {
                 setWorkouts(response.data);
                 setIslLoading(false);

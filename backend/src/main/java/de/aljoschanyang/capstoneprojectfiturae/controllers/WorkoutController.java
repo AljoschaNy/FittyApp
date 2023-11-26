@@ -20,9 +20,9 @@ public class WorkoutController {
         return workoutService.addWorkout(workoutDetailsDTO);
     }
 
-    @GetMapping("")
-    public List<Workout> getAllWorkoutsByUserId() {
-        return workoutService.getAllWorkoutsByUserId("655b5b283f332f4fcfbf02c0");
+    @GetMapping("/{userId}")
+    public List<Workout> getAllWorkoutsByUserId(@PathVariable String userId) {
+        return workoutService.getAllWorkoutsByUserId(userId);
     }
 
     @GetMapping("/details/{id}")
