@@ -40,8 +40,8 @@ class WorkoutControllerTest {
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId("validUserId")
-                .workoutName("Test Workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test Workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -52,8 +52,8 @@ class WorkoutControllerTest {
                         .content(workoutDetailsAsJson))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.workoutName").value(workoutDetails.workoutName()))
-                .andExpect(jsonPath("$.workoutDay").value(workoutDetails.workoutDay().toString()))
+                .andExpect(jsonPath("$.name").value(workoutDetails.name()))
+                .andExpect(jsonPath("$.day").value(workoutDetails.day().toString()))
                 .andExpect(jsonPath("$.description").value(workoutDetails.description()));
     }
 
@@ -62,8 +62,8 @@ class WorkoutControllerTest {
     void addWorkout_whenUserDoesNotExistInDb_thenThrowException() throws Exception {
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId("invalidUserId")
-                .workoutName("Test Workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test Workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -84,8 +84,8 @@ class WorkoutControllerTest {
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId(validUser.id())
-                .workoutName("Test Workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test Workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -124,8 +124,8 @@ class WorkoutControllerTest {
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId(validUser.id())
-                .workoutName("Test Workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test Workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -159,15 +159,15 @@ class WorkoutControllerTest {
         Workout workoutBefore = Workout.builder()
                 .id("1")
                 .userId("User1")
-                .workoutName("Test Workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test Workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
 
         WorkoutEdit workoutEdit = WorkoutEdit.builder()
-                .workoutName("Changed Workout")
-                .workoutDay(WeekDay.FRIDAY)
+                .name("Changed Workout")
+                .day(WeekDay.FRIDAY)
                 .description("Changed description")
                 .plan(List.of())
                 .build();
@@ -175,8 +175,8 @@ class WorkoutControllerTest {
         Workout expected = Workout.builder()
                 .id("1")
                 .userId("User1")
-                .workoutName(workoutEdit.workoutName())
-                .workoutDay(workoutEdit.workoutDay())
+                .name(workoutEdit.name())
+                .day(workoutEdit.day())
                 .description(workoutEdit.description())
                 .plan(workoutEdit.plan())
                 .build();
@@ -195,8 +195,8 @@ class WorkoutControllerTest {
     @Test
     void editWorkout_whenInvalidData_thenThrowException() throws Exception {
         WorkoutEdit workoutEdit = WorkoutEdit.builder()
-                .workoutName("Changed Workout")
-                .workoutDay(WeekDay.FRIDAY)
+                .name("Changed Workout")
+                .day(WeekDay.FRIDAY)
                 .description("Changed description")
                 .plan(List.of())
                 .build();

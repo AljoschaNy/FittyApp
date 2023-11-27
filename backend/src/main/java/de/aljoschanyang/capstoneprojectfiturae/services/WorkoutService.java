@@ -23,8 +23,8 @@ public class WorkoutService {
         return workoutRepo.save(Workout.builder()
                         .id(null)
                         .userId(user.id())
-                        .workoutName(workoutDetails.workoutName())
-                        .workoutDay(workoutDetails.workoutDay())
+                        .name(workoutDetails.name())
+                        .day(workoutDetails.day())
                         .description(workoutDetails.description())
                         .plan(workoutDetails.plan())
                 .build());
@@ -39,15 +39,15 @@ public class WorkoutService {
         return workoutRepo.findById(id).orElseThrow(NoSuchWorkoutException::new);
     }
 
-    public Workout editWorkout(String id, WorkoutEdit workoutDetails) {
+    public Workout editWorkout(String id, WorkoutEdit workoutEdit) {
         Workout legacy = getWorkoutById(id);
         return workoutRepo.save(Workout.builder()
                         .id(legacy.id())
                         .userId(legacy.userId())
-                        .workoutName(workoutDetails.workoutName())
-                        .workoutDay(workoutDetails.workoutDay())
-                        .description(workoutDetails.description())
-                        .plan(workoutDetails.plan())
+                        .name(workoutEdit.name())
+                        .day(workoutEdit.day())
+                        .description(workoutEdit.description())
+                        .plan(workoutEdit.plan())
                 .build());
     }
 }

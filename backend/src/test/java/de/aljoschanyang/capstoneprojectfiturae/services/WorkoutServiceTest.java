@@ -30,16 +30,16 @@ class WorkoutServiceTest {
         Workout expected = Workout.builder()
                 .id("workoutId")
                 .userId(user.id())
-                .workoutName("Test workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId(user.id())
-                .workoutName("Test workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -57,8 +57,8 @@ class WorkoutServiceTest {
     void addWorkout_whenUserDoesNotExistInDb_thenThrowException() {
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId("invalidUserId")
-                .workoutName("Test workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -72,8 +72,8 @@ class WorkoutServiceTest {
         Workout workout1 = Workout.builder()
                 .id("workoutId")
                 .userId(user.id())
-                .workoutName("Test workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -105,8 +105,8 @@ class WorkoutServiceTest {
         Workout expected = Workout.builder()
                 .id("validWorkoutId")
                 .userId("1")
-                .workoutName("Test workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -130,15 +130,15 @@ class WorkoutServiceTest {
         Workout legacyWorkout = Workout.builder()
                 .id("validWorkoutId")
                 .userId("1")
-                .workoutName("Test workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
 
         WorkoutEdit workoutEdit = WorkoutEdit.builder()
-                .workoutName("Changed workout")
-                .workoutDay(WeekDay.FRIDAY)
+                .name("Changed workout")
+                .day(WeekDay.FRIDAY)
                 .description("Changed description")
                 .plan(List.of())
                 .build();
@@ -146,8 +146,8 @@ class WorkoutServiceTest {
         Workout expected = Workout.builder()
                 .id("validWorkoutId")
                 .userId("1")
-                .workoutName("Changed workout")
-                .workoutDay(WeekDay.FRIDAY)
+                .name("Changed workout")
+                .day(WeekDay.FRIDAY)
                 .description("Changed description")
                 .plan(List.of())
                 .build();
@@ -164,8 +164,8 @@ class WorkoutServiceTest {
     @Test
     void editWorkout_whenInvalidData_thenThrowException() {
         WorkoutEdit workoutEdit = WorkoutEdit.builder()
-                .workoutName("Changed workout")
-                .workoutDay(WeekDay.FRIDAY)
+                .name("Changed workout")
+                .day(WeekDay.FRIDAY)
                 .description("Changed description")
                 .plan(List.of())
                 .build();

@@ -7,8 +7,8 @@ import java.util.List;
 @Builder
 public record WorkoutDetails(
       String userId,
-      String workoutName,
-      WeekDay workoutDay,
+      String name,
+      WeekDay day,
       String description,
       List<WorkoutExercise> plan
 ) {

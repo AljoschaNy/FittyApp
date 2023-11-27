@@ -31,7 +31,7 @@ public class WorkoutController {
     }
 
     @PutMapping("/{id}")
-    public Workout editWorkout(@PathVariable String id, @RequestBody WorkoutEdit workoutDetails) {
-        return workoutService.editWorkout(id,workoutDetails);
+    public Workout editWorkout(@PathVariable String id, @RequestBody WorkoutEdit workoutEdit) {
+        return workoutService.editWorkout(id,workoutEdit);
     }
 }
