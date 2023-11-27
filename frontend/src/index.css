@@ -7,6 +7,7 @@
     --color-5: hsla(0, 0%, 90%, 60%);
 
     --pages-header-height: 140px;
+    --pages-footer-height: 100px;
 }
 
 * {
@@ -35,4 +36,13 @@ html {
     position: fixed;
     bottom: 10px;
     left: calc(50vw - 35px);
+}
+
+.btn-top-right-fixed {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: fixed;
+    top: 10px;
+    right: 10px;
 }

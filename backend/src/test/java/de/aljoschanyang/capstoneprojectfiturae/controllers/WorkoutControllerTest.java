@@ -1,11 +1,9 @@
 package de.aljoschanyang.capstoneprojectfiturae.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.aljoschanyang.capstoneprojectfiturae.models.User;
-import de.aljoschanyang.capstoneprojectfiturae.models.WeekDay;
-import de.aljoschanyang.capstoneprojectfiturae.models.Workout;
-import de.aljoschanyang.capstoneprojectfiturae.models.WorkoutDetailsDTO;
-import de.aljoschanyang.capstoneprojectfiturae.repositories.UserRepo;
+import de.aljoschanyang.capstoneprojectfiturae.models.*;
+import de.aljoschanyang.capstoneprojectfiturae.repositories.AppUserRepo;
+import de.aljoschanyang.capstoneprojectfiturae.repositories.WorkoutRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,8 +15,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -27,7 +24,9 @@ class WorkoutControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private UserRepo userRepo;
+    private AppUserRepo appUserRepo;
+    @Autowired
+    private WorkoutRepo workoutRepo;
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -36,13 +35,13 @@ class WorkoutControllerTest {
     @Test
     @DirtiesContext
     void addWorkout_whenUserExistsInDb_thenReturnWorkout() throws Exception {
-        User validUser = new User("validUserId", "User1");
-        userRepo.save(validUser);
+        AppUser validAppUser = new AppUser("validUserId", "User1");
+        appUserRepo.save(validAppUser);
 
-        WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
+        WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId("validUserId")
-                .workoutName("Test Workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test Workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -53,18 +52,18 @@ class WorkoutControllerTest {
                         .content(workoutDetailsAsJson))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.workoutName").value(workoutDetails.workoutName()))
-                .andExpect(jsonPath("$.workoutDay").value(workoutDetails.workoutDay().toString()))
+                .andExpect(jsonPath("$.name").value(workoutDetails.name()))
+                .andExpect(jsonPath("$.day").value(workoutDetails.day().toString()))
                 .andExpect(jsonPath("$.description").value(workoutDetails.description()));
     }
 
     @Test
     @DirtiesContext
     void addWorkout_whenUserDoesNotExistInDb_thenThrowException() throws Exception {
-        WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
+        WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId("invalidUserId")
-                .workoutName("Test Workout")
-                .workoutDay(WeekDay.MONDAY)
+                .name("Test Workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -80,13 +79,13 @@ class WorkoutControllerTest {
     @Test
     @DirtiesContext
     void getAllWorkoutsByUserId_whenUserExists_thenReturnWorkouts() throws Exception {
-        User validUser = new User("validUserId", "User1");
-        userRepo.save(validUser);
+        AppUser validAppUser = new AppUser("validUserId", "User1");
+        appUserRepo.save(validAppUser);
 
-        WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
-                .userId(validUser.id())
-                .workoutName("Test Workout")
-                .workoutDay(WeekDay.MONDAY)
+        WorkoutDetails workoutDetails = WorkoutDetails.builder()
+                .userId(validAppUser.id())
+                .name("Test Workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -103,7 +102,7 @@ class WorkoutControllerTest {
         List<Workout> expected = List.of(workout);
         String expectedAsJson = objectMapper.writeValueAsString(expected);
 
-        mockMvc.perform(get(BASE_URI + "/" + validUser.id()))
+        mockMvc.perform(get(BASE_URI + "/" + validAppUser.id()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedAsJson));
     }
@@ -120,13 +119,13 @@ class WorkoutControllerTest {
     @Test
     @DirtiesContext
     void getWorkoutById_whenIdIsValid_thenReturnWorkout() throws Exception {
-        User validUser = new User("validUserId", "User1");
-        userRepo.save(validUser);
+        AppUser validAppUser = new AppUser("validUserId", "User1");
+        appUserRepo.save(validAppUser);
 
-        WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
-                .userId(validUser.id())
-                .workoutName("Test Workout")
-                .workoutDay(WeekDay.MONDAY)
+        WorkoutDetails workoutDetails = WorkoutDetails.builder()
+                .userId(validAppUser.id())
+                .name("Test Workout")
+                .day(WeekDay.MONDAY)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -151,6 +150,61 @@ class WorkoutControllerTest {
         String invalidId = "invalidId";
 
         mockMvc.perform(get(BASE_URI + "/details/" + invalidId))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("The workout is unknown"));
+    }
+
+    @Test
+    void editWorkout_whenValidData_thenReturnWorkout() throws Exception {
+        Workout workoutBefore = Workout.builder()
+                .id("1")
+                .userId("User1")
+                .name("Test Workout")
+                .day(WeekDay.MONDAY)
+                .description("Test description")
+                .plan(List.of())
+                .build();
+
+        WorkoutEdit workoutEdit = WorkoutEdit.builder()
+                .name("Changed Workout")
+                .day(WeekDay.FRIDAY)
+                .description("Changed description")
+                .plan(List.of())
+                .build();
+
+        Workout expected = Workout.builder()
+                .id("1")
+                .userId("User1")
+                .name(workoutEdit.name())
+                .day(workoutEdit.day())
+                .description(workoutEdit.description())
+                .plan(workoutEdit.plan())
+                .build();
+
+        String expectedAsJson = objectMapper.writeValueAsString(expected);
+        String workoutEditAsJson = objectMapper.writeValueAsString(workoutEdit);
+        workoutRepo.save(workoutBefore);
+
+        mockMvc.perform(put(BASE_URI + "/" + workoutBefore.id())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(workoutEditAsJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedAsJson));
+    }
+
+    @Test
+    void editWorkout_whenInvalidData_thenThrowException() throws Exception {
+        WorkoutEdit workoutEdit = WorkoutEdit.builder()
+                .name("Changed Workout")
+                .day(WeekDay.FRIDAY)
+                .description("Changed description")
+                .plan(List.of())
+                .build();
+
+        String workoutEditAsJson = objectMapper.writeValueAsString(workoutEdit);
+        mockMvc.perform(put(BASE_URI + "/invalidId")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(workoutEditAsJson))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("The workout is unknown"));
     }

@@ -1,7 +1,11 @@
 /* Footer styles */
-.footer-add-page {
+.footer-form-pages,
+.position-fix-bottom {
+    height: var(--pages-footer-height);
+}
+
+.footer-form-pages {
     width: 100%;
-    height: 100px;
     background: yellow;
     display: flex;
     justify-content: space-between;

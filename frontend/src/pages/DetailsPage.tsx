@@ -1,5 +1,5 @@
 import "./DetailsPage.css";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import HeaderPages from "../components/header/HeaderPages.tsx";
 import {useEffect, useState} from "react";
 import axios, {AxiosResponse} from "axios";
@@ -8,21 +8,29 @@ import {Workout} from "../types/types.ts";
 function DetailsPage() {
     const {id} = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
     const [workout, setWorkout] = useState<Workout>();
     const [error, setError] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState(true)
 
-    useEffect(():void => {
-        axios.get(`/api/workouts/details/${id}`)
+    function fetWorkoutDetails() {
+        axios.get(`../api/workouts/details/${id}`)
             .then((response: AxiosResponse<Workout>):void => {
                 setWorkout(response.data);
                 setIsLoading(false);
+                if(location.state?.updated){
+                    location.state.updated = false;
+                }
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
                 setError(true);
             });
-    }, []);
+    }
+
+    useEffect(():void => {
+        fetWorkoutDetails()
+    },[location.state?.updated]);
 
     if (isLoading) {
         return (
@@ -48,9 +56,9 @@ function DetailsPage() {
     return (
         <>
             <HeaderPages pageTitle={"Details"} />
-            <p>{workout.workoutName}</p>
+            <p>{workout.name}</p>
             <p>{workout.description}</p>
-            <p>{workout.workoutDay}</p>
+            <p>{workout.day}</p>
             <fieldset>
                 <legend>Exercises</legend>
                 {workout.plan.map((exercise,index) => (
@@ -64,8 +72,12 @@ function DetailsPage() {
                         </div>
                     </div>
                 ))}
-                <button className={"btn-bottom-center-fixed"} onClick={() => navigate("/")}>Home</button>
             </fieldset>
+            <button onClick={() => navigate(
+                `/workout/${workout?.id}/edit`,
+                {state:{workout:workout}}
+            )}>Edit</button>
+            <button className={"btn-bottom-center-fixed"} onClick={() => navigate("/")}>Home</button>
         </>
     )
 }
