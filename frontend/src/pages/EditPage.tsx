@@ -25,7 +25,9 @@ function EditPage({onWorkoutChange}: Readonly<EditPageProps>) {
                 className={"btn-top-right-fixed"}
                 type={"button"}
                 onClick={deleteWorkout}>Delete Workout</button>
-            <WorkoutForm formType={"edit"} onWorkoutChange={onWorkoutChange} initialWorkout={workout} />
+            <div className={"main-wrapper"}>
+                <WorkoutForm formType={"edit"} onWorkoutChange={onWorkoutChange} initialWorkout={workout} />
+            </div>
             <FooterFormPages cancelDestination={`/workout/${workout.id}`} formId={"workout-form"} />
         </>
     );

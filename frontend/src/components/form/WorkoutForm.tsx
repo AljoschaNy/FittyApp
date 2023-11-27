@@ -2,6 +2,7 @@ import {useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {Workout, WorkoutExercise, WorkoutNoId} from "../../types/types.ts";
 import axios from "axios";
+import "./WorkoutForm.css";
 
 type WorkoutFormType = {
     formType: "new" | "edit",

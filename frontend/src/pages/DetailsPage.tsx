@@ -56,23 +56,25 @@ function DetailsPage() {
     return (
         <>
             <HeaderPages pageTitle={"Details"} />
-            <p>{workout.workoutName}</p>
-            <p>{workout.description}</p>
-            <p>{workout.workoutDay}</p>
-            <fieldset>
-                <legend>Exercises</legend>
-                {workout.plan.map((exercise,index) => (
-                    <div key={index+" " + workout.id} className={"workout-exercise-card"}>
-                        <p>{exercise.name}</p>
-                        <div className={"exercise-details"}>
-                            <p>Sets: {exercise.setCount}</p>
-                            <p>Reps: {exercise.repsPerSet}</p>
-                            <p>Weight in kg: {exercise.weightInKg}</p>
-                            <p>Break in sec: {exercise.breakInSec}</p>
+            <div className={"main-wrapper workout-details"}>
+                <p>{workout.workoutName}</p>
+                <p>{workout.description}</p>
+                <p>{workout.workoutDay}</p>
+                <fieldset>
+                    <legend>Exercises</legend>
+                    {workout.plan.map((exercise,index) => (
+                        <div key={index+" " + workout.id} className={"workout-exercise-card"}>
+                            <p>{exercise.name}</p>
+                            <div className={"exercise-details"}>
+                                <p>Sets: {exercise.setCount}</p>
+                                <p>Reps: {exercise.repsPerSet}</p>
+                                <p>Weight in kg: {exercise.weightInKg}</p>
+                                <p>Break in sec: {exercise.breakInSec}</p>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </fieldset>
+                    ))}
+                </fieldset>
+            </div>
             <button  className={"btn-top-right-fixed"} onClick={() => navigate(
                 `/workout/${workout?.id}/edit`,
                 {state:{workout:workout}}

@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {HomeProps, Workout} from "../types/types.ts";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import RightArrow from "../components/svg/RightArrow.tsx";
 
 function HomePage({userId, workouts}:Readonly<HomeProps>) {
     const navigate = useNavigate();
@@ -42,7 +43,14 @@ function HomePage({userId, workouts}:Readonly<HomeProps>) {
                                 <p>{workout.description}</p>
                                 <p>{workout.plan.length} Exercise(s)</p>
                             </div>
-                            <button className={"btn-bottom-right"} onClick={() => navigate(`/workout/${workout.id}`)}>Details</button>
+                            <div
+                                onClick={() => navigate(`/workout/${workout.id}`)}
+                                className={"icon-bottom-right"}
+                            >
+                                <RightArrow />
+                            </div>
+
+                            {/*<button className={"btn-bottom-right"} onClick={() => navigate(`/workout/${workout.id}`)}>Details</button>*/}
 
                         </div>
                     )

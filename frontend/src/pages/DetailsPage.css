@@ -1,3 +1,7 @@
 .workout-exercise-card {
     margin: 10px;
 }
+
+.workout-details p{
+    margin-bottom: 5px;
+}
