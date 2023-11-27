@@ -34,8 +34,8 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path={"/"} element={<HomePage userId={workouts[0].userId} workouts={workouts} />} />
-                <Route path={"/workout/add"} element={<AddPage userId={workouts[0].userId} onWorkoutChange={fetchWorkouts}/>} />
+                <Route path={"/"} element={<HomePage userId={userId} workouts={workouts} />} />
+                <Route path={"/workout/add"} element={<AddPage userId={userId} onWorkoutChange={fetchWorkouts}/>} />
                 <Route path={"/workout/:id"} element={<DetailsPage />} />
                 <Route path={"/workout/:id/edit"} element={<EditPage onWorkoutChange={fetchWorkouts} />} />
             </Routes>
