@@ -1,8 +1,8 @@
 package de.aljoschanyang.capstoneprojectfiturae.controllers;
 
 import de.aljoschanyang.capstoneprojectfiturae.models.Workout;
-import de.aljoschanyang.capstoneprojectfiturae.models.WorkoutDetailsDTO;
-import de.aljoschanyang.capstoneprojectfiturae.models.WorkoutEditDTO;
+import de.aljoschanyang.capstoneprojectfiturae.models.WorkoutDetails;
+import de.aljoschanyang.capstoneprojectfiturae.models.WorkoutEdit;
 import de.aljoschanyang.capstoneprojectfiturae.services.WorkoutService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +16,8 @@ public class WorkoutController {
     private WorkoutService workoutService;
 
     @PostMapping
-    public Workout addWorkout(@RequestBody WorkoutDetailsDTO workoutDetailsDTO) {
-        return workoutService.addWorkout(workoutDetailsDTO);
+    public Workout addWorkout(@RequestBody WorkoutDetails workoutDetails) {
+        return workoutService.addWorkout(workoutDetails);
     }
 
     @GetMapping("/{userId}")
@@ -31,7 +31,7 @@ public class WorkoutController {
     }
 
     @PutMapping("/{id}")
-    public Workout editWorkout(@PathVariable String id, @RequestBody WorkoutEditDTO workoutDetails) {
+    public Workout editWorkout(@PathVariable String id, @RequestBody WorkoutEdit workoutDetails) {
         return workoutService.editWorkout(id,workoutDetails);
     }
 }

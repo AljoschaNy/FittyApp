@@ -2,7 +2,7 @@ package de.aljoschanyang.capstoneprojectfiturae.services;
 
 import de.aljoschanyang.capstoneprojectfiturae.exceptions.NoSuchUserException;
 import de.aljoschanyang.capstoneprojectfiturae.models.User;
-import de.aljoschanyang.capstoneprojectfiturae.models.UserDetailsDTO;
+import de.aljoschanyang.capstoneprojectfiturae.models.UserDetails;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.UserRepo;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ class UserServiceTest {
                 .id("1")
                 .name("Test")
                 .build();
-        UserDetailsDTO userDetails = new UserDetailsDTO("Test");
+        UserDetails userDetails = new UserDetails("Test");
 
         when(mockUserRepo.save(any(User.class))).thenReturn(expected);
         User actual = userService.addUser(userDetails);
@@ -38,7 +38,7 @@ class UserServiceTest {
                 .id("1")
                 .name(null)
                 .build();
-        UserDetailsDTO userDetails = new UserDetailsDTO(null);
+        UserDetails userDetails = new UserDetails(null);
 
         when(mockUserRepo.save(any(User.class))).thenReturn(expected);
         User actual = userService.addUser(userDetails);

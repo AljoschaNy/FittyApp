@@ -1,6 +1,5 @@
 package de.aljoschanyang.capstoneprojectfiturae.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.aljoschanyang.capstoneprojectfiturae.models.*;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.UserRepo;
@@ -39,7 +38,7 @@ class WorkoutControllerTest {
         User validUser = new User("validUserId", "User1");
         userRepo.save(validUser);
 
-        WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
+        WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId("validUserId")
                 .workoutName("Test Workout")
                 .workoutDay(WeekDay.MONDAY)
@@ -61,7 +60,7 @@ class WorkoutControllerTest {
     @Test
     @DirtiesContext
     void addWorkout_whenUserDoesNotExistInDb_thenThrowException() throws Exception {
-        WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
+        WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId("invalidUserId")
                 .workoutName("Test Workout")
                 .workoutDay(WeekDay.MONDAY)
@@ -83,7 +82,7 @@ class WorkoutControllerTest {
         User validUser = new User("validUserId", "User1");
         userRepo.save(validUser);
 
-        WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
+        WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId(validUser.id())
                 .workoutName("Test Workout")
                 .workoutDay(WeekDay.MONDAY)
@@ -123,7 +122,7 @@ class WorkoutControllerTest {
         User validUser = new User("validUserId", "User1");
         userRepo.save(validUser);
 
-        WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
+        WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId(validUser.id())
                 .workoutName("Test Workout")
                 .workoutDay(WeekDay.MONDAY)
@@ -166,7 +165,7 @@ class WorkoutControllerTest {
                 .plan(List.of())
                 .build();
 
-        WorkoutEditDTO workoutEdit = WorkoutEditDTO.builder()
+        WorkoutEdit workoutEdit = WorkoutEdit.builder()
                 .workoutName("Changed Workout")
                 .workoutDay(WeekDay.FRIDAY)
                 .description("Changed description")
@@ -195,7 +194,7 @@ class WorkoutControllerTest {
 
     @Test
     void editWorkout_whenInvalidData_thenThrowException() throws Exception {
-        WorkoutEditDTO workoutEdit = WorkoutEditDTO.builder()
+        WorkoutEdit workoutEdit = WorkoutEdit.builder()
                 .workoutName("Changed Workout")
                 .workoutDay(WeekDay.FRIDAY)
                 .description("Changed description")

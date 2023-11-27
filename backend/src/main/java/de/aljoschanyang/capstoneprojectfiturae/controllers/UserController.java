@@ -1,7 +1,7 @@
 package de.aljoschanyang.capstoneprojectfiturae.controllers;
 
 import de.aljoschanyang.capstoneprojectfiturae.models.User;
-import de.aljoschanyang.capstoneprojectfiturae.models.UserDetailsDTO;
+import de.aljoschanyang.capstoneprojectfiturae.models.UserDetails;
 import de.aljoschanyang.capstoneprojectfiturae.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("")
-    public User addUser(@RequestBody UserDetailsDTO userDetails) {
+    public User addUser(@RequestBody UserDetails userDetails) {
         return userService.addUser(userDetails);
     }
 

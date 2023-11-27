@@ -51,8 +51,6 @@ export type HeaderPagesProps = {
     pageTitle: string
 }
 
-
-
 export type FooterFormPagesType = {
     cancelDestination: string,
     formId: string

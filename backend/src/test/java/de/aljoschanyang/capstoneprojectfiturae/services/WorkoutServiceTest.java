@@ -36,7 +36,7 @@ class WorkoutServiceTest {
                 .plan(List.of())
                 .build();
 
-        WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
+        WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId(user.id())
                 .workoutName("Test workout")
                 .workoutDay(WeekDay.MONDAY)
@@ -55,7 +55,7 @@ class WorkoutServiceTest {
 
     @Test
     void addWorkout_whenUserDoesNotExistInDb_thenThrowException() {
-        WorkoutDetailsDTO workoutDetails = WorkoutDetailsDTO.builder()
+        WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId("invalidUserId")
                 .workoutName("Test workout")
                 .workoutDay(WeekDay.MONDAY)
@@ -136,7 +136,7 @@ class WorkoutServiceTest {
                 .plan(List.of())
                 .build();
 
-        WorkoutEditDTO workoutEdit = WorkoutEditDTO.builder()
+        WorkoutEdit workoutEdit = WorkoutEdit.builder()
                 .workoutName("Changed workout")
                 .workoutDay(WeekDay.FRIDAY)
                 .description("Changed description")
@@ -163,7 +163,7 @@ class WorkoutServiceTest {
 
     @Test
     void editWorkout_whenInvalidData_thenThrowException() {
-        WorkoutEditDTO workoutEdit = WorkoutEditDTO.builder()
+        WorkoutEdit workoutEdit = WorkoutEdit.builder()
                 .workoutName("Changed workout")
                 .workoutDay(WeekDay.FRIDAY)
                 .description("Changed description")

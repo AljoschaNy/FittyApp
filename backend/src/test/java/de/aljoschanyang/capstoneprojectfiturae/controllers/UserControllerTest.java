@@ -1,7 +1,7 @@
 package de.aljoschanyang.capstoneprojectfiturae.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.aljoschanyang.capstoneprojectfiturae.models.UserDetailsDTO;
+import de.aljoschanyang.capstoneprojectfiturae.models.UserDetails;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.UserRepo;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ class UserControllerTest {
     @Test
     @DirtiesContext
     void addUser_whenUserWithName_thenExpectNameMatchesInput() throws Exception {
-        UserDetailsDTO userDetails = new UserDetailsDTO("TestName");
+        UserDetails userDetails = new UserDetails("TestName");
         String userDetailsAsJson = objectMapper.writeValueAsString(userDetails);
 
         mockMvc.perform(post(BASE_URI)
@@ -47,7 +47,7 @@ class UserControllerTest {
     @Test
     @DirtiesContext
     void addUser_whenNoNameProvided_thenExpectEmptyName() throws Exception {
-        UserDetailsDTO userDetails = new UserDetailsDTO(null);
+        UserDetails userDetails = new UserDetails(null);
         String userDetailsAsJson = objectMapper.writeValueAsString(userDetails);
 
         mockMvc.perform(post(BASE_URI)
@@ -61,7 +61,7 @@ class UserControllerTest {
     @Test
     @DirtiesContext
     void getUserById_whenIdIsCorrect_thenReturnUser() throws Exception {
-        UserDetailsDTO userDetails = new UserDetailsDTO("TestName");
+        UserDetails userDetails = new UserDetails("TestName");
         String userDetailsAsJson = objectMapper.writeValueAsString(userDetails);
 
         MvcResult result = mockMvc.perform(post(BASE_URI)

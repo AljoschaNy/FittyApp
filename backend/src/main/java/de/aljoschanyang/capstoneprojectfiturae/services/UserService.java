@@ -2,7 +2,7 @@ package de.aljoschanyang.capstoneprojectfiturae.services;
 
 import de.aljoschanyang.capstoneprojectfiturae.exceptions.NoSuchUserException;
 import de.aljoschanyang.capstoneprojectfiturae.models.User;
-import de.aljoschanyang.capstoneprojectfiturae.models.UserDetailsDTO;
+import de.aljoschanyang.capstoneprojectfiturae.models.UserDetails;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.UserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private UserRepo userRepo;
 
-    public User addUser(UserDetailsDTO userDetails) {
+    public User addUser(UserDetails userDetails) {
         return userRepo.save(User.builder()
                 .id(null)
                 .name(userDetails.name())
