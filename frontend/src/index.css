@@ -1,7 +1,7 @@
 /* General styles */
 :root {
     --color-1: hsla(292, 69%, 15%, 100%);
-    --color-2: hsla(292, 69%, 30%, 100%);
+    --color-2: hsla(292, 50%, 38%, 100%);
     --color-3: hsla(0, 0%, 22%, 100%);
     --color-4: hsla(0, 0%, 90%, 100%);
     --color-5: hsla(0, 0%, 90%, 60%);
@@ -23,9 +23,19 @@ html {
 }
 
 /* Layout styles */
+.main-wrapper {
+    padding: 30px;
+}
+
 .container {
     width: 100%;
     padding: 0 30px;
+}
+
+/* Typography */
+h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
 }
 
 /* Button styles */

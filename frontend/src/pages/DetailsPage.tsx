@@ -73,7 +73,7 @@ function DetailsPage() {
                     </div>
                 ))}
             </fieldset>
-            <button onClick={() => navigate(
+            <button  className={"btn-top-right-fixed"} onClick={() => navigate(
                 `/workout/${workout?.id}/edit`,
                 {state:{workout:workout}}
             )}>Edit</button>
