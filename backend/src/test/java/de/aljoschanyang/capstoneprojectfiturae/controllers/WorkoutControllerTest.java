@@ -208,4 +208,27 @@ class WorkoutControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("The workout is unknown"));
     }
+
+    @Test
+    @DirtiesContext
+    void deleteWorkout() throws Exception {
+        AppUser appUser = new AppUser("User1", "User1");
+        appUserRepo.save(appUser);
+        Workout workout = Workout.builder()
+                .id("1")
+                .userId("User1")
+                .name("Test")
+                .day(WeekDay.MONDAY)
+                .description("Test description")
+                .plan(List.of())
+                .build();
+        workoutRepo.save(workout);
+
+        mockMvc.perform(delete(BASE_URI + "/" + workout.id()))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get(BASE_URI + "/" + workout.userId()))
+                .andExpect(status().isOk())
+                .andExpect(content().string("[]"));
+    }
 }
