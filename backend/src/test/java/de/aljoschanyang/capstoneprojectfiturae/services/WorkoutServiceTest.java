@@ -174,4 +174,11 @@ class WorkoutServiceTest {
         assertThrows(NoSuchWorkoutException.class, () -> workoutService.editWorkout("invalidId",workoutEdit));
         verify(mockWorkoutRepo).findById("invalidId");
     }
+
+    @Test
+    void deleteWorkout() {
+        String id = "1";
+        workoutService.deleteWorkout(id);
+        verify(mockWorkoutRepo).deleteById(id);
+    }
 }

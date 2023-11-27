@@ -50,4 +50,8 @@ public class WorkoutService {
                         .plan(workoutEdit.plan())
                 .build());
     }
+
+    public void deleteWorkout(String id) {
+        workoutRepo.deleteById(id);
+    }
 }

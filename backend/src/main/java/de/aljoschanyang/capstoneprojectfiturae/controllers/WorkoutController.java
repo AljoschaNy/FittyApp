@@ -34,4 +34,9 @@ public class WorkoutController {
     public Workout editWorkout(@PathVariable String id, @RequestBody WorkoutEdit workoutEdit) {
         return workoutService.editWorkout(id,workoutEdit);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteWorkout(@PathVariable String id) {
+        workoutService.deleteWorkout(id);
+    }
 }
