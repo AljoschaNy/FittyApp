@@ -186,7 +186,7 @@ class WorkoutControllerTest {
         String workoutEditAsJson = objectMapper.writeValueAsString(workoutEdit);
         workoutRepo.save(workoutBefore);
 
-        mockMvc.perform(put(BASE_URI + "/edit/" + workoutBefore.id())
+        mockMvc.perform(put(BASE_URI + "/" + workoutBefore.id())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(workoutEditAsJson))
                 .andExpect(status().isOk())
@@ -203,7 +203,7 @@ class WorkoutControllerTest {
                 .build();
 
         String workoutEditAsJson = objectMapper.writeValueAsString(workoutEdit);
-        mockMvc.perform(put(BASE_URI + "/edit/invalidId")
+        mockMvc.perform(put(BASE_URI + "/invalidId")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(workoutEditAsJson))
                 .andExpect(status().isNotFound())

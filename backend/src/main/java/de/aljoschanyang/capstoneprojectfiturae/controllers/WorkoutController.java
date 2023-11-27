@@ -15,7 +15,7 @@ import java.util.List;
 public class WorkoutController {
     private WorkoutService workoutService;
 
-    @PostMapping("")
+    @PostMapping
     public Workout addWorkout(@RequestBody WorkoutDetailsDTO workoutDetailsDTO) {
         return workoutService.addWorkout(workoutDetailsDTO);
     }
@@ -30,7 +30,7 @@ public class WorkoutController {
         return workoutService.getWorkoutById(id);
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/{id}")
     public Workout editWorkout(@PathVariable String id, @RequestBody WorkoutEditDTO workoutDetails) {
         return workoutService.editWorkout(id,workoutDetails);
     }

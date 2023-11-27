@@ -69,7 +69,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
             });
 
         formType === "edit" && axios
-            .put(`/api/workouts/edit/${initialWorkout.id}`, newWorkoutData)
+            .put(`/api/workouts/${initialWorkout.id}`, newWorkoutData)
             .then(() => onWorkoutChange())
     }
 
