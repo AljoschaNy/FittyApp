@@ -57,9 +57,9 @@ function DetailsPage() {
         <>
             <HeaderPages pageTitle={"Details"} />
             <div className={"main-wrapper workout-details"}>
-                <p>{workout.workoutName}</p>
+                <p>{workout.name}</p>
                 <p>{workout.description}</p>
-                <p>{workout.workoutDay}</p>
+                <p>{workout.day}</p>
                 <fieldset>
                     <legend>Exercises</legend>
                     {workout.plan.map((exercise,index) => (

@@ -36,8 +36,8 @@ function HomePage({userId, workouts}:Readonly<HomeProps>) {
                     return(
                         <div key={workout.id} className={"workout-card"}>
                             <div className={"workout-card-head"}>
-                                <h3>{workout.workoutName}</h3>
-                                <p>{workout.workoutDay}</p>
+                                <h3>{workout.name}</h3>
+                                <p>{workout.day}</p>
                             </div>
                             <div className={"workout-card-body"}>
                                 <p>{workout.description}</p>

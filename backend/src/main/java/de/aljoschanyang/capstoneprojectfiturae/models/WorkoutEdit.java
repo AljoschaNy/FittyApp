@@ -5,9 +5,9 @@ import lombok.Builder;
 import java.util.List;
 
 @Builder
-public record WorkoutEditDTO(
-        String workoutName,
-        WeekDay workoutDay,
+public record WorkoutEdit(
+        String name,
+        WeekDay day,
         String description,
         List<WorkoutExercise> plan
 ) {

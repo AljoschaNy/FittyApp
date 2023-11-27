@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 @Builder
 @Document(collection = "users")
-public record User(
+public record AppUser(
         @Id
         String id,
         @Field("user_name")

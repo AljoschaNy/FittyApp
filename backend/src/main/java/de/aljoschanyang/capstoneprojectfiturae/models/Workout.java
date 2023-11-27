@@ -15,9 +15,9 @@ public record Workout(
         @Field("user_id")
         String userId,
         @Field("workout_name")
-        String workoutName,
+        String name,
         @Field("workout_day")
-        WeekDay workoutDay,
+        WeekDay day,
         @Field("workout_description")
         String description,
         @Field("workout_plan")

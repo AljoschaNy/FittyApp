@@ -6,9 +6,9 @@ import WorkoutForm from "../components/form/WorkoutForm.tsx";
 function AddPage({userId, onWorkoutChange}:Readonly<AddPageProps>) {
     const initialWorkout:WorkoutNoId = {
         userId,
-        workoutName: "",
+        name: "",
         description: "",
-        workoutDay: "MONDAY",
+        day: "MONDAY",
         plan: []
     }
 
