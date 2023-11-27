@@ -1,6 +1,6 @@
 package de.aljoschanyang.capstoneprojectfiturae.models;
 
-public record UserDetails(
+public record AppUserDetails(
         String name
 ) {
 }

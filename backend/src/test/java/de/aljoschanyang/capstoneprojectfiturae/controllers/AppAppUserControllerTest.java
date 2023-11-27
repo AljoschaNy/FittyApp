@@ -1,8 +1,8 @@
 package de.aljoschanyang.capstoneprojectfiturae.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.aljoschanyang.capstoneprojectfiturae.models.UserDetails;
-import de.aljoschanyang.capstoneprojectfiturae.repositories.UserRepo;
+import de.aljoschanyang.capstoneprojectfiturae.models.AppUserDetails;
+import de.aljoschanyang.capstoneprojectfiturae.repositories.AppUserRepo;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class UserControllerTest {
+class AppAppUserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private UserRepo userRepo;
+    private AppUserRepo appUserRepo;
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -33,22 +33,22 @@ class UserControllerTest {
     @Test
     @DirtiesContext
     void addUser_whenUserWithName_thenExpectNameMatchesInput() throws Exception {
-        UserDetails userDetails = new UserDetails("TestName");
-        String userDetailsAsJson = objectMapper.writeValueAsString(userDetails);
+        AppUserDetails appUserDetails = new AppUserDetails("TestName");
+        String userDetailsAsJson = objectMapper.writeValueAsString(appUserDetails);
 
         mockMvc.perform(post(BASE_URI)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(userDetailsAsJson))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value(userDetails.name()))
+                .andExpect(jsonPath("$.name").value(appUserDetails.name()))
                 .andExpect(jsonPath("$.id").exists());
     }
 
     @Test
     @DirtiesContext
     void addUser_whenNoNameProvided_thenExpectEmptyName() throws Exception {
-        UserDetails userDetails = new UserDetails(null);
-        String userDetailsAsJson = objectMapper.writeValueAsString(userDetails);
+        AppUserDetails appUserDetails = new AppUserDetails(null);
+        String userDetailsAsJson = objectMapper.writeValueAsString(appUserDetails);
 
         mockMvc.perform(post(BASE_URI)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -61,8 +61,8 @@ class UserControllerTest {
     @Test
     @DirtiesContext
     void getUserById_whenIdIsCorrect_thenReturnUser() throws Exception {
-        UserDetails userDetails = new UserDetails("TestName");
-        String userDetailsAsJson = objectMapper.writeValueAsString(userDetails);
+        AppUserDetails appUserDetails = new AppUserDetails("TestName");
+        String userDetailsAsJson = objectMapper.writeValueAsString(appUserDetails);
 
         MvcResult result = mockMvc.perform(post(BASE_URI)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -76,7 +76,7 @@ class UserControllerTest {
         mockMvc.perform(get(BASE_URI + "/" + userId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(userId))
-                .andExpect(jsonPath("$.name").value(userDetails.name()));
+                .andExpect(jsonPath("$.name").value(appUserDetails.name()));
     }
 
     @Test

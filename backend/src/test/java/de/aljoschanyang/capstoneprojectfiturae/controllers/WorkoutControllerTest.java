@@ -2,7 +2,7 @@ package de.aljoschanyang.capstoneprojectfiturae.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.aljoschanyang.capstoneprojectfiturae.models.*;
-import de.aljoschanyang.capstoneprojectfiturae.repositories.UserRepo;
+import de.aljoschanyang.capstoneprojectfiturae.repositories.AppUserRepo;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.WorkoutRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ class WorkoutControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private UserRepo userRepo;
+    private AppUserRepo appUserRepo;
     @Autowired
     private WorkoutRepo workoutRepo;
     @Autowired
@@ -35,8 +35,8 @@ class WorkoutControllerTest {
     @Test
     @DirtiesContext
     void addWorkout_whenUserExistsInDb_thenReturnWorkout() throws Exception {
-        User validUser = new User("validUserId", "User1");
-        userRepo.save(validUser);
+        AppUser validAppUser = new AppUser("validUserId", "User1");
+        appUserRepo.save(validAppUser);
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId("validUserId")
@@ -79,11 +79,11 @@ class WorkoutControllerTest {
     @Test
     @DirtiesContext
     void getAllWorkoutsByUserId_whenUserExists_thenReturnWorkouts() throws Exception {
-        User validUser = new User("validUserId", "User1");
-        userRepo.save(validUser);
+        AppUser validAppUser = new AppUser("validUserId", "User1");
+        appUserRepo.save(validAppUser);
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
-                .userId(validUser.id())
+                .userId(validAppUser.id())
                 .name("Test Workout")
                 .day(WeekDay.MONDAY)
                 .description("Test description")
@@ -102,7 +102,7 @@ class WorkoutControllerTest {
         List<Workout> expected = List.of(workout);
         String expectedAsJson = objectMapper.writeValueAsString(expected);
 
-        mockMvc.perform(get(BASE_URI + "/" + validUser.id()))
+        mockMvc.perform(get(BASE_URI + "/" + validAppUser.id()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedAsJson));
     }
@@ -119,11 +119,11 @@ class WorkoutControllerTest {
     @Test
     @DirtiesContext
     void getWorkoutById_whenIdIsValid_thenReturnWorkout() throws Exception {
-        User validUser = new User("validUserId", "User1");
-        userRepo.save(validUser);
+        AppUser validAppUser = new AppUser("validUserId", "User1");
+        appUserRepo.save(validAppUser);
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
-                .userId(validUser.id())
+                .userId(validAppUser.id())
                 .name("Test Workout")
                 .day(WeekDay.MONDAY)
                 .description("Test description")

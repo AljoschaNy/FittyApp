@@ -87,8 +87,8 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                         <span>Name</span>
                         <input
                             type={"text"}
-                            name={"workoutName"}
-                            value={workout.workoutName}
+                            name={"name"}
+                            value={workout.name}
                             onChange={(event) => handleWorkoutChange(event)}
                         />
                     </label><br/>
@@ -105,8 +105,8 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                         <span>Day</span>
                         <input
                             type={"text"}
-                            name={"workoutDay"}
-                            value={workout.workoutDay}
+                            name={"day"}
+                            value={workout.day}
                             onChange={(event) => handleWorkoutChange(event)}
                             required={true}
                         />
