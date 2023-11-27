@@ -57,7 +57,6 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
 
     function modifyWorkout() {
         const newWorkoutData:WorkoutNoId = {
-            userId:initialWorkout.userId,
             ...workout,
             plan: exercises,
         };
@@ -69,7 +68,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
             });
 
         formType === "edit" && axios
-            .put(`/api/workouts/edit/${initialWorkout.id}`, newWorkoutData)
+            .put(`/api/workouts/${initialWorkout.id}`, newWorkoutData)
             .then(() => onWorkoutChange())
     }
 
@@ -84,16 +83,16 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
             <main className={"main-add-page"}>
                 <form id={"workout-form"} onSubmit={handleSubmit}>
                     <label>
-                        Name
+                        <span>Name</span>
                         <input
                             type={"text"}
-                            name={"workoutName"}
-                            value={workout.workoutName}
+                            name={"name"}
+                            value={workout.name}
                             onChange={(event) => handleWorkoutChange(event)}
                         />
                     </label><br/>
                     <label>
-                        Description
+                        <span>Description</span>
                         <input
                             type={"text"}
                             name={"description"}
@@ -102,11 +101,11 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                         />
                     </label><br/>
                     <label>
-                        Day
+                        <span>Day</span>
                         <input
                             type={"text"}
-                            name={"workoutDay"}
-                            value={workout.workoutDay}
+                            name={"day"}
+                            value={workout.day}
                             onChange={(event) => handleWorkoutChange(event)}
                             required={true}
                         />
@@ -114,10 +113,13 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
 
                     <fieldset>
                         <legend>Exercise</legend>
-                        {exercises.map((exercise:WorkoutExercise,index) => (
+                        {exercises.map((exercise:WorkoutExercise,index) => {
+                            const exerciseKey = index+1;
 
-                            <div key={`${exercise.id} - ${index}`}>
-                                <label>Name
+                            return (
+                            <div key={`${exerciseKey}`}>
+                                <label>
+                                    <span>Name</span>
                                     <input
                                         type={"text"}
                                         name={"name"}
@@ -125,7 +127,8 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                         onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
-                                <label>Sets
+                                <label>
+                                    <span>Sets</span>
                                     <input
                                         type={"number"}
                                         name={"setCount"}
@@ -133,7 +136,8 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                         onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
-                                <label>Reps
+                                <label>
+                                    <span>Reps</span>
                                     <input
                                         type={"number"}
                                         name={"repsPerSet"}
@@ -141,7 +145,8 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                         onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
-                                <label>Weight in kg
+                                <label>
+                                    <span>Weight in kg</span>
                                     <input
                                         type={"number"}
                                         name={"weightInKg"}
@@ -149,7 +154,8 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                         onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
-                                <label>Break in sec
+                                <label>
+                                    <span>Break in sec</span>
                                     <input
                                         type={"number"}
                                         name={"breakInSec"}
@@ -159,7 +165,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                 </label><br/>
                                 <button type={"button"} onClick={() => deleteExerciseForm(index)}>Delete</button>
                             </div>
-                        ))}
+                        )})}
 
                     </fieldset>
                     <button type={"button"} onClick={addNewExerciseForm}>Add</button>

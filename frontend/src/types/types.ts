@@ -1,16 +1,16 @@
 export type Workout = {
     id?: string,
     userId: string,
-    workoutName: string,
-    workoutDay: string,
+    name: string,
+    day: string,
     description: string,
     plan: WorkoutExercise[]
 }
 
 export type WorkoutNoId = {
     userId: string,
-    workoutName: string,
-    workoutDay: string,
+    name: string,
+    day: string,
     description: string,
     plan: WorkoutExercise[]
 }
@@ -50,8 +50,6 @@ export type EditPageProps = {
 export type HeaderPagesProps = {
     pageTitle: string
 }
-
-
 
 export type FooterFormPagesType = {
     cancelDestination: string,
