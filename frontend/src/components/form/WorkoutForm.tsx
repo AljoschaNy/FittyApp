@@ -57,7 +57,6 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
 
     function modifyWorkout() {
         const newWorkoutData:WorkoutNoId = {
-            userId:initialWorkout.userId,
             ...workout,
             plan: exercises,
         };
@@ -114,9 +113,11 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
 
                     <fieldset>
                         <legend>Exercise</legend>
-                        {exercises.map((exercise:WorkoutExercise,index) => (
+                        {exercises.map((exercise:WorkoutExercise,index) => {
+                            const exerciseKey = index+1;
 
-                            <div key={`${exercise.id} - ${index}`}>
+                            return (
+                            <div key={`${exerciseKey}`}>
                                 <label>
                                     <span>Name</span>
                                     <input
@@ -164,7 +165,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                 </label><br/>
                                 <button type={"button"} onClick={() => deleteExerciseForm(index)}>Delete</button>
                             </div>
-                        ))}
+                        )})}
 
                     </fieldset>
                     <button type={"button"} onClick={addNewExerciseForm}>Add</button>
