@@ -84,7 +84,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
             <main className={"main-add-page"}>
                 <form id={"workout-form"} onSubmit={handleSubmit}>
                     <label>
-                        Name
+                        <span>Name</span>
                         <input
                             type={"text"}
                             name={"workoutName"}
@@ -93,7 +93,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                         />
                     </label><br/>
                     <label>
-                        Description
+                        <span>Description</span>
                         <input
                             type={"text"}
                             name={"description"}
@@ -102,7 +102,7 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                         />
                     </label><br/>
                     <label>
-                        Day
+                        <span>Day</span>
                         <input
                             type={"text"}
                             name={"workoutDay"}
@@ -117,7 +117,8 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                         {exercises.map((exercise:WorkoutExercise,index) => (
 
                             <div key={`${exercise.id} - ${index}`}>
-                                <label>Name
+                                <label>
+                                    <span>Name</span>
                                     <input
                                         type={"text"}
                                         name={"name"}
@@ -125,7 +126,8 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                         onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
-                                <label>Sets
+                                <label>
+                                    <span>Sets</span>
                                     <input
                                         type={"number"}
                                         name={"setCount"}
@@ -133,7 +135,8 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                         onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
-                                <label>Reps
+                                <label>
+                                    <span>Reps</span>
                                     <input
                                         type={"number"}
                                         name={"repsPerSet"}
@@ -141,7 +144,8 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                         onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
-                                <label>Weight in kg
+                                <label>
+                                    <span>Weight in kg</span>
                                     <input
                                         type={"number"}
                                         name={"weightInKg"}
@@ -149,7 +153,8 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
                                         onChange={(event) => handleExerciseChange(index,event)}
                                     />
                                 </label><br/>
-                                <label>Break in sec
+                                <label>
+                                    <span>Break in sec</span>
                                     <input
                                         type={"number"}
                                         name={"breakInSec"}
