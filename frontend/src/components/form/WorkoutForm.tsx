@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Workout, WorkoutExercise, WorkoutNoId} from "../../types/types.ts";
 import axios from "axios";
 import "./WorkoutForm.css";
+import TextInput from "./TextInput.tsx";
 
 type WorkoutFormType = {
     formType: "new" | "edit",
@@ -44,9 +45,9 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
         setExercises([...exercises, {
             id: nextId,
             name: "",
-            setCount: 0,
-            repsPerSet: 0,
-            weightInKg: 0,
+            setCount: 1,
+            repsPerSet: 1,
+            weightInKg: 0.00,
             breakInSec: 0
         }])
         setNextId(nextId+1);
@@ -83,93 +84,79 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
         <div className={"container"}>
             <main className={"main-add-page"}>
                 <form id={"workout-form"} onSubmit={handleSubmit}>
-                    <label>
-                        <span>Name</span>
-                        <input
-                            type={"text"}
-                            name={"name"}
-                            value={workout.name}
-                            onChange={(event) => handleWorkoutChange(event)}
-                        />
-                    </label><br/>
-                    <label>
-                        <span>Description</span>
-                        <input
-                            type={"text"}
-                            name={"description"}
-                            value={workout.description}
-                            onChange={(event) => handleWorkoutChange(event)}
-                        />
-                    </label><br/>
-                    <label>
-                        <span>Day</span>
-                        <input
-                            type={"text"}
-                            name={"day"}
-                            value={workout.day}
-                            onChange={(event) => handleWorkoutChange(event)}
-                            required={true}
-                        />
-                    </label><br/>
+                    <TextInput name={"Name"} value={workout.name} placeholder={"e.g. Push Training..."} onChange={handleWorkoutChange} />
+                    <TextInput name={"Description"} value={workout.description} placeholder={"e.g. 60%, 90 sec..."} onChange={handleWorkoutChange} />
+                    <TextInput name={"Day"} value={workout.day} onChange={handleWorkoutChange} />
 
-                    <fieldset>
-                        <legend>Exercise</legend>
-                        {exercises.map((exercise:WorkoutExercise,index) => {
-                            const exerciseKey = index+1;
+                    <section className={"section-exercises"}>
+                        <h3>Exercises</h3>
+                        <div className={"exercise-list"}>
+                            {exercises.map((exercise:WorkoutExercise,index) => {
+                                const exerciseKey = index+1;
 
-                            return (
-                            <div key={`${exerciseKey}`}>
-                                <label>
-                                    <span>Name</span>
-                                    <input
-                                        type={"text"}
-                                        name={"name"}
-                                        value={exercise.name}
-                                        onChange={(event) => handleExerciseChange(index,event)}
-                                    />
-                                </label><br/>
-                                <label>
-                                    <span>Sets</span>
-                                    <input
-                                        type={"number"}
-                                        name={"setCount"}
-                                        value={exercise.setCount}
-                                        onChange={(event) => handleExerciseChange(index,event)}
-                                    />
-                                </label><br/>
-                                <label>
-                                    <span>Reps</span>
-                                    <input
-                                        type={"number"}
-                                        name={"repsPerSet"}
-                                        value={exercise.repsPerSet}
-                                        onChange={(event) => handleExerciseChange(index,event)}
-                                    />
-                                </label><br/>
-                                <label>
-                                    <span>Weight in kg</span>
-                                    <input
-                                        type={"number"}
-                                        name={"weightInKg"}
-                                        value={exercise.weightInKg}
-                                        onChange={(event) => handleExerciseChange(index,event)}
-                                    />
-                                </label><br/>
-                                <label>
-                                    <span>Break in sec</span>
-                                    <input
-                                        type={"number"}
-                                        name={"breakInSec"}
-                                        value={exercise.breakInSec}
-                                        onChange={(event) => handleExerciseChange(index,event)}
-                                    />
-                                </label><br/>
-                                <button type={"button"} onClick={() => deleteExerciseForm(index)}>Delete</button>
-                            </div>
-                        )})}
-
-                    </fieldset>
-                    <button type={"button"} onClick={addNewExerciseForm}>Add</button>
+                                return (
+                                <div className={"exercise-form"} key={`${exerciseKey}`}>
+                                    <div className={"exercise-title"}>
+                                        <label>
+                                            <p>Name</p>
+                                            <input
+                                                type={"text"}
+                                                name={"name"}
+                                                value={exercise.name}
+                                                onChange={(event) => handleExerciseChange(index,event)}
+                                            />
+                                        </label><br/>
+                                    </div>
+                                    <div className={"exercise-numbers"}>
+                                        <label className={"exercise-container"}>
+                                            <p>Sets</p>
+                                            <input
+                                                type={"number"}
+                                                name={"setCount"}
+                                                value={exercise.setCount}
+                                                onChange={(event) => handleExerciseChange(index,event)}
+                                            />
+                                        </label><br/>
+                                        <label className={"exercise-container"}>
+                                            <p>Reps</p>
+                                            <input
+                                                type={"number"}
+                                                name={"repsPerSet"}
+                                                value={exercise.repsPerSet}
+                                                onChange={(event) => handleExerciseChange(index,event)}
+                                            />
+                                        </label><br/>
+                                        <label className={"exercise-container"}>
+                                            <p>Weight</p>
+                                            <div>
+                                                <input
+                                                    type={"number"}
+                                                    name={"weightInKg"}
+                                                    value={exercise.weightInKg}
+                                                    onChange={(event) => handleExerciseChange(index,event)}
+                                                />
+                                                <span>Kg</span>
+                                            </div>
+                                        </label><br/>
+                                        <label className={"exercise-container"}>
+                                            <p>Break</p>
+                                            <div>
+                                                <input
+                                                    type={"number"}
+                                                    name={"breakInSec"}
+                                                    value={exercise.breakInSec}
+                                                    onChange={(event) => handleExerciseChange(index,event)}
+                                                />
+                                                <span>Sec</span>
+                                            </div>
+                                        </label><br/>
+                                    </div>
+                                    <button className={"btn-delete-exercise"} type={"button"} onClick={() => deleteExerciseForm(index)}>X</button>
+                                </div>
+                            )})}
+                        </div>
+                        <button className={"btn-add-exercise"} type={"button"} onClick={addNewExerciseForm}>+</button>
+                    </section>
                 </form>
             </main>
         </div>

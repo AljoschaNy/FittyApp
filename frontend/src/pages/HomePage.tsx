@@ -14,6 +14,10 @@ function HomePage({userId, workouts}:Readonly<HomeProps>) {
             .then(response => setUserName(response.data.name))
     });
 
+    function handleClick(id:string) {
+        navigate(`/workout/${id}`);
+    }
+
     return(
         <>
             <header className={"header-home"}>
@@ -22,6 +26,7 @@ function HomePage({userId, workouts}:Readonly<HomeProps>) {
                     <img
                         src={"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                         className={"profile-pic"}
+                        alt={"profile picture"}
                     />
                     <p>Hey, <span className={"bold"}>{userName}!</span></p>
                 </div>
@@ -44,14 +49,19 @@ function HomePage({userId, workouts}:Readonly<HomeProps>) {
                                 <p>{workout.plan.length} Exercise(s)</p>
                             </div>
                             <div
-                                onClick={() => navigate(`/workout/${workout.id}`)}
                                 className={"icon-bottom-right"}
+                                role={"button"}
+                                onClick={() => workout.id && handleClick(workout.id)}
+                                onKeyDown={(event) => {
+                                    if(event.key === "Enter") {
+                                        workout.id && handleClick(workout.id);
+                                    }
+                                }}
+                                tabIndex={0}
+                                aria-labelledby={`workoutName-${workout.id}`}
                             >
                                 <RightArrow />
                             </div>
-
-                            {/*<button className={"btn-bottom-right"} onClick={() => navigate(`/workout/${workout.id}`)}>Details</button>*/}
-
                         </div>
                     )
                 })}

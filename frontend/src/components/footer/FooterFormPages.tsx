@@ -11,7 +11,7 @@ function FooterFormPages({cancelDestination, formId}:Readonly<FooterFormPagesTyp
             <div className={"container"}>
                 <footer className={"footer-form-pages"}>
                     <button onClick={() => navigate(cancelDestination)}>cancel</button>
-                    <button type={"submit"} form={formId}>save</button>
+                    <button type={"submit"} form={formId}><i className="icon-set fa-solid fa-check"></i></button>
                 </footer>
             </div>
         </>

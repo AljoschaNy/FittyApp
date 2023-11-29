@@ -5,6 +5,7 @@
     --color-3: hsla(0, 0%, 22%, 100%);
     --color-4: hsla(0, 0%, 90%, 100%);
     --color-5: hsla(0, 0%, 90%, 60%);
+    --color-6: hsla(292,69%,16%, 74%);
 
     --pages-header-height: 140px;
     --pages-footer-height: 100px;
@@ -29,13 +30,16 @@ html {
 
 .container {
     width: 100%;
-    padding: 0 30px;
 }
 
 /* Typography */
 h2 {
     font-size: 1.5rem;
     font-weight: 500;
+}
+
+h3 {
+    font-size: 1.1rem;
 }
 
 /* Button styles */
