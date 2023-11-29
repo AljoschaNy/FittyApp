@@ -33,8 +33,6 @@ function HomePage({userId, workouts}:Readonly<HomeProps>) {
                 <div className={"test"}></div>
             </header>
             <div className={"position-fix-home"}></div>
-
-
             <div className={"main-wrapper"}>
                 <h2 className={"home-title"}>Recent Workouts</h2>
                 {workouts.map((workout:Workout) => {
@@ -64,7 +62,8 @@ function HomePage({userId, workouts}:Readonly<HomeProps>) {
                     )
                 })}
             </div>
-            <button className={"btn-bottom-center-fixed"} onClick={() => navigate("/workout/add")}>Add workout</button>
+            <div className={"position-fix-bottom"}></div>
+            <button className={"btn-bottom-center-fixed btn-regular btn-add-workout"} onClick={() => navigate("/workout/add")}>+</button>
         </>
 
     )

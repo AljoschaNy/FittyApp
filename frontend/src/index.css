@@ -32,6 +32,10 @@ html {
     width: 100%;
 }
 
+.position-fix-bottom {
+    height: 50px;
+}
+
 /* Typography */
 h2 {
     font-size: 1.5rem;
@@ -43,6 +47,14 @@ h3 {
 }
 
 /* Button styles */
+.btn-regular {
+    border: none;
+    background: var(--color-1);
+    color: white;
+    -webkit-box-shadow: 0 4px 8px 0 var(--color-1);
+    box-shadow: 0 4px 8px 0 var(--color-1);
+}
+
 .btn-bottom-center-fixed {
     width: 70px;
     height: 70px;
@@ -57,11 +69,12 @@ h3 {
     height: 70px;
     border-radius: 50%;
     position: fixed;
-    top: 10px;
+    top: 45px;
     right: 10px;
 }
 
-.btn-details {
-    background: var(--color-1);
+/* Icon styles */
+.icon {
     border: none;
+    background: none;
 }
