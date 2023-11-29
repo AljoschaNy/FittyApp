@@ -62,7 +62,6 @@ function HomePage({userId, workouts}:Readonly<HomeProps>) {
                     )
                 })}
             </div>
-            <div className={"position-fix-bottom"}></div>
             <button className={"btn-bottom-center-fixed btn-regular btn-add-workout"} onClick={() => navigate("/workout/add")}>+</button>
         </>
 
