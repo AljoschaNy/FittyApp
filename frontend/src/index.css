@@ -36,6 +36,21 @@ html {
     height: 50px;
 }
 
+/* Footer styles */
+.footer-single-child {
+    width: 100%;
+    height: 100px;
+    background: hsla(0, 0%, 100%, 0.5);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 30px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
 /* Typography */
 h2 {
     font-size: 1.5rem;
@@ -48,20 +63,14 @@ h3 {
 
 /* Button styles */
 .btn-regular {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
     border: none;
     background: var(--color-1);
     color: white;
     -webkit-box-shadow: 0 4px 8px 0 var(--color-1);
     box-shadow: 0 4px 8px 0 var(--color-1);
-}
-
-.btn-bottom-center-fixed {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    position: fixed;
-    bottom: 10px;
-    left: calc(50vw - 35px);
 }
 
 .btn-top-right-fixed {
@@ -77,4 +86,5 @@ h3 {
 .icon {
     border: none;
     background: none;
+    z-index: 2;
 }

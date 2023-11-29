@@ -62,7 +62,9 @@ function HomePage({userId, workouts}:Readonly<HomeProps>) {
                     )
                 })}
             </div>
-            <button className={"btn-bottom-center-fixed btn-regular btn-add-workout"} onClick={() => navigate("/workout/add")}>+</button>
+            <div className={"footer-single-child"}>
+                <button className={"btn-regular btn-add-workout"} onClick={() => navigate("/workout/add")}>+</button>
+            </div>
         </>
 
     )
