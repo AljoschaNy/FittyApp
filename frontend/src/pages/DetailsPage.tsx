@@ -4,6 +4,8 @@ import HeaderPages from "../components/header/HeaderPages.tsx";
 import {useEffect, useState} from "react";
 import axios, {AxiosResponse} from "axios";
 import {Workout} from "../types/types.ts";
+import EditIcon from "../components/svg/EditIcon.tsx";
+import HomeIcon from "../components/svg/HomeIcon.tsx";
 
 function DetailsPage() {
     const {id} = useParams();
@@ -57,11 +59,10 @@ function DetailsPage() {
         <>
             <HeaderPages pageTitle={"Details"} />
             <div className={"main-wrapper workout-details"}>
-                <p>{workout.name}</p>
-                <p>{workout.description}</p>
-                <p>{workout.day}</p>
-                <fieldset>
-                    <legend>Exercises</legend>
+                <p className={"details-field"}>{workout.name}</p><br/>
+                <p className={"details-field"}>{workout.description}</p><br/>
+                <p className={"details-field"}>{workout.day}</p><br/>
+                <h3 className={"exercises-title"}>Exercises</h3>
                     {workout.plan.map((exercise,index) => (
                         <div key={index+" " + workout.id} className={"workout-exercise-card"}>
                             <p>{exercise.name}</p>
@@ -73,13 +74,16 @@ function DetailsPage() {
                             </div>
                         </div>
                     ))}
-                </fieldset>
             </div>
-            <button  className={"btn-top-right-fixed"} onClick={() => navigate(
-                `/workout/${workout?.id}/edit`,
-                {state:{workout:workout}}
-            )}>Edit</button>
-            <button className={"btn-bottom-center-fixed"} onClick={() => navigate("/")}>Home</button>
+            <button  className={"btn-top-right-fixed icon"} onClick={() => navigate(
+                    `/workout/${workout?.id}/edit`,
+                    {state:{workout:workout}}
+                )}>
+                    <EditIcon />
+            </button>
+            <button className={"btn-bottom-center-fixed icon"} onClick={() => navigate("/")}>
+                <HomeIcon />
+            </button>
         </>
     )
 }
