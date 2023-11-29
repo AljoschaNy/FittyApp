@@ -12,6 +12,7 @@
 .header-pages,
 .position-fix-top {
     height: var(--pages-header-height);
+    z-index: 10;
 }
 
 .header-pages-bg {
