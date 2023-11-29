@@ -1,3 +1,19 @@
 .workout-exercise-card {
+    color: var(--color-4);
     margin: 10px;
+    padding: 15px 20px;
+    border-radius: 20px;
+    background: var(--color-6);
+}
+
+.details-field {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    border-bottom: 2px solid;
+}
+
+.exercises-title {
+    text-align: center;
 }

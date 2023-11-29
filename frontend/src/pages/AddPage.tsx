@@ -15,7 +15,9 @@ function AddPage({userId, onWorkoutChange}:Readonly<AddPageProps>) {
     return (
         <>
             <HeaderPages pageTitle={"New Workout"} />
-            <WorkoutForm formType={"new"} onWorkoutChange={onWorkoutChange} initialWorkout={initialWorkout} />
+            <div className={"main-wrapper"}>
+                <WorkoutForm formType={"new"} onWorkoutChange={onWorkoutChange} initialWorkout={initialWorkout} />
+            </div>
             <FooterFormPages cancelDestination={"/"} formId={"workout-form"} />
         </>
     );

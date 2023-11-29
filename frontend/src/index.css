@@ -1,10 +1,11 @@
 /* General styles */
 :root {
     --color-1: hsla(292, 69%, 15%, 100%);
-    --color-2: hsla(292, 69%, 30%, 100%);
+    --color-2: hsla(292, 50%, 38%, 100%);
     --color-3: hsla(0, 0%, 22%, 100%);
     --color-4: hsla(0, 0%, 90%, 100%);
     --color-5: hsla(0, 0%, 90%, 60%);
+    --color-6: hsla(292,69%,16%, 74%);
 
     --pages-header-height: 140px;
     --pages-footer-height: 100px;
@@ -23,12 +24,37 @@ html {
 }
 
 /* Layout styles */
+.main-wrapper {
+    padding: 30px;
+}
+
 .container {
     width: 100%;
-    padding: 0 30px;
+}
+
+.position-fix-bottom {
+    height: 50px;
+}
+
+/* Typography */
+h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+h3 {
+    font-size: 1.1rem;
 }
 
 /* Button styles */
+.btn-regular {
+    border: none;
+    background: var(--color-1);
+    color: white;
+    -webkit-box-shadow: 0 4px 8px 0 var(--color-1);
+    box-shadow: 0 4px 8px 0 var(--color-1);
+}
+
 .btn-bottom-center-fixed {
     width: 70px;
     height: 70px;
@@ -43,6 +69,12 @@ html {
     height: 70px;
     border-radius: 50%;
     position: fixed;
-    top: 10px;
+    top: 45px;
     right: 10px;
+}
+
+/* Icon styles */
+.icon {
+    border: none;
+    background: none;
 }

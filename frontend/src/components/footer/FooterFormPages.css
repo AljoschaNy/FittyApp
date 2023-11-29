@@ -6,7 +6,8 @@
 
 .footer-form-pages {
     width: 100%;
-    background: yellow;
+    background: hsla(0, 0%, 100%, 0.5);
+    backdrop-filter: blur(3px);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,4 +15,9 @@
     position: fixed;
     bottom: 0;
     left: 0;
+}
+
+.icon-lg {
+    font-size: 2rem;
+    color: red;
 }

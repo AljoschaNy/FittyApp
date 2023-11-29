@@ -39,6 +39,7 @@ function App() {
                 <Route path={"/workout/:id"} element={<DetailsPage />} />
                 <Route path={"/workout/:id/edit"} element={<EditPage onWorkoutChange={fetchWorkoutsByUser} />} />
             </Routes>
+            <div className={"position-fix-bottom"}></div>
         </>
     )
 }

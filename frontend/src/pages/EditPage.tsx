@@ -4,6 +4,7 @@ import FooterFormPages from "../components/footer/FooterFormPages.tsx";
 import WorkoutForm from "../components/form/WorkoutForm.tsx";
 import {EditPageProps} from "../types/types.ts";
 import axios from "axios";
+import TrashBin from "../components/svg/TrashBin.tsx";
 
 function EditPage({onWorkoutChange}: Readonly<EditPageProps>) {
     const location = useLocation();
@@ -22,10 +23,12 @@ function EditPage({onWorkoutChange}: Readonly<EditPageProps>) {
         <>
             <HeaderPages pageTitle={"Edit"} />
             <button
-                className={"btn-top-right-fixed"}
+                className={"btn-top-right-fixed icon"}
                 type={"button"}
-                onClick={deleteWorkout}>Delete Workout</button>
-            <WorkoutForm formType={"edit"} onWorkoutChange={onWorkoutChange} initialWorkout={workout} />
+                onClick={deleteWorkout}><TrashBin /></button>
+            <div className={"main-wrapper"}>
+                <WorkoutForm formType={"edit"} onWorkoutChange={onWorkoutChange} initialWorkout={workout} />
+            </div>
             <FooterFormPages cancelDestination={`/workout/${workout.id}`} formId={"workout-form"} />
         </>
     );

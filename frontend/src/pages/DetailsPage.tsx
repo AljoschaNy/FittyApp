@@ -4,6 +4,8 @@ import HeaderPages from "../components/header/HeaderPages.tsx";
 import {useEffect, useState} from "react";
 import axios, {AxiosResponse} from "axios";
 import {Workout} from "../types/types.ts";
+import EditIcon from "../components/svg/EditIcon.tsx";
+import HomeIcon from "../components/svg/HomeIcon.tsx";
 
 function DetailsPage() {
     const {id} = useParams();
@@ -56,28 +58,32 @@ function DetailsPage() {
     return (
         <>
             <HeaderPages pageTitle={"Details"} />
-            <p>{workout.name}</p>
-            <p>{workout.description}</p>
-            <p>{workout.day}</p>
-            <fieldset>
-                <legend>Exercises</legend>
-                {workout.plan.map((exercise,index) => (
-                    <div key={index+" " + workout.id} className={"workout-exercise-card"}>
-                        <p>{exercise.name}</p>
-                        <div className={"exercise-details"}>
-                            <p>Sets: {exercise.setCount}</p>
-                            <p>Reps: {exercise.repsPerSet}</p>
-                            <p>Weight in kg: {exercise.weightInKg}</p>
-                            <p>Break in sec: {exercise.breakInSec}</p>
+            <div className={"main-wrapper workout-details"}>
+                <p className={"details-field"}>{workout.name}</p><br/>
+                <p className={"details-field"}>{workout.description}</p><br/>
+                <p className={"details-field"}>{workout.day}</p><br/>
+                <h3 className={"exercises-title"}>Exercises</h3>
+                    {workout.plan.map((exercise,index) => (
+                        <div key={index+" " + workout.id} className={"workout-exercise-card"}>
+                            <p>{exercise.name}</p>
+                            <div className={"exercise-details"}>
+                                <p>Sets: {exercise.setCount}</p>
+                                <p>Reps: {exercise.repsPerSet}</p>
+                                <p>Weight in kg: {exercise.weightInKg}</p>
+                                <p>Break in sec: {exercise.breakInSec}</p>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </fieldset>
-            <button onClick={() => navigate(
-                `/workout/${workout?.id}/edit`,
-                {state:{workout:workout}}
-            )}>Edit</button>
-            <button className={"btn-bottom-center-fixed"} onClick={() => navigate("/")}>Home</button>
+                    ))}
+            </div>
+            <button  className={"btn-top-right-fixed icon"} onClick={() => navigate(
+                    `/workout/${workout?.id}/edit`,
+                    {state:{workout:workout}}
+                )}>
+                    <EditIcon />
+            </button>
+            <button className={"btn-bottom-center-fixed icon"} onClick={() => navigate("/")}>
+                <HomeIcon />
+            </button>
         </>
     )
 }
