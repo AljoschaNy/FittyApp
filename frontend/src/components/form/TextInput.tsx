@@ -1,12 +1,7 @@
 import React from "react";
+import {TextInputType} from "../../types/types.ts";
 
-type TextInputType = {
-    name: string,
-    value: string,
-    placeholder?: string,
-    onChange: (event:React.ChangeEvent<HTMLInputElement>) => void
-}
-function TextInput(props:TextInputType) {
+function TextInput(props:Readonly<TextInputType>) {
     return (
         <div className={"workout-form-input"}>
             <label>

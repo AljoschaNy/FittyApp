@@ -7,10 +7,6 @@
     font-size: 0.8rem;
 }
 
-.exercise-form input {
-    font-size: 1rem;
-}
-
 /* Input styles */
 .input-label {
     display: block;
@@ -48,6 +44,7 @@
 }
 
 .exercise-form input {
+    font-size: 1rem;
     color: white;
     background: none;
     padding: 5px 0 2px;

@@ -48,20 +48,18 @@ function HomePage({userId, workouts}:Readonly<HomeProps>) {
                                 <p>{workout.description}</p>
                                 <p>{workout.plan.length} Exercise(s)</p>
                             </div>
-                            <div
-                                className={"icon-bottom-right"}
-                                role={"button"}
+                            <button
+                                className={"icon-bottom-right btn-details"}
                                 onClick={() => workout.id && handleClick(workout.id)}
                                 onKeyDown={(event) => {
                                     if(event.key === "Enter") {
                                         workout.id && handleClick(workout.id);
                                     }
                                 }}
-                                tabIndex={0}
                                 aria-labelledby={`workoutName-${workout.id}`}
                             >
                                 <RightArrow />
-                            </div>
+                            </button>
                         </div>
                     )
                 })}

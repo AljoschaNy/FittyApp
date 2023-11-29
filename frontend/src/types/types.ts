@@ -1,3 +1,5 @@
+import React from "react";
+
 export type Workout = {
     id?: string,
     userId: string,
@@ -54,4 +56,11 @@ export type HeaderPagesProps = {
 export type FooterFormPagesType = {
     cancelDestination: string,
     formId: string
+}
+
+export type TextInputType = {
+    name: string,
+    value: string,
+    placeholder?: string,
+    onChange: (event:React.ChangeEvent<HTMLInputElement>) => void
 }
