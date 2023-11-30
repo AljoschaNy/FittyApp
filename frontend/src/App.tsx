@@ -48,7 +48,7 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path={"/"} element={<HomePage userName={user && user.name} workouts={workouts} />} />
+                <Route path={"/"} element={<HomePage userName={user?.name} workouts={workouts} />} />
                 <Route path={"/workout/add"} element={<AddPage userId={userId} onWorkoutChange={fetchWorkoutsByUser}/>} />
                 <Route path={"/workout/:id"} element={<DetailsPage />} />
                 <Route path={"/workout/:id/edit"} element={<EditPage onWorkoutChange={fetchWorkoutsByUser} />} />

@@ -22,7 +22,7 @@ function HomePage({userName, workouts}:Readonly<HomeProps>) {
                         className={"profile-pic"}
                         alt={"profile picture"}
                     />
-                    <p>Hey, <span className={"bold"}>{userName ? userName : "User"}!</span></p>
+                    <p>Hey, <span className={"bold"}>{userName || "User"}!</span></p>
                 </div>
                 <div className={"test"}></div>
             </header>
