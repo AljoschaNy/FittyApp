@@ -1,18 +1,12 @@
 import "./HomePage.css";
 import {useNavigate} from "react-router-dom";
 import {HomeProps, Workout} from "../types/types.ts";
-import {useEffect, useState} from "react";
-import axios from "axios";
 import RightArrow from "../components/svg/RightArrow.tsx";
 
-function HomePage({userId, workouts}:Readonly<HomeProps>) {
+function HomePage({userName, workouts}:Readonly<HomeProps>) {
     const navigate = useNavigate();
-    const [userName, setUserName] = useState("User")
 
-    useEffect(() => {
-        axios.get(`/api/users/${userId}`)
-            .then(response => setUserName(response.data.name))
-    });
+
 
     function handleClick(id:string) {
         navigate(`/workout/${id}`);
@@ -28,7 +22,7 @@ function HomePage({userId, workouts}:Readonly<HomeProps>) {
                         className={"profile-pic"}
                         alt={"profile picture"}
                     />
-                    <p>Hey, <span className={"bold"}>{userName}!</span></p>
+                    <p>Hey, <span className={"bold"}>{userName ?? "User"}!</span></p>
                 </div>
                 <div className={"test"}></div>
             </header>
