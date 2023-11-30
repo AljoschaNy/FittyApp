@@ -15,7 +15,7 @@ function DetailsPage() {
     const [error, setError] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState(true)
 
-    function fetWorkoutDetails() {
+    function fetchWorkoutDetails() {
         axios.get(`../api/workouts/details/${id}`)
             .then((response: AxiosResponse<Workout>):void => {
                 setWorkout(response.data);
@@ -31,13 +31,13 @@ function DetailsPage() {
     }
 
     useEffect(():void => {
-        fetWorkoutDetails()
+        fetchWorkoutDetails()
     },[location.state?.updated]);
 
     if (isLoading) {
         return (
             <section className={"page-state"} >
-                <p>Loading...</p>
+                <p></p>
             </section>
         )
     }
