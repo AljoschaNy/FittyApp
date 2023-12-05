@@ -14,8 +14,9 @@ public class AppUserService {
 
     public AppUser addUser(AppUserDetails appUserDetails) {
         return appUserRepo.save(AppUser.builder()
-                .id(null)
                 .name(appUserDetails.name())
+                .email(appUserDetails.email())
+                .imageUrl(appUserDetails.imageUrl())
                 .build());
     }
 

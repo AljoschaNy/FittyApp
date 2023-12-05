@@ -17,34 +17,38 @@ class AppAppUserServiceTest {
     private final AppUserService appUserService = new AppUserService(mockAppUserRepo);
 
     @Test
-    void addUser_whenUserNameAdded_thenReturnUserWithThisName() {
+    void addUser_whenUserDetailsProvided_thenSaveAndReturnUser() {
         AppUser expected = AppUser.builder()
                 .id("1")
                 .name("Test")
+                .email("email")
+                .imageUrl("imgUrl")
                 .build();
-        AppUserDetails appUserDetails = new AppUserDetails("Test");
+        AppUserDetails appUserDetails = new AppUserDetails(expected.name(), expected.email(), expected.imageUrl());
 
         when(mockAppUserRepo.save(any(AppUser.class))).thenReturn(expected);
         AppUser actual = appUserService.addUser(appUserDetails);
         verify(mockAppUserRepo).save(any(AppUser.class));
 
-        assertEquals(expected.name(),actual.name());
+        assertEquals(expected,actual);
         assertNotNull(actual.id(), "the id should not be null");
     }
 
     @Test
-    void addUser_whenNoUserNameAdded_thenReturnUserNameNull() {
+    void addUser_whenNoUserDetailsProvided_thenSaveAndReturnUserWithNullDetails() {
         AppUser expected = AppUser.builder()
                 .id("1")
                 .name(null)
+                .email(null)
+                .imageUrl(null)
                 .build();
-        AppUserDetails appUserDetails = new AppUserDetails(null);
+        AppUserDetails appUserDetails = new AppUserDetails(null,null,null);
 
         when(mockAppUserRepo.save(any(AppUser.class))).thenReturn(expected);
         AppUser actual = appUserService.addUser(appUserDetails);
         verify(mockAppUserRepo).save(any(AppUser.class));
 
-        assertEquals(expected.name(),actual.name());
+        assertEquals(expected,actual);
         assertNotNull(actual.id(), "the id should not be null");
     }
 
@@ -53,6 +57,8 @@ class AppAppUserServiceTest {
         AppUser expected = AppUser.builder()
                 .id("1")
                 .name("Test")
+                .email("email")
+                .imageUrl("imgUrl")
                 .build();
 
         when(mockAppUserRepo.findById(expected.id())).thenReturn(Optional.of(expected));
