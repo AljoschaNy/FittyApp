@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class AppAppUserServiceTest {
+class AppUserServiceTest {
     private final AppUserRepo mockAppUserRepo = mock(AppUserRepo.class);
     private final AppUserService appUserService = new AppUserService(mockAppUserRepo);
 
