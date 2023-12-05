@@ -21,7 +21,6 @@ public class WorkoutService {
         AppUser appUser = appUserService.getUserById(workoutDetails.userId());
 
         return workoutRepo.save(Workout.builder()
-                        .id(null)
                         .userId(appUser.id())
                         .name(workoutDetails.name())
                         .day(workoutDetails.day())

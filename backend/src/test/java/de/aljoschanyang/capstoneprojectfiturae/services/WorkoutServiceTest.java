@@ -22,7 +22,6 @@ class WorkoutServiceTest {
 
     private final AppUser appUser = AppUser.builder()
             .id("userId")
-            .name("Test")
             .build();
 
     @Test
@@ -37,11 +36,11 @@ class WorkoutServiceTest {
                 .build();
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
-                .userId(appUser.id())
-                .name("Test workout")
-                .day(WeekDay.MONDAY)
-                .description("Test description")
-                .plan(List.of())
+                .userId(expected.userId())
+                .name(expected.name())
+                .day(expected.day())
+                .description(expected.description())
+                .plan(expected.plan())
                 .build();
 
         when(mockAppUserRepo.findById(appUser.id())).thenReturn(Optional.of(appUser));
