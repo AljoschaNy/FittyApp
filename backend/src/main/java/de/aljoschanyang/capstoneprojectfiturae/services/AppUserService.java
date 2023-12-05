@@ -7,17 +7,21 @@ import de.aljoschanyang.capstoneprojectfiturae.repositories.AppUserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class AppUserService {
     private AppUserRepo appUserRepo;
 
     public AppUser addUser(AppUserDetails appUserDetails) {
-        return appUserRepo.save(AppUser.builder()
+        Optional<AppUser> existingUser = appUserRepo.findByEmail(appUserDetails.email());
+
+        return existingUser.orElseGet(() -> appUserRepo.save(AppUser.builder()
                 .name(appUserDetails.name())
                 .email(appUserDetails.email())
                 .imageUrl(appUserDetails.imageUrl())
-                .build());
+                .build()));
     }
 
     public AppUser getUserById (String id) {
