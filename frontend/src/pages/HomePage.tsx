@@ -6,8 +6,6 @@ import RightArrow from "../components/svg/RightArrow.tsx";
 function HomePage({userName, workouts}:Readonly<HomeProps>) {
     const navigate = useNavigate();
 
-
-
     function handleClick(id:string) {
         navigate(`/workout/${id}`);
     }
