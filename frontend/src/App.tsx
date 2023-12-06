@@ -12,7 +12,19 @@ function App() {
     const [isFetchingWorkouts, setIsFetchingWorkouts] = useState(true);
     const [isFetchingUser, setIsFetchingUser] = useState(true);
     const [user, setUser] = useState<User>();
+    const [username, setUsername] = useState("");
     const userId = "655b5b283f332f4fcfbf02c0";
+
+    function login() {
+        const host= window.location.host === "localhost:5173" ? "http://localhost:8080" : window.location.origin;
+        window.open(host + "/oauth2/authorization/github" , "_self")
+    }
+
+    useEffect(() => {
+        axios.get("/api/auth/me")
+            .then(response => setUsername(response.data))
+            .catch(error => console.log(error))
+    }, []);
 
     function fetchWorkoutsByUser() {
         user && axios.get(`/api/workouts/${user.id}`)
@@ -47,8 +59,11 @@ function App() {
 
     return (
         <>
+            <button onClick={login}>Login to Github</button>
+            {username && <h2>{username}</h2>}
             <Routes>
-                <Route path={"/"} element={<HomePage userName={user?.name} workouts={workouts} />} />
+
+                <Route path={"/home"} element={<HomePage userName={user?.name} workouts={workouts} />} />
                 <Route path={"/workout/add"} element={<AddPage userId={userId} onWorkoutChange={fetchWorkoutsByUser}/>} />
                 <Route path={"/workout/:id"} element={<DetailsPage />} />
                 <Route path={"/workout/:id/edit"} element={<EditPage onWorkoutChange={fetchWorkoutsByUser} />} />
