@@ -6,7 +6,7 @@ type ProtectedRoutesProps = {
 }
 
 function ProtectedRoutes(props: Readonly<ProtectedRoutesProps>) {
-    const isAuth = props.appUser !== undefined;
+    const isAuth = props.appUser !== null;
 
     return isAuth ? <Outlet /> : <Navigate to={"/login"} />;
 }

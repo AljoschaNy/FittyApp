@@ -14,30 +14,34 @@ export type AppUser = {
 }
 function App() {
     const [appUser, setAppUser] = useState<AppUser | null | undefined>(null);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         axios.get("/api/auth/me")
-            .then(r => {
-                setIsLoading(true);
-                setAppUser(r.data)
+            .then(response => {
+                if(response.data) {
+                    setIsLoading(false);
+                    setAppUser(response.data)
+                }
             })
-            .catch(e => console.log(e))
-    }, []);
+            .catch(error => {
+                setIsLoading(false)
+                console.log(error)
+            })
+    }, [isLoading]);
 
-    if(appUser) {
-        setIsLoading(false)
+    if(isLoading) {
+        return <></>
     }
 
     return (
         <>
             <Routes>
-                <Route path={"/login"} element={<LoginPage />} />
                 <Route path={"/"} element={<StartPage />} />
-                {!isLoading && <Route element={<ProtectedRoutes appUser={appUser}/>}>
-                    <Route path={"/home"} element={<SecuredComponent/>}/>
-
-                </Route>}
+                <Route path={"/login"} element={<LoginPage />} />
+                <Route element={<ProtectedRoutes appUser={appUser}/>}>
+                    <Route path={"/home"} element={<SecuredComponent onLogout={() => setIsLoading(true)}/>}/>
+                </Route>
 
             </Routes>
         </>
