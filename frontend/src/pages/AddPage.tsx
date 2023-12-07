@@ -3,7 +3,7 @@ import HeaderPages from "../components/header/HeaderPages.tsx";
 import FooterFormPages from "../components/footer/FooterFormPages.tsx";
 import WorkoutForm from "../components/form/WorkoutForm.tsx";
 
-function AddPage({userId, onWorkoutChange}:Readonly<AddPageProps>) {
+function AddPage({userId}:Readonly<AddPageProps>) {
     const initialWorkout:WorkoutNoId = {
         userId,
         name: "",
@@ -16,7 +16,7 @@ function AddPage({userId, onWorkoutChange}:Readonly<AddPageProps>) {
         <>
             <HeaderPages pageTitle={"New Workout"} />
             <div className={"main-wrapper"}>
-                <WorkoutForm formType={"new"} onWorkoutChange={onWorkoutChange} initialWorkout={initialWorkout} />
+                <WorkoutForm formType={"new"} initialWorkout={initialWorkout} />
             </div>
             <FooterFormPages cancelDestination={"/"} formId={"workout-form"} />
         </>

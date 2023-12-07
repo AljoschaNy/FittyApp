@@ -3,7 +3,8 @@ import {createContext} from "react";
 
 const defaultContextValue: WorkoutContextType = {
     workouts: [],
-    setWorkouts: () => {}
+    setWorkouts: () => {},
+    fetchWorkouts: () => {}
 }
 
 export const WorkoutContext = createContext<WorkoutContextType>(defaultContextValue);

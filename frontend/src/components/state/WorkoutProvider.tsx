@@ -7,7 +7,8 @@ function WorkoutProvider({ children, userId }:Readonly<WorkoutProviderProps>) {
     const [workouts, setWorkouts] = useState<Workout[]>([]);
     const [isFetchingWorkouts, setIsFetchingWorkouts] = useState(true);
 
-    useEffect(() => {
+    function fetchWorkouts() {
+        setIsFetchingWorkouts(true);
         axios.get(`/api/workouts/${userId}`)
             .then((response) => {
                 setWorkouts(response.data);
@@ -15,7 +16,11 @@ function WorkoutProvider({ children, userId }:Readonly<WorkoutProviderProps>) {
             })
             .catch(error => {
                 console.error("Fehler beim Abrufen des Workouts: " + error);
+                setIsFetchingWorkouts(false);
             });
+    }
+    useEffect(() => {
+        fetchWorkouts();
     }, [userId]);
 
 
@@ -24,7 +29,7 @@ function WorkoutProvider({ children, userId }:Readonly<WorkoutProviderProps>) {
     }
 
     return (
-        <WorkoutContext.Provider value={{ workouts, setWorkouts }} >
+        <WorkoutContext.Provider value={{ workouts, setWorkouts, fetchWorkouts }} >
             {children}
         </WorkoutContext.Provider>
     );

@@ -36,8 +36,7 @@ export type HomeProps = {
 }
 
 export type AddPageProps = {
-    userId: string,
-    onWorkoutChange: () => void
+    userId: string
 }
 
 export type DetailsPageProps = {
@@ -67,7 +66,8 @@ export type TextInputType = {
 // State types
 export type WorkoutContextType = {
     workouts: Workout[],
-    setWorkouts: (value: Workout[]) => void
+    setWorkouts: (value: Workout[]) => void,
+    fetchWorkouts: () => void
 }
 
 export type WorkoutProviderProps = {

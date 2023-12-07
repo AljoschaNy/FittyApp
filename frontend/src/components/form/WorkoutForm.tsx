@@ -1,22 +1,29 @@
 import {useNavigate} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Workout, WorkoutExercise, WorkoutNoId} from "../../types/types.ts";
 import axios from "axios";
 import "./WorkoutForm.css";
 import TextInput from "./TextInput.tsx";
+import {WorkoutContext} from "../state/WorkoutContext.tsx";
 
 type WorkoutFormType = {
     formType: "new" | "edit",
-    onWorkoutChange: () => void,
     initialWorkout: Workout
 }
 
-function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<WorkoutFormType>) {
+function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
     const navigate = useNavigate();
+    const {fetchWorkouts} = useContext(WorkoutContext);
     const [exercises, setExercises] = useState<WorkoutExercise[]>(initialWorkout.plan);
     const [nextId, setNextId] = useState(0);
-
     const [workout, setWorkout] = useState<Workout>(initialWorkout);
+
+    useEffect(() => {
+        if (initialWorkout.plan.length > 0) {
+            const maxId = Math.max(...initialWorkout.plan.map(exercise => exercise.id));
+            setNextId(maxId + 1);
+        }
+    }, [initialWorkout]);
 
     function handleWorkoutChange(event:React.ChangeEvent<HTMLInputElement>) {
         const {name, value} = event.target;
@@ -25,13 +32,6 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
             [name]: value
         }));
     }
-
-    useEffect(() => {
-        if (initialWorkout.plan.length > 0) {
-            const maxId = Math.max(...initialWorkout.plan.map(exercise => exercise.id));
-            setNextId(maxId + 1);
-        }
-    }, [initialWorkout]);
 
     function handleExerciseChange(indexToChange:number, event:React.ChangeEvent<HTMLInputElement>) {
         const {name, value} = event.target;
@@ -64,21 +64,28 @@ function WorkoutForm({formType, initialWorkout, onWorkoutChange}: Readonly<Worko
         };
 
         formType === "new" && axios.post('/api/workouts', newWorkoutData)
-            .then(() => onWorkoutChange())
+            .then(() => {
+                fetchWorkouts();
+                navigate("/home")
+            })
             .catch(error => {
-                console.error('Error adding data:', error);
+                console.error("Error adding data: ", error);
             });
 
         formType === "edit" && axios
             .put(`/api/workouts/${initialWorkout.id}`, newWorkoutData)
-            .then(() => onWorkoutChange())
+            .then(() => {
+                fetchWorkouts();
+                navigate(`/workout/${initialWorkout.id}`, {state:{updated:true}})
+            })
+            .catch(error => {
+                console.error("Error updating data: ", error);
+            })
     }
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>):void {
         event.preventDefault();
         modifyWorkout();
-        formType === "new" && navigate("/");
-        formType === "edit" && navigate(`/workout/${initialWorkout.id}`, {state:{updated:true}});
     }
     return (
         <div className={"container"}>

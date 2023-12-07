@@ -6,6 +6,7 @@ import ProtectedRoutes from "./components/security/ProtectedRoutes.tsx";
 import StartPage from "./pages/StartPage.tsx";
 import HomeWithWorkouts from "./components/state/HomeWithWorkouts.tsx";
 import DetailsPage from "./pages/DetailsPage.tsx";
+import AddPageWithWorkouts from "./components/state/AddPageWithWorkouts.tsx";
 
 
 export type AppUser = {
@@ -43,12 +44,13 @@ function App() {
                 <Route path={"/"} element={<StartPage />} />
                 <Route path={"/login"} element={<LoginPage />} />
                 <Route element={<ProtectedRoutes appUser={appUser}/>}>
-                    {/*<Route path={"/home"} element={<SecuredComponent onLogout={() => setIsLoading(true)}/>}/>*/}
                     <Route path={"/home"} element={<HomeWithWorkouts userId={userId} userName={appUser?.name}/>}/>
+                    <Route path={"/workout/add"} element={<AddPageWithWorkouts userId={userId}/>} />
                     <Route path={"/workout/:id"} element={<DetailsPage />} />
                 </Route>
 
             </Routes>
+            <div className={"position-fix-bottom"}></div>
         </>
     )
 }
