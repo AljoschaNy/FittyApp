@@ -2,11 +2,12 @@ import "./HomePage.css";
 import {useNavigate} from "react-router-dom";
 import {HomeProps, Workout} from "../types/types.ts";
 import RightArrow from "../components/svg/RightArrow.tsx";
+import {useContext} from "react";
+import {WorkoutContext} from "../components/state/WorkoutContext.tsx";
 
-function HomePage({userName, workouts}:Readonly<HomeProps>) {
+function HomePage({userName}:Readonly<HomeProps>) {
     const navigate = useNavigate();
-
-
+    const {workouts} = useContext(WorkoutContext);
 
     function handleClick(id:string) {
         navigate(`/workout/${id}`);

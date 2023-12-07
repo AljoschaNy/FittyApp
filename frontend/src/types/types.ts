@@ -32,8 +32,7 @@ export type User = {
 }
 
 export type HomeProps = {
-    userName: string | undefined,
-    workouts: Workout[]
+    userName: string | undefined
 }
 
 export type AddPageProps = {
@@ -73,4 +72,5 @@ export type WorkoutContextType = {
 
 export type WorkoutProviderProps = {
     children: React.ReactNode;
+    userId: string
 }
