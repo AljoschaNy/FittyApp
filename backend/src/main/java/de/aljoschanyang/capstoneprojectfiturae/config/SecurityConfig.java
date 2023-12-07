@@ -40,9 +40,9 @@ public class SecurityConfig {
                     try {
                         o.init(http);
                         if(environment.equals("prod")) {
-                            o.defaultSuccessUrl("/", true);
+                            o.defaultSuccessUrl("/home", true);
                         } else {
-                            o.defaultSuccessUrl("http://localhost:5173", true);
+                            o.defaultSuccessUrl("http://localhost:5173/home", true);
                         }
                     } catch (Exception e) {
                         throw new IllegalArgumentException(e);

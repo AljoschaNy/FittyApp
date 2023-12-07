@@ -1,43 +1,45 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {Route, Routes} from "react-router-dom";
+import LoginPage from "./pages/LoginPage.tsx";
+import ProtectedRoutes from "./components/security/ProtectedRoutes.tsx";
+import SecuredComponent from "./components/security/SecuredComponent.tsx";
+import StartPage from "./pages/StartPage.tsx";
 
 
-type AppUser = {
+export type AppUser = {
     id: string,
     name: string,
     imageUrl: string
 }
 function App() {
-    const [appUser, setAppUser] = useState<AppUser | null>(null);
-
-    function login(){
-        const host = window.location.host === "localhost:5173" ? "http://localhost:8080" : window.location.origin;
-        window.open(host + "/oauth2/authorization/github", "_self");
-    }
-
-    function logout() {
-        const host = window.location.host === "localhost:5173" ? "http://localhost:8080" : window.location.origin;
-        window.open(host + "/logout", "_self");
-    }
+    const [appUser, setAppUser] = useState<AppUser | null | undefined>(null);
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         axios.get("/api/auth/me")
-            .then(r => setAppUser(r.data))
+            .then(r => {
+                setIsLoading(true);
+                setAppUser(r.data)
+            })
             .catch(e => console.log(e))
     }, []);
 
+    if(appUser) {
+        setIsLoading(false)
+    }
+
     return (
         <>
-            {!appUser && <button onClick={login}>Login with Github</button>}
-            {
-                appUser && (
-                    <>
-                        <h3>{appUser.name}</h3>
-                        <img src={appUser.imageUrl} alt={"avatar"}/>
-                        <button onClick={logout}>Logout</button>
-                    </>
-                )
-            }
+            <Routes>
+                <Route path={"/login"} element={<LoginPage />} />
+                <Route path={"/"} element={<StartPage />} />
+                {!isLoading && <Route element={<ProtectedRoutes appUser={appUser}/>}>
+                    <Route path={"/home"} element={<SecuredComponent/>}/>
+
+                </Route>}
+
+            </Routes>
         </>
     )
 }
