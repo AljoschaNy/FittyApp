@@ -1,59 +1,43 @@
-import {Route, Routes} from "react-router-dom";
-import AddPage from "./pages/AddPage.tsx";
-import HomePage from "./pages/HomePage.tsx";
 import {useEffect, useState} from "react";
-import {User, Workout} from "./types/types.ts";
 import axios from "axios";
-import DetailsPage from "./pages/DetailsPage.tsx";
-import EditPage from "./pages/EditPage.tsx";
 
+
+type AppUser = {
+    id: string,
+    name: string,
+    imageUrl: string
+}
 function App() {
-    const [workouts, setWorkouts] = useState<Workout[]>([]);
-    const [isFetchingWorkouts, setIsFetchingWorkouts] = useState(true);
-    const [isFetchingUser, setIsFetchingUser] = useState(true);
-    const [user, setUser] = useState<User>();
-    const userId = "655b5b283f332f4fcfbf02c0";
+    const [appUser, setAppUser] = useState<AppUser | null>(null);
 
-    function fetchWorkoutsByUser() {
-        user && axios.get(`/api/workouts/${user.id}`)
-            .then((response) => {
-                setWorkouts(response.data);
-                setIsFetchingWorkouts(false);
-            })
-            .catch(error => {
-                console.error("Fehler beim Abrufen des Workouts: " + error);
-            });
+    function login(){
+        const host = window.location.host === "localhost:5173" ? "http://localhost:8080" : window.location.origin;
+        window.open(host + "/oauth2/authorization/github", "_self");
     }
 
-    function fetchUserDetails() {
-        axios.get(`/api/users/${userId}`)
-            .then(response => {
-                setUser(response.data);
-                setIsFetchingUser(false);
-            })
+    function logout() {
+        const host = window.location.host === "localhost:5173" ? "http://localhost:8080" : window.location.origin;
+        window.open(host + "/logout", "_self");
     }
 
     useEffect(() => {
-        fetchUserDetails();
+        axios.get("/api/auth/me")
+            .then(r => setAppUser(r.data))
+            .catch(e => console.log(e))
     }, []);
-
-    useEffect(() => {
-        fetchWorkoutsByUser();
-    }, [isFetchingUser]);
-
-    if(isFetchingWorkouts) {
-        return <p></p>
-    }
 
     return (
         <>
-            <Routes>
-                <Route path={"/"} element={<HomePage userName={user?.name} workouts={workouts} />} />
-                <Route path={"/workout/add"} element={<AddPage userId={userId} onWorkoutChange={fetchWorkoutsByUser}/>} />
-                <Route path={"/workout/:id"} element={<DetailsPage />} />
-                <Route path={"/workout/:id/edit"} element={<EditPage onWorkoutChange={fetchWorkoutsByUser} />} />
-            </Routes>
-            <div className={"position-fix-bottom"}></div>
+            {!appUser && <button onClick={login}>Login with Github</button>}
+            {
+                appUser && (
+                    <>
+                        <h3>{appUser.name}</h3>
+                        <img src={appUser.imageUrl} alt={"avatar"}/>
+                        <button onClick={logout}>Logout</button>
+                    </>
+                )
+            }
         </>
     )
 }

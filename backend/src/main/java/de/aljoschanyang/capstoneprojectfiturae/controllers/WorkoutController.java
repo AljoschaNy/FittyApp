@@ -15,6 +15,11 @@ import java.util.List;
 public class WorkoutController {
     private WorkoutService workoutService;
 
+    @GetMapping
+    public String secured() {
+        return "Hello from secured endpoint";
+    }
+
     @PostMapping
     public Workout addWorkout(@RequestBody WorkoutDetails workoutDetails) {
         return workoutService.addWorkout(workoutDetails);
