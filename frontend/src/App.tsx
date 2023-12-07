@@ -7,7 +7,7 @@ import StartPage from "./pages/StartPage.tsx";
 import HomeWithWorkouts from "./components/state/HomeWithWorkouts.tsx";
 import DetailsPage from "./pages/DetailsPage.tsx";
 import AddPageWithWorkouts from "./components/state/AddPageWithWorkouts.tsx";
-
+import EditPageWithWorkouts from "./components/state/EditPageWithWorkouts.tsx";
 
 export type AppUser = {
     id: string,
@@ -46,6 +46,7 @@ function App() {
                 <Route element={<ProtectedRoutes appUser={appUser}/>}>
                     <Route path={"/home"} element={<HomeWithWorkouts userId={userId} userName={appUser?.name}/>}/>
                     <Route path={"/workout/add"} element={<AddPageWithWorkouts userId={userId}/>} />
+                    <Route path={"/workout/:id/edit"} element={<EditPageWithWorkouts userId={userId} />} />
                     <Route path={"/workout/:id"} element={<DetailsPage />} />
                 </Route>
 
