@@ -15,18 +15,17 @@ import java.util.List;
 @AllArgsConstructor
 public class WorkoutService {
     private WorkoutRepo workoutRepo;
-    private AppUserService appUserService;
+    private de.aljoschanyang.capstoneprojectfiturae.services.AppUserService appUserService;
 
     public Workout addWorkout(WorkoutDetails workoutDetails) {
         AppUser appUser = appUserService.getUserById(workoutDetails.userId());
 
         return workoutRepo.save(Workout.builder()
-                        .id(null)
-                        .userId(appUser.id())
-                        .name(workoutDetails.name())
-                        .day(workoutDetails.day())
-                        .description(workoutDetails.description())
-                        .plan(workoutDetails.plan())
+                .userId(appUser.id())
+                .name(workoutDetails.name())
+                .day(workoutDetails.day())
+                .description(workoutDetails.description())
+                .plan(workoutDetails.plan())
                 .build());
     }
 
@@ -42,12 +41,12 @@ public class WorkoutService {
     public Workout editWorkout(String id, WorkoutEdit workoutEdit) {
         Workout legacy = getWorkoutById(id);
         return workoutRepo.save(Workout.builder()
-                        .id(legacy.id())
-                        .userId(legacy.userId())
-                        .name(workoutEdit.name())
-                        .day(workoutEdit.day())
-                        .description(workoutEdit.description())
-                        .plan(workoutEdit.plan())
+                .id(legacy.id())
+                .userId(legacy.userId())
+                .name(workoutEdit.name())
+                .day(workoutEdit.day())
+                .description(workoutEdit.description())
+                .plan(workoutEdit.plan())
                 .build());
     }
 

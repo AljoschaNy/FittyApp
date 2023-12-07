@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -18,6 +19,7 @@ import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
 class WorkoutControllerTest {
@@ -31,15 +33,16 @@ class WorkoutControllerTest {
     private ObjectMapper objectMapper;
 
     private static final String BASE_URI = "/api/workouts";
+    private final de.aljoschanyang.capstoneprojectfiturae.models.AppUser VALID_APP_USER = new de.aljoschanyang.capstoneprojectfiturae.models.AppUser("validUserId", "User1","email","imgUrl");
+
 
     @Test
     @DirtiesContext
     void addWorkout_whenUserExistsInDb_thenReturnWorkout() throws Exception {
-        AppUser validAppUser = new AppUser("validUserId", "User1");
-        appUserRepo.save(validAppUser);
+        appUserRepo.save(VALID_APP_USER);
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
-                .userId("validUserId")
+                .userId(VALID_APP_USER.id())
                 .name("Test Workout")
                 .day(WeekDay.MONDAY)
                 .description("Test description")
@@ -54,7 +57,8 @@ class WorkoutControllerTest {
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").value(workoutDetails.name()))
                 .andExpect(jsonPath("$.day").value(workoutDetails.day().toString()))
-                .andExpect(jsonPath("$.description").value(workoutDetails.description()));
+                .andExpect(jsonPath("$.description").value(workoutDetails.description()))
+                .andExpect(jsonPath("$.plan").isEmpty());
     }
 
     @Test
@@ -79,11 +83,10 @@ class WorkoutControllerTest {
     @Test
     @DirtiesContext
     void getAllWorkoutsByUserId_whenUserExists_thenReturnWorkouts() throws Exception {
-        AppUser validAppUser = new AppUser("validUserId", "User1");
-        appUserRepo.save(validAppUser);
+        appUserRepo.save(VALID_APP_USER);
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
-                .userId(validAppUser.id())
+                .userId(VALID_APP_USER.id())
                 .name("Test Workout")
                 .day(WeekDay.MONDAY)
                 .description("Test description")
@@ -94,15 +97,15 @@ class WorkoutControllerTest {
         MvcResult result = mockMvc.perform(post(BASE_URI)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(workoutDetailsAsJson))
-                        .andExpect(status().isOk())
-                        .andReturn();
+                .andExpect(status().isOk())
+                .andReturn();
         String jsonResponse = result.getResponse().getContentAsString();
         Workout workout = objectMapper.readValue(jsonResponse, Workout.class);
 
         List<Workout> expected = List.of(workout);
         String expectedAsJson = objectMapper.writeValueAsString(expected);
 
-        mockMvc.perform(get(BASE_URI + "/" + validAppUser.id()))
+        mockMvc.perform(get(BASE_URI + "/" + VALID_APP_USER.id()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedAsJson));
     }
@@ -119,11 +122,10 @@ class WorkoutControllerTest {
     @Test
     @DirtiesContext
     void getWorkoutById_whenIdIsValid_thenReturnWorkout() throws Exception {
-        AppUser validAppUser = new AppUser("validUserId", "User1");
-        appUserRepo.save(validAppUser);
+        appUserRepo.save(VALID_APP_USER);
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
-                .userId(validAppUser.id())
+                .userId(VALID_APP_USER.id())
                 .name("Test Workout")
                 .day(WeekDay.MONDAY)
                 .description("Test description")
@@ -203,8 +205,8 @@ class WorkoutControllerTest {
 
         String workoutEditAsJson = objectMapper.writeValueAsString(workoutEdit);
         mockMvc.perform(put(BASE_URI + "/invalidId")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(workoutEditAsJson))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(workoutEditAsJson))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("The workout is unknown"));
     }
@@ -212,7 +214,7 @@ class WorkoutControllerTest {
     @Test
     @DirtiesContext
     void deleteWorkout() throws Exception {
-        AppUser appUser = new AppUser("User1", "User1");
+        de.aljoschanyang.capstoneprojectfiturae.models.AppUser appUser = new de.aljoschanyang.capstoneprojectfiturae.models.AppUser("User1", "User1","email","imgUrl");
         appUserRepo.save(appUser);
         Workout workout = Workout.builder()
                 .id("1")

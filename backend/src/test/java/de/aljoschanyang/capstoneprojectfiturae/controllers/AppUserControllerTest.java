@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class AppAppUserControllerTest {
+class AppUserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -33,7 +33,7 @@ class AppAppUserControllerTest {
     @Test
     @DirtiesContext
     void addUser_whenUserWithName_thenExpectNameMatchesInput() throws Exception {
-        AppUserDetails appUserDetails = new AppUserDetails("TestName");
+        AppUserDetails appUserDetails = new AppUserDetails("TestName", "email","url");
         String userDetailsAsJson = objectMapper.writeValueAsString(appUserDetails);
 
         mockMvc.perform(post(BASE_URI)
@@ -47,7 +47,7 @@ class AppAppUserControllerTest {
     @Test
     @DirtiesContext
     void addUser_whenNoNameProvided_thenExpectEmptyName() throws Exception {
-        AppUserDetails appUserDetails = new AppUserDetails(null);
+        AppUserDetails appUserDetails = new AppUserDetails(null,null,null);
         String userDetailsAsJson = objectMapper.writeValueAsString(appUserDetails);
 
         mockMvc.perform(post(BASE_URI)
@@ -61,7 +61,7 @@ class AppAppUserControllerTest {
     @Test
     @DirtiesContext
     void getUserById_whenIdIsCorrect_thenReturnUser() throws Exception {
-        AppUserDetails appUserDetails = new AppUserDetails("TestName");
+        AppUserDetails appUserDetails = new AppUserDetails("TestName","email","url");
         String userDetailsAsJson = objectMapper.writeValueAsString(appUserDetails);
 
         MvcResult result = mockMvc.perform(post(BASE_URI)
