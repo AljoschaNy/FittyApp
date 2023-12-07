@@ -1,11 +1,8 @@
 import WorkoutProvider from "./WorkoutProvider.tsx";
 import AddPage from "../../pages/AddPage.tsx";
+import {ModifyPageWithWorkoutsProps} from "../../types/types.ts";
 
-type Props = {
-    userId: string
-}
-
-function AddPageWithWorkouts({ userId }: Readonly<Props>) {
+function AddPageWithWorkouts({ userId }: Readonly<ModifyPageWithWorkoutsProps>) {
     return(
         <WorkoutProvider userId={userId}>
             <AddPage userId={userId}/>

@@ -61,7 +61,6 @@ function HomePage({userName}:Readonly<HomeProps>) {
                 <button className={"btn-regular btn-add-workout"} onClick={() => navigate("/workout/add")}>+</button>
             </div>
         </>
-
     )
 }
 

@@ -1,12 +1,8 @@
 import WorkoutProvider from "./WorkoutProvider.tsx";
 import HomePage from "../../pages/HomePage.tsx";
+import {HomeWithWorkoutsProps} from "../../types/types.ts";
 
-type Props = {
-    userId: string,
-    userName: string | undefined
-}
-
-function HomeWithWorkouts({ userId, userName }: Readonly<Props>) {
+function HomeWithWorkouts({ userId, userName }: Readonly<HomeWithWorkoutsProps>) {
     return(
         <WorkoutProvider userId={userId}>
             <HomePage userName={userName}/>

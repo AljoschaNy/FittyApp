@@ -1,15 +1,10 @@
 import {useNavigate} from "react-router-dom";
 import React, {useContext, useEffect, useState} from "react";
-import {Workout, WorkoutExercise, WorkoutNoId} from "../../types/types.ts";
+import {Workout, WorkoutExercise, WorkoutFormType, WorkoutNoId} from "../../types/types.ts";
 import axios from "axios";
 import "./WorkoutForm.css";
 import TextInput from "./TextInput.tsx";
 import {WorkoutContext} from "../state/WorkoutContext.tsx";
-
-type WorkoutFormType = {
-    formType: "new" | "edit",
-    initialWorkout: Workout
-}
 
 function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
     const navigate = useNavigate();

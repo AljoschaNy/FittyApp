@@ -1,5 +1,12 @@
 import React from "react";
 
+// Model Types
+export type AppUser = {
+    id: string,
+    name: string,
+    imageUrl: string
+}
+
 export type Workout = {
     id?: string,
     userId: string,
@@ -31,12 +38,19 @@ export type User = {
     name: string
 }
 
+// Page Types
 export type HomeProps = {
     userName: string | undefined
 }
 
 export type AddPageProps = {
     userId: string
+}
+
+// Component Types
+export type WorkoutFormType = {
+    formType: "new" | "edit",
+    initialWorkout: Workout
 }
 
 export type HeaderPagesProps = {
@@ -55,14 +69,23 @@ export type TextInputType = {
     onChange: (event:React.ChangeEvent<HTMLInputElement>) => void
 }
 
-// State types
+// State Types
 export type WorkoutContextType = {
     workouts: Workout[],
     setWorkouts: (value: Workout[]) => void,
     fetchWorkouts: () => void
 }
 
+export type HomeWithWorkoutsProps = {
+    userId: string,
+    userName: string | undefined
+}
+
 export type WorkoutProviderProps = {
     children: React.ReactNode;
+    userId: string
+}
+
+export type ModifyPageWithWorkoutsProps = {
     userId: string
 }
