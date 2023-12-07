@@ -64,3 +64,13 @@ export type TextInputType = {
     placeholder?: string,
     onChange: (event:React.ChangeEvent<HTMLInputElement>) => void
 }
+
+// State types
+export type WorkoutContextType = {
+    workouts: Workout[],
+    setWorkouts: (value: Workout[]) => void
+}
+
+export type WorkoutProviderProps = {
+    children: React.ReactNode;
+}
