@@ -82,7 +82,7 @@ function DetailsPage() {
                     <EditIcon />
             </button>
             <div className={"footer-single-child"}>
-                <button className={"icon"} onClick={() => navigate("/")}>
+                <button className={"icon"} onClick={() => navigate("/home")}>
                     <HomeIcon />
                 </button>
             </div>
