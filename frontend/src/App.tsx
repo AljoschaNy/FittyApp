@@ -1,57 +1,49 @@
-import {Route, Routes} from "react-router-dom";
-import AddPage from "./pages/AddPage.tsx";
-import HomePage from "./pages/HomePage.tsx";
 import {useEffect, useState} from "react";
-import {User, Workout} from "./types/types.ts";
 import axios from "axios";
+import {Route, Routes} from "react-router-dom";
+import LoginPage from "./pages/LoginPage.tsx";
+import ProtectedRoutes from "./components/security/ProtectedRoutes.tsx";
+import StartPage from "./pages/StartPage.tsx";
+import HomeWithWorkouts from "./components/state/HomeWithWorkouts.tsx";
 import DetailsPage from "./pages/DetailsPage.tsx";
-import EditPage from "./pages/EditPage.tsx";
+import AddPageWithWorkouts from "./components/state/AddPageWithWorkouts.tsx";
+import EditPageWithWorkouts from "./components/state/EditPageWithWorkouts.tsx";
+import {AppUser} from "./types/types.ts";
 
 function App() {
-    const [workouts, setWorkouts] = useState<Workout[]>([]);
-    const [isFetchingWorkouts, setIsFetchingWorkouts] = useState(true);
-    const [isFetchingUser, setIsFetchingUser] = useState(true);
-    const [user, setUser] = useState<User>();
+    const [appUser, setAppUser] = useState<AppUser | null | undefined>(null);
+    const [isLoading, setIsLoading] = useState(true);
     const userId = "655b5b283f332f4fcfbf02c0";
 
-    function fetchWorkoutsByUser() {
-        user && axios.get(`/api/workouts/${user.id}`)
-            .then((response) => {
-                setWorkouts(response.data);
-                setIsFetchingWorkouts(false);
+    useEffect(() => {
+        axios.get("/api/auth/me")
+            .then(response => {
+                if(response.data) {
+                    setIsLoading(false);
+                    setAppUser(response.data)
+                }
             })
             .catch(error => {
-                console.error("Fehler beim Abrufen des Workouts: " + error);
-            });
-    }
-
-    function fetchUserDetails() {
-        axios.get(`/api/users/${userId}`)
-            .then(response => {
-                setUser(response.data);
-                setIsFetchingUser(false);
+                setIsLoading(false)
+                console.log(error)
             })
-    }
-
-    useEffect(() => {
-        fetchUserDetails();
     }, []);
 
-    useEffect(() => {
-        fetchWorkoutsByUser();
-    }, [isFetchingUser]);
-
-    if(isFetchingWorkouts) {
-        return <p></p>
+    if(isLoading) {
+        return <div>Loading...</div>
     }
 
     return (
         <>
             <Routes>
-                <Route path={"/"} element={<HomePage userName={user?.name} workouts={workouts} />} />
-                <Route path={"/workout/add"} element={<AddPage userId={userId} onWorkoutChange={fetchWorkoutsByUser}/>} />
-                <Route path={"/workout/:id"} element={<DetailsPage />} />
-                <Route path={"/workout/:id/edit"} element={<EditPage onWorkoutChange={fetchWorkoutsByUser} />} />
+                <Route path={"/"} element={<StartPage />} />
+                <Route path={"/login"} element={<LoginPage />} />
+                <Route element={<ProtectedRoutes appUser={appUser}/>}>
+                    <Route path={"/home"} element={<HomeWithWorkouts userId={userId} userName={appUser?.name}/>}/>
+                    <Route path={"/workout/add"} element={<AddPageWithWorkouts userId={userId}/>} />
+                    <Route path={"/workout/:id/edit"} element={<EditPageWithWorkouts userId={userId} />} />
+                    <Route path={"/workout/:id"} element={<DetailsPage />} />
+                </Route>
             </Routes>
             <div className={"position-fix-bottom"}></div>
         </>

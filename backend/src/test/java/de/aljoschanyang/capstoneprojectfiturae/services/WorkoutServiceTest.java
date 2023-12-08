@@ -17,12 +17,11 @@ import static org.mockito.Mockito.*;
 class WorkoutServiceTest {
     private final AppUserRepo mockAppUserRepo = mock(AppUserRepo.class);
     private final WorkoutRepo mockWorkoutRepo = mock(WorkoutRepo.class);
-    private final AppUserService appUserService = new AppUserService(mockAppUserRepo);
-    private final WorkoutService workoutService = new WorkoutService(mockWorkoutRepo, appUserService);
+    private final de.aljoschanyang.capstoneprojectfiturae.services.AppUserService appUserService = new de.aljoschanyang.capstoneprojectfiturae.services.AppUserService(mockAppUserRepo);
+    private final de.aljoschanyang.capstoneprojectfiturae.services.WorkoutService workoutService = new de.aljoschanyang.capstoneprojectfiturae.services.WorkoutService(mockWorkoutRepo, appUserService);
 
-    private final AppUser appUser = AppUser.builder()
+    private final de.aljoschanyang.capstoneprojectfiturae.models.AppUser appUser = de.aljoschanyang.capstoneprojectfiturae.models.AppUser.builder()
             .id("userId")
-            .name("Test")
             .build();
 
     @Test
@@ -37,11 +36,11 @@ class WorkoutServiceTest {
                 .build();
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
-                .userId(appUser.id())
-                .name("Test workout")
-                .day(WeekDay.MONDAY)
-                .description("Test description")
-                .plan(List.of())
+                .userId(expected.userId())
+                .name(expected.name())
+                .day(expected.day())
+                .description(expected.description())
+                .plan(expected.plan())
                 .build();
 
         when(mockAppUserRepo.findById(appUser.id())).thenReturn(Optional.of(appUser));

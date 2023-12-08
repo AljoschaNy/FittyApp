@@ -11,6 +11,10 @@ public record AppUser(
         @Id
         String id,
         @Field("user_name")
-        String name
+        String name,
+        @Field("user_email")
+        String email,
+        @Field("user_img_url")
+        String imageUrl
 ) {
 }
