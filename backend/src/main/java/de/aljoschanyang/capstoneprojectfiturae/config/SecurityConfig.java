@@ -15,37 +15,25 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${myapp.environment}")
-    private String environment;
+    @Value("${myapp.frontend.url}")
+    private String frontendUrl;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(a -> a
-                        .requestMatchers("/api/workouts/**").authenticated()
-                        .requestMatchers("/api/users/**").authenticated()
-                        .requestMatchers("/api/auth/me").authenticated()
+                        .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .exceptionHandling(exceptionHandlingConfigurer ->
                         exceptionHandlingConfigurer.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .logout(l -> {
-                    if(environment.equals("prod")) {
-                        l.logoutSuccessUrl("/").permitAll();
-                    } else {
-                        l.logoutSuccessUrl("http://localhost:5173").permitAll();
-                    }
-                })
+                .logout(l -> l.logoutSuccessUrl(frontendUrl).permitAll())
                 .oauth2Login(o -> {
                     try {
                         o.init(http);
-                        if(environment.equals("prod")) {
-                            o.defaultSuccessUrl("/home", true);
-                        } else {
-                            o.defaultSuccessUrl("http://localhost:5173/home", true);
-                        }
+                        o.defaultSuccessUrl(frontendUrl + "/home", true);
                     } catch (Exception e) {
                         throw new IllegalArgumentException(e);
                     }
