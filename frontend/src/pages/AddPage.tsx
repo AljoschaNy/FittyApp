@@ -18,7 +18,7 @@ function AddPage({userId}:Readonly<AddPageProps>) {
             <div className={"main-wrapper"}>
                 <WorkoutForm formType={"new"} initialWorkout={initialWorkout} />
             </div>
-            <FooterFormPages cancelDestination={"/"} formId={"workout-form"} />
+            <FooterFormPages cancelDestination={"/home"} formId={"workout-form"} />
         </>
     );
 }
