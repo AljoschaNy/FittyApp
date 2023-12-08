@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockUser
 class WorkoutControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -33,7 +35,7 @@ class WorkoutControllerTest {
     private ObjectMapper objectMapper;
 
     private static final String BASE_URI = "/api/workouts";
-    private final de.aljoschanyang.capstoneprojectfiturae.models.AppUser VALID_APP_USER = new de.aljoschanyang.capstoneprojectfiturae.models.AppUser("validUserId", "User1","email","imgUrl");
+    private final AppUser VALID_APP_USER = new AppUser("validUserId", "User1","email","imgUrl");
 
 
     @Test
@@ -111,6 +113,7 @@ class WorkoutControllerTest {
     }
 
     @Test
+    @DirtiesContext
     void getAllWorkoutsByUserId_whenUserDoesNotExist_thenThrowException() throws Exception {
         String invalidUserId = "invalidUserId";
 
@@ -148,6 +151,7 @@ class WorkoutControllerTest {
     }
 
     @Test
+    @DirtiesContext
     void getWorkoutById_whenIdIsInvalid_thenThrowException() throws Exception {
         String invalidId = "invalidId";
 
@@ -157,6 +161,7 @@ class WorkoutControllerTest {
     }
 
     @Test
+    @DirtiesContext
     void editWorkout_whenValidData_thenReturnWorkout() throws Exception {
         Workout workoutBefore = Workout.builder()
                 .id("1")
@@ -195,6 +200,7 @@ class WorkoutControllerTest {
     }
 
     @Test
+    @DirtiesContext
     void editWorkout_whenInvalidData_thenThrowException() throws Exception {
         WorkoutEdit workoutEdit = WorkoutEdit.builder()
                 .name("Changed Workout")
