@@ -39,6 +39,10 @@ export type User = {
 }
 
 // Page Types
+export type ProfilePageProps = {
+    appUser: AppUser
+}
+
 export type HomeProps = {
     userName: string | undefined,
     imageUrl: string
@@ -90,4 +94,8 @@ export type WorkoutProviderProps = {
 
 export type ModifyPageWithWorkoutsProps = {
     userId: string
+}
+
+export type ProfilePageWithWorkoutsProps = {
+    appUser: AppUser
 }

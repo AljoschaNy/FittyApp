@@ -9,6 +9,7 @@ import DetailsPage from "./pages/DetailsPage.tsx";
 import AddPageWithWorkouts from "./components/state/AddPageWithWorkouts.tsx";
 import EditPageWithWorkouts from "./components/state/EditPageWithWorkouts.tsx";
 import {AppUser} from "./types/types.ts";
+import ProfilePageWithWorkouts from "./components/state/ProfilePageWithWorkouts.tsx";
 
 function App() {
     const [appUser, setAppUser] = useState<AppUser | null | undefined>(null);
@@ -42,6 +43,7 @@ function App() {
                     <Route path={"/workout/add"} element={appUser && <AddPageWithWorkouts userId={appUser.id}/>}/>
                     <Route path={"/workout/:id/edit"} element={appUser && <EditPageWithWorkouts userId={appUser.id}/>}/>
                     <Route path={"/workout/:id"} element={<DetailsPage/>}/>
+                    <Route path={"/profile"} element={appUser && <ProfilePageWithWorkouts appUser={appUser} />} />
                 </Route>
             </Routes>
             <div className={"position-fix-bottom"}></div>
