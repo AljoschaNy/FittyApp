@@ -14,14 +14,12 @@ public class AppUserService {
     private AppUserRepo appUserRepo;
 
     public AppUser addUser(AppUser appUser) {
-        Optional<AppUser> existingUser = appUserRepo.findById(appUser.id());
-
-        return existingUser.orElseGet(() -> appUserRepo.save(AppUser.builder()
-                        .id(appUser.id())
-                        .name(appUser.name())
-                        .email(appUser.email())
-                        .imageUrl(appUser.imageUrl())
-                        .build()));
+        if(appUser.id() != null) {
+            Optional<AppUser> existingUser = appUserRepo.findById(appUser.id());
+            return existingUser.orElse(appUserRepo.save(appUser));
+        } else {
+            return appUserRepo.save(appUser);
+        }
     }
 
     public AppUser getUserById (String id) {

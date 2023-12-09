@@ -32,24 +32,24 @@ class AppUserControllerTest {
     @Test
     @DirtiesContext
     void addUser_whenUserDetailsProvided_thenSaveAndReturnUser() throws Exception {
-        AppUserDetails appUserDetails = new AppUserDetails("name","email","imgUrl");
-        String userDetailsAsJson = objectMapper.writeValueAsString(appUserDetails);
+        AppUser appUser = new AppUser("1","name","email","imgUrl");
+        String userDetailsAsJson = objectMapper.writeValueAsString(appUser);
 
         mockMvc.perform(post(BASE_URI)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userDetailsAsJson))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value(appUserDetails.name()))
-                .andExpect(jsonPath("$.email").value(appUserDetails.email()))
-                .andExpect(jsonPath("$.imageUrl").value(appUserDetails.imageUrl()))
+                .andExpect(jsonPath("$.name").value(appUser.name()))
+                .andExpect(jsonPath("$.email").value(appUser.email()))
+                .andExpect(jsonPath("$.imageUrl").value(appUser.imageUrl()))
                 .andExpect(jsonPath("$.id").exists());
     }
 
     @Test
     @DirtiesContext
     void addUser_whenNoUserDetailsProvided_thenSaveAndReturnUserWithNullDetails() throws Exception {
-        AppUserDetails appUserDetails = new AppUserDetails(null,null,null);
-        String userDetailsAsJson = objectMapper.writeValueAsString(appUserDetails);
+        AppUser appUser = new AppUser(null,null,null,null);
+        String userDetailsAsJson = objectMapper.writeValueAsString(appUser);
 
         mockMvc.perform(post(BASE_URI)
                         .contentType(MediaType.APPLICATION_JSON)
