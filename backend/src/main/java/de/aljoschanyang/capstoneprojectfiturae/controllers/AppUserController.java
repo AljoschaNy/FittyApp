@@ -1,7 +1,6 @@
 package de.aljoschanyang.capstoneprojectfiturae.controllers;
 
 import de.aljoschanyang.capstoneprojectfiturae.models.AppUser;
-import de.aljoschanyang.capstoneprojectfiturae.models.AppUserDetails;
 import de.aljoschanyang.capstoneprojectfiturae.services.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,8 @@ public class AppUserController {
     private AppUserService appUserService;
 
     @PostMapping("")
-    public AppUser addUser(@RequestBody AppUserDetails appUserDetails) {
-        return appUserService.addUser(appUserDetails);
+    public AppUser addUser(@RequestBody AppUser appUser) {
+        return appUserService.addUser(appUser);
     }
 
     @GetMapping("/{id}")

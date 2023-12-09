@@ -40,7 +40,8 @@ export type User = {
 
 // Page Types
 export type HomeProps = {
-    userName: string | undefined
+    userName: string | undefined,
+    imageUrl: string
 }
 
 export type AddPageProps = {
@@ -78,7 +79,8 @@ export type WorkoutContextType = {
 
 export type HomeWithWorkoutsProps = {
     userId: string,
-    userName: string | undefined
+    userName: string | undefined,
+    imageUrl: string
 }
 
 export type WorkoutProviderProps = {

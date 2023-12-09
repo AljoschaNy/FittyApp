@@ -5,7 +5,7 @@ import RightArrow from "../components/svg/RightArrow.tsx";
 import {useContext} from "react";
 import {WorkoutContext} from "../components/state/WorkoutContext.tsx";
 
-function HomePage({userName}:Readonly<HomeProps>) {
+function HomePage({userName, imageUrl}:Readonly<HomeProps>) {
     const navigate = useNavigate();
     const {workouts} = useContext(WorkoutContext);
 
@@ -19,7 +19,7 @@ function HomePage({userName}:Readonly<HomeProps>) {
                 <div className={"header-home-bg"}></div>
                 <div className={"header-greeting"}>
                     <img
-                        src={"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+                        src={imageUrl}
                         className={"profile-pic"}
                         alt={"profile picture"}
                     />
