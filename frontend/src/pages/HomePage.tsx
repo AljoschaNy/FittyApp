@@ -4,6 +4,8 @@ import {HomeProps, Workout} from "../types/types.ts";
 import RightArrow from "../components/svg/RightArrow.tsx";
 import {useContext} from "react";
 import {WorkoutContext} from "../components/state/WorkoutContext.tsx";
+import ProfileIcon from "../components/svg/ProfileIcon.tsx";
+import PlusIcon from "../components/svg/PlusIcon.tsx";
 
 function HomePage({userName, imageUrl}:Readonly<HomeProps>) {
     const navigate = useNavigate();
@@ -57,8 +59,13 @@ function HomePage({userName, imageUrl}:Readonly<HomeProps>) {
                     )
                 })}
             </div>
-            <div className={"footer-single-child"}>
-                <button className={"btn-regular btn-add-workout"} onClick={() => navigate("/workout/add")}>+</button>
+            <div className={"footer-home"}>
+                <button className={"btn-home-page btn-home-page-add"} onClick={() => navigate("/workout/add")}>
+                    <PlusIcon />
+                </button>
+                <button className={"btn-home-page btn-home-page-profile"} onClick={() => navigate("/profile")}>
+                    <ProfileIcon/>
+                </button>
             </div>
         </>
     )

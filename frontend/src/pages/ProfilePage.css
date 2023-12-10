@@ -1,5 +1,4 @@
 .profile-page {
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,8 +9,8 @@
 }
 
 .profile-pic-lg {
-    height: 200px;
-    width: 200px;
+    height: 280px;
+    width: 280px;
     background: yellow;
     border-radius: 50%;
 }
