@@ -1,4 +1,6 @@
 import {useNavigate} from "react-router-dom";
+import "./LoginPage.css";
+import GithubIcon from "../components/svg/GithubIcon.tsx";
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -8,10 +10,18 @@ function LoginPage() {
     }
 
     return (
-        <>
-            <button onClick={login}>Login with GitHub</button>
-            <button onClick={() => navigate("/")}>Back to Home</button>
-        </>
+        <div className={"main-wrapper"}>
+            <div className={"login-page"}>
+                <h1>FITURAE</h1>
+                <button className={"icon"} onClick={login}>
+                    <GithubIcon />
+                    <p>Login with GitHub</p>
+                </button>
+                <button className={"icon login-page-home"} onClick={() => navigate("/")}>HOME</button>
+            </div>
+        </div>
+
+
     )
 }
 
