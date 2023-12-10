@@ -90,7 +90,7 @@
 }
 
 .exercise-container {
-    margin: 0 10px;
+    margin: 0 10px 10px;
     display: flex;
     flex-direction: column;
 }

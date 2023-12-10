@@ -1,9 +1,10 @@
 .workout-exercise-card {
     color: var(--color-4);
-    margin: 10px;
+    margin: 10px auto;
     padding: 15px 20px;
     border-radius: 20px;
     background: var(--color-6);
+    max-width: 700px;
 }
 
 .details-field {
@@ -15,5 +16,10 @@
 }
 
 .exercises-title {
+    text-align: center;
+}
+
+.exercise-details-name,
+.exercise-details {
     text-align: center;
 }
