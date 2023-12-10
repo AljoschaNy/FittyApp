@@ -14,7 +14,7 @@ function DetailsPage() {
     const [workout, setWorkout] = useState<Workout>();
     const [error, setError] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState(true);
-    const [visibleExerciseIds, setVisibleExerciseIds] = useState<string[]>([]);
+    const [visibleExerciseIds, setVisibleExerciseIds] = useState<number[]>([]);
 
     function fetchWorkoutDetails() {
         axios.get(`../api/workouts/details/${id}`)
@@ -43,7 +43,7 @@ function DetailsPage() {
         )
     }
 
-    function toggleDetails(exerciseId:string) {
+    function toggleDetails(exerciseId:number) {
         if(visibleExerciseIds.includes(exerciseId)) {
             setVisibleExerciseIds(visibleExerciseIds.filter(id => id !== exerciseId));
         } else {
@@ -72,19 +72,31 @@ function DetailsPage() {
                 <p className={"details-field"}>{workout.description}</p><br/>
                 <p className={"details-field"}>{workout.day}</p><br/>
                 <h3 className={"exercises-title"}>Exercises</h3>
-                    {workout.plan.map((exercise,index) => (
-                        <div key={index+" " + workout.id} className={"workout-exercise-card"} onClick={() => toggleDetails(index+" " + workout.id)}>
-                            <p className={"exercise-details-name"}>{exercise.name}</p>
-                            {visibleExerciseIds.includes(index+" " + workout.id) && (
-                                <div className={"exercise-details"}>
-                                    <p>Sets: {exercise.setCount}</p>
-                                    <p>Reps: {exercise.repsPerSet}</p>
-                                    <p>Weight in kg: {exercise.weightInKg}</p>
-                                    <p>Break in sec: {exercise.breakInSec}</p>
+                    {workout.plan.map((exercise,index) => {
+                        const exerciseId = index+1;
+
+                        return (
+                                <div
+                                    key={exerciseId}
+                                    className={"workout-exercise-card"}
+                                    onClick={() => toggleDetails(exerciseId)}
+                                    onKeyDown={(event) => event.key==="enter" && toggleDetails(exerciseId)}
+                                    role={"button"}
+                                    tabIndex={0}
+                                >
+                                    <p className={"exercise-details-name"}>{exercise.name}</p>
+                                    {visibleExerciseIds.includes(exerciseId) && (
+                                        <div className={"exercise-details"}>
+                                            <p>Sets: {exercise.setCount}</p>
+                                            <p>Reps: {exercise.repsPerSet}</p>
+                                            <p>Weight in kg: {exercise.weightInKg}</p>
+                                            <p>Break in sec: {exercise.breakInSec}</p>
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                        </div>
-                    ))}
+                            )
+                        }
+                    )}
             </div>
             <button  className={"btn-top-right-fixed icon"} onClick={() => navigate(
                     `/workout/${workout?.id}/edit`,
