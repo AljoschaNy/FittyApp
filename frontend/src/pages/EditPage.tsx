@@ -11,14 +11,14 @@ function EditPage() {
     const location = useLocation();
     const workout = location.state.workout;
     const navigate = useNavigate();
-    const [isModalOpen, setModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     function openModal() {
-        setModalOpen(true);
+        setIsModalOpen(true);
     }
 
     function closeModal() {
-        setModalOpen(false)
+        setIsModalOpen(false)
     }
 
     function deleteWorkout() {
