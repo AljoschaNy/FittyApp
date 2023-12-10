@@ -11,8 +11,13 @@
 .profile-pic-lg {
     height: 280px;
     width: 280px;
-    background: yellow;
     border-radius: 50%;
+}
+
+.profile-page-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .profile-page h2 {
@@ -21,4 +26,35 @@
 
 .btn-logout {
     align-self: flex-end;
+}
+
+@media screen and (min-width: 750px) {
+    .profile-pic-lg {
+        height: 390px;
+        width: 390px;
+        border-radius: 50%;
+    }
+}
+
+@media screen and (min-width: 1100px){
+    .btn-logout {
+        position: absolute;
+        top: 30px;
+        right: 100px;
+    }
+
+    .profile-page {
+        display: flex;
+        flex-direction: row;
+        margin: 0 30px;
+    }
+
+    .profile-page .profile-pic-lg {
+        margin-right: 100px;
+    }
+
+    .profile-page-details {
+        margin-top: -100px;
+        align-items: flex-start;
+    }
 }

@@ -15,7 +15,7 @@ function LoginPage() {
                 <h1>FITURAE</h1>
                 <button className={"icon"} onClick={login}>
                     <GithubIcon />
-                    <p>Login with GitHub</p>
+                    <p>{"< Login with GitHub >"}</p>
                 </button>
                 <button className={"icon login-page-home"} onClick={() => navigate("/")}>HOME</button>
             </div>

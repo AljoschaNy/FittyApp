@@ -61,6 +61,20 @@ h3 {
     font-size: 1.1rem;
 }
 
+@media screen and (min-width: 750px){
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+    }
+}
+
 /* Button styles */
 .btn-regular {
     width: 70px;

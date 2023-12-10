@@ -7,6 +7,12 @@
     font-size: 0.8rem;
 }
 
+@media screen and (min-width: 1100px) {
+    .exercise-form p {
+        font-size: 1rem;
+    }
+}
+
 /* Input styles */
 .input-label {
     display: block;
@@ -14,13 +20,26 @@
     font-weight: bold;
 }
 
-.workout-form-input input[type="text"] {
+.workout-form-input input {
     font-size: 1rem;
     width: 100%;
     border: none;
     border-bottom: 1px solid;
     margin-bottom: 20px;
     padding: 5px ;
+}
+
+@media screen and (min-width: 1100px) {
+    .section-workout-details {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .workout-form-input {
+        width: 70%;
+    }
 }
 
 /* Exercises section */
@@ -32,6 +51,7 @@
 
 .exercise-list {
     width: 100%;
+    max-width: 400px;
 }
 
 .exercise-form {
@@ -73,6 +93,30 @@
     margin: 0 10px;
     display: flex;
     flex-direction: column;
+}
+
+@media screen and (min-width: 1100px){
+    .exercise-list {
+        max-width: 600px;
+    }
+
+    .exercise-form input {
+        font-size: 1.1rem;
+    }
+
+    .exercise-numbers {
+        justify-content: space-around;
+    }
+
+    .exercise-form {
+        height: 160px;
+        margin-bottom: 30px;
+    }
+
+    .exercise-numbers input {
+        max-width: 60px;
+        text-align: center;
+    }
 }
 
 /* Button styles */
