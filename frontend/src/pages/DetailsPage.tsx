@@ -76,13 +76,10 @@ function DetailsPage() {
                         const exerciseId = index+1;
 
                         return (
-                                <div
+                                <button
                                     key={exerciseId}
-                                    className={"workout-exercise-card"}
+                                    className={"workout-exercise-card "}
                                     onClick={() => toggleDetails(exerciseId)}
-                                    onKeyDown={(event) => event.key==="enter" && toggleDetails(exerciseId)}
-                                    role={"button"}
-                                    tabIndex={0}
                                 >
                                     <p className={"exercise-details-name"}>{exercise.name}</p>
                                     {visibleExerciseIds.includes(exerciseId) && (
@@ -93,7 +90,7 @@ function DetailsPage() {
                                             <p>Break in sec: {exercise.breakInSec}</p>
                                         </div>
                                     )}
-                                </div>
+                                </button>
                             )
                         }
                     )}
