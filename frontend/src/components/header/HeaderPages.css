@@ -25,3 +25,12 @@
     top: -175px;
     z-index: -1;
 }
+
+@media screen and (min-width: 750px){
+    .header-pages-bg {
+        width: 500px;
+        height: 325px;
+        left: -90px;
+        top: -185px;
+    }
+}

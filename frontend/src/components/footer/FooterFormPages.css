@@ -21,3 +21,10 @@
     font-size: 2rem;
     color: red;
 }
+
+@media screen and (min-width: 1100px){
+    .footer-form-pages {
+        width: 100%;
+        padding: 0 15vw;
+    }
+}

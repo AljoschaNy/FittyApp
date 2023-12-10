@@ -10,12 +10,10 @@ function FooterFormPages({cancelDestination, formId}:Readonly<FooterFormPagesTyp
     return (
         <>
             <div className={"position-fix-bottom"}></div>
-            <div className={"container"}>
-                <footer className={"footer-form-pages"}>
-                    <button className={"icon"} onClick={() => navigate(cancelDestination)}><CrossBold /></button>
-                    <button className={"icon"} type={"submit"} form={formId}><CheckBold /></button>
-                </footer>
-            </div>
+            <footer className={"footer-form-pages"}>
+                <button className={"icon"} onClick={() => navigate(cancelDestination)}><CrossBold /></button>
+                <button className={"icon"} type={"submit"} form={formId}><CheckBold /></button>
+            </footer>
         </>
     );
 }

@@ -86,10 +86,11 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
         <div className={"container"}>
             <main className={"main-add-page"}>
                 <form id={"workout-form"} onSubmit={handleSubmit}>
-                    <TextInput name={"Name"} value={workout.name} placeholder={"e.g. Push Training..."} onChange={handleWorkoutChange} />
-                    <TextInput name={"Description"} value={workout.description} placeholder={"e.g. 60%, 90 sec..."} onChange={handleWorkoutChange} />
-                    <TextInput name={"Day"} value={workout.day} onChange={handleWorkoutChange} />
-
+                    <section className={"section-workout-details"}>
+                        <TextInput name={"Name"} value={workout.name} placeholder={"e.g. Push Training..."} onChange={handleWorkoutChange} />
+                        <TextInput name={"Description"} value={workout.description} placeholder={"e.g. 60%, 90 sec..."} onChange={handleWorkoutChange} />
+                        <TextInput name={"Day"} value={workout.day} onChange={handleWorkoutChange} />
+                    </section>
                     <section className={"section-exercises"}>
                         <h3>Exercises</h3>
                         <div className={"exercise-list"}>

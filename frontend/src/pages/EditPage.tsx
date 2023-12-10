@@ -4,11 +4,22 @@ import FooterFormPages from "../components/footer/FooterFormPages.tsx";
 import WorkoutForm from "../components/form/WorkoutForm.tsx";
 import axios from "axios";
 import TrashBin from "../components/svg/TrashBin.tsx";
+import {useState} from "react";
+import ConfirmModal from "../components/form/ConfirmModal.tsx";
 
 function EditPage() {
     const location = useLocation();
     const workout = location.state.workout;
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    function openModal() {
+        setIsModalOpen(true);
+    }
+
+    function closeModal() {
+        setIsModalOpen(false)
+    }
 
     function deleteWorkout() {
         axios.delete(`/api/workouts/${workout.id}`)
@@ -24,7 +35,17 @@ function EditPage() {
             <button
                 className={"btn-top-right-fixed icon"}
                 type={"button"}
-                onClick={deleteWorkout}><TrashBin /></button>
+                onClick={openModal}>
+                <TrashBin />
+            </button>
+            <ConfirmModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onConfirm={() => {
+                    deleteWorkout();
+                    closeModal();
+                }}
+            />
             <div className={"main-wrapper"}>
                 <WorkoutForm formType={"edit"} initialWorkout={workout} />
             </div>

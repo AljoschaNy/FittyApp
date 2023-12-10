@@ -23,14 +23,16 @@ function ProfilePage({ appUser }: Readonly<ProfilePageProps>) {
             <div className={"profile-pic-section"}>
                 <img className={"profile-pic-lg"} src={appUser.imageUrl} alt={"user avatar"} />
             </div>
-            <h2>{appUser.name}</h2>
-            <section className={"workout-stats"}>
-                <p>Workouts: <span className={"workout-stats-count"}>{workouts.length}</span></p>
-            </section>
-            <div className={"footer-single-child"}>
-                <button className={"icon"} onClick={() => navigate("/home")}>
-                    <HomeIcon />
-                </button>
+            <div className={"profile-page-details"}>
+                <h2>{appUser.name}</h2>
+                <section className={"workout-stats"}>
+                    <p>Workouts: <span className={"workout-stats-count"}>{workouts.length}</span></p>
+                </section>
+                <div className={"footer-single-child"}>
+                    <button className={"icon"} onClick={() => navigate("/home")}>
+                        <HomeIcon />
+                    </button>
+                </div>
             </div>
         </div>
     );

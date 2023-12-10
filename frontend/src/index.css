@@ -61,6 +61,24 @@ h3 {
     font-size: 1.1rem;
 }
 
+.bold {
+    font-weight: bold;
+}
+
+@media screen and (min-width: 750px){
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+    }
+}
+
 /* Button styles */
 .btn-regular {
     width: 70px;
@@ -80,6 +98,17 @@ h3 {
     position: fixed;
     top: 45px;
     right: 10px;
+}
+
+.btn-bottom-center-fixed {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 10px;
+    left: calc(50vw - 35px);
+    font-size: 2.5rem;
+    font-weight: bold;
 }
 
 /* Icon styles */
