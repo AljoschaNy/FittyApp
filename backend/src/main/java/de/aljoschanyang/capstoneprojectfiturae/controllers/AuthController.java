@@ -1,6 +1,7 @@
 package de.aljoschanyang.capstoneprojectfiturae.controllers;
 
 import de.aljoschanyang.capstoneprojectfiturae.models.AppUser;
+import de.aljoschanyang.capstoneprojectfiturae.models.AppUserDetails;
 import de.aljoschanyang.capstoneprojectfiturae.services.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,13 +22,13 @@ public class AuthController {
         var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof DefaultOAuth2User defaultOAuth2User) {
 
-            AppUser appUser = AppUser.builder()
+            AppUserDetails appUserDetails = AppUserDetails.builder()
                     .id("github" + defaultOAuth2User.getAttributes().get("id").toString())
                     .name(defaultOAuth2User.getAttributes().get("login").toString())
                     .imageUrl(defaultOAuth2User.getAttributes().get("avatar_url").toString())
                     .build();
 
-            return appUserService.addUser(appUser);
+            return appUserService.addUser(appUserDetails);
         }
 
         throw new IllegalArgumentException("No user logged in");

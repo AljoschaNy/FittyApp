@@ -2,6 +2,7 @@ package de.aljoschanyang.capstoneprojectfiturae.services;
 
 import de.aljoschanyang.capstoneprojectfiturae.exceptions.NoSuchUserException;
 import de.aljoschanyang.capstoneprojectfiturae.models.AppUser;
+import de.aljoschanyang.capstoneprojectfiturae.models.AppUserDetails;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.AppUserRepo;
 import org.junit.jupiter.api.Test;
 
@@ -23,10 +24,10 @@ class AppUserServiceTest {
                 .email("email")
                 .imageUrl("imgUrl")
                 .build();
-        AppUser appUser = new AppUser(expected.id(), expected.name(), expected.email(), expected.imageUrl());
+        AppUserDetails appUserDetails = new AppUserDetails(expected.id(), expected.name(), expected.email(), expected.imageUrl());
 
         when(mockAppUserRepo.save(any(AppUser.class))).thenReturn(expected);
-        AppUser actual = appUserService.addUser(appUser);
+        AppUser actual = appUserService.addUser(appUserDetails);
         verify(mockAppUserRepo).save(any(AppUser.class));
 
         assertEquals(expected,actual);
@@ -41,10 +42,10 @@ class AppUserServiceTest {
                 .email(null)
                 .imageUrl(null)
                 .build();
-        AppUser appUser = new AppUser(null,null,null,null);
+        AppUserDetails appUserDetails = new AppUserDetails(null,null,null,null);
 
         when(mockAppUserRepo.save(any(AppUser.class))).thenReturn(expected);
-        AppUser actual = appUserService.addUser(appUser);
+        AppUser actual = appUserService.addUser(appUserDetails);
         verify(mockAppUserRepo).save(any(AppUser.class));
 
         assertEquals(expected,actual);
