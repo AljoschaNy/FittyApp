@@ -1,0 +1,24 @@
+.profile-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-page .profile-pic-lg {
+    margin: 20px 0 40px;
+}
+
+.profile-pic-lg {
+    height: 280px;
+    width: 280px;
+    background: yellow;
+    border-radius: 50%;
+}
+
+.profile-page h2 {
+    margin-bottom: 20px;
+}
+
+.btn-logout {
+    align-self: flex-end;
+}

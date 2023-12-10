@@ -9,11 +9,11 @@ import DetailsPage from "./pages/DetailsPage.tsx";
 import AddPageWithWorkouts from "./components/state/AddPageWithWorkouts.tsx";
 import EditPageWithWorkouts from "./components/state/EditPageWithWorkouts.tsx";
 import {AppUser} from "./types/types.ts";
+import ProfilePageWithWorkouts from "./components/state/ProfilePageWithWorkouts.tsx";
 
 function App() {
     const [appUser, setAppUser] = useState<AppUser | null | undefined>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const userId = "655b5b283f332f4fcfbf02c0";
 
     useEffect(() => {
         axios.get("/api/auth/me")
@@ -39,10 +39,11 @@ function App() {
                 <Route path={"/"} element={<StartPage />} />
                 <Route path={"/login"} element={<LoginPage />} />
                 <Route element={<ProtectedRoutes appUser={appUser}/>}>
-                    <Route path={"/home"} element={<HomeWithWorkouts userId={userId} userName={appUser?.name}/>}/>
-                    <Route path={"/workout/add"} element={<AddPageWithWorkouts userId={userId}/>} />
-                    <Route path={"/workout/:id/edit"} element={<EditPageWithWorkouts userId={userId} />} />
-                    <Route path={"/workout/:id"} element={<DetailsPage />} />
+                    <Route path={"/home"} element={appUser && <HomeWithWorkouts userId={appUser.id} userName={appUser.name} imageUrl={appUser.imageUrl}/>}/>
+                    <Route path={"/workout/add"} element={appUser && <AddPageWithWorkouts userId={appUser.id}/>}/>
+                    <Route path={"/workout/:id/edit"} element={appUser && <EditPageWithWorkouts userId={appUser.id}/>}/>
+                    <Route path={"/workout/:id"} element={<DetailsPage/>}/>
+                    <Route path={"/profile"} element={appUser && <ProfilePageWithWorkouts appUser={appUser} />} />
                 </Route>
             </Routes>
             <div className={"position-fix-bottom"}></div>

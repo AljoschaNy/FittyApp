@@ -14,14 +14,23 @@ import java.util.Optional;
 public class AppUserService {
     private AppUserRepo appUserRepo;
 
-    public AppUser addUser(AppUserDetails appUserDetails) {
-        Optional<AppUser> existingUser = appUserRepo.findByEmail(appUserDetails.email());
-
-        return existingUser.orElseGet(() -> appUserRepo.save(AppUser.builder()
+    private AppUser convertToEntity(AppUserDetails appUserDetails) {
+        return AppUser.builder()
+                .id(appUserDetails.id())
                 .name(appUserDetails.name())
                 .email(appUserDetails.email())
                 .imageUrl(appUserDetails.imageUrl())
-                .build()));
+                .build();
+    }
+
+    public AppUser addUser(AppUserDetails appUserDetails) {
+        AppUser appUser = convertToEntity(appUserDetails);
+        if(appUserDetails.id() != null) {
+            Optional<AppUser> existingUser = appUserRepo.findById(appUser.id());
+            return existingUser.orElse(appUserRepo.save(appUser));
+        } else {
+            return appUserRepo.save(appUser);
+        }
     }
 
     public AppUser getUserById (String id) {

@@ -24,7 +24,7 @@ class AppUserServiceTest {
                 .email("email")
                 .imageUrl("imgUrl")
                 .build();
-        AppUserDetails appUserDetails = new AppUserDetails(expected.name(), expected.email(), expected.imageUrl());
+        AppUserDetails appUserDetails = new AppUserDetails(expected.id(), expected.name(), expected.email(), expected.imageUrl());
 
         when(mockAppUserRepo.save(any(AppUser.class))).thenReturn(expected);
         AppUser actual = appUserService.addUser(appUserDetails);
@@ -42,7 +42,7 @@ class AppUserServiceTest {
                 .email(null)
                 .imageUrl(null)
                 .build();
-        AppUserDetails appUserDetails = new AppUserDetails(null,null,null);
+        AppUserDetails appUserDetails = new AppUserDetails(null,null,null,null);
 
         when(mockAppUserRepo.save(any(AppUser.class))).thenReturn(expected);
         AppUser actual = appUserService.addUser(appUserDetails);

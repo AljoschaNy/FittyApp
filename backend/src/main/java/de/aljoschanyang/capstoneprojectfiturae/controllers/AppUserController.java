@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class AppUserController {
     private AppUserService appUserService;
 
-    @PostMapping("")
+    @PostMapping
     public AppUser addUser(@RequestBody AppUserDetails appUserDetails) {
         return appUserService.addUser(appUserDetails);
     }
