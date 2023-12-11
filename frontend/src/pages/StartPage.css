@@ -60,6 +60,7 @@
 
 .banner-video-landscape{
     display: none;
+    height: inherit;
 }
 
 .video-overlay {
@@ -79,6 +80,17 @@
 
 .banner-text {
     font-size: 2rem;
+}
+
+@media screen and (max-width: 400px) and (max-height: 700px){
+    .banner-video-section {
+        width: 100%;
+    }
+
+    .banner-video-portrait {
+        width: inherit;
+    }
+
 }
 
 @media screen and (min-width: 500px){
