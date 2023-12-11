@@ -1,7 +1,6 @@
 /* Header Styles */
 .full-width-container {
     width: 100%;
-    background: #fff;
     position: fixed;
     top: 0;
     left: 0;
@@ -9,13 +8,12 @@
 }
 
 .header-home-bg {
-    height: 410px;
-    width: 574px;
-    border-radius: 50%;
+    width: 100%;
+    height: 160px;
     background: var(--color-1);
     position: absolute;
-    top: -162px;
-    left: -37px;
+    top: 0;
+    left: 0;
     z-index: -1;
 }
 
@@ -30,18 +28,22 @@
     color: var(--color-4);
     font-size: 1.8rem;
     display: flex;
-    justify-content: space-between;
 }
 
 .profile-pic {
-    width: 110px;
-    height: 110px;
+    width: 200px;
+    height: 200px;
+    border: 2px solid white;
     border-radius: 50%;
     object-position: center;
     object-fit: cover;
 }
 
 @media screen and (min-width: 520px){
+    .header-greeting {
+        justify-content: space-between;
+    }
+
     .header-home-bg {
         display: none;
     }
@@ -80,11 +82,12 @@
 
 /* Layout */
 .position-fix-home {
-    height: 250px;
+    height: 230px;
 }
 
 /* Typography */
 .header-greeting p {
+    display: none;
     margin-left: 30px;
     font-size: 1.4rem;
     text-align: right;
@@ -95,7 +98,8 @@
 }
 
 h2.home-title {
-    margin-left: 30px;
+    margin-left: 10px;
+    margin-bottom: 30px;
 }
 
 @media screen and (min-width: 520px){
@@ -104,7 +108,10 @@ h2.home-title {
     }
 
     .header-greeting p {
-        font-size: 1.8rem;
+        display: block;
+        margin-left: 30px;
+        font-size: 1.4rem;
+        text-align: right;
     }
 }
 
@@ -126,14 +133,14 @@ h2.home-title {
 /* Workout Card Styles */
 .workout-card {
     max-width: 700px;
-    margin: 10px auto 30px;
+    margin: 10px auto 35px;
     padding: 20px 30px;
-    border-radius: 20px;
-    color: var(--color-4);
-    background: var(--color-2);
+    border: 2px solid rgb(128, 128, 128);
+    border-radius: 10px;
+    color: var(--color-3);
     position: relative;
     -webkit-box-shadow: 0 4px 8px 0 var(--color-1);
-    box-shadow: 0 4px 8px 0 var(--color-1);
+    box-shadow: 2px 2px 8px 0 rgb(128, 128, 128);
 }
 
 .workout-card h3 {
@@ -142,7 +149,7 @@ h2.home-title {
 
 .workout-card-head p {
     font-size: .7rem;
-    color: var(--color-5);
+    color: var(--color-3);
 }
 
 .workout-card-head {
@@ -186,12 +193,12 @@ h2.home-title {
 }
 
 .btn-home-page-add {
-    width: 70%;
+    width: 50%;
     background: rgba(43, 115, 43, 0.8);
 }
 
 .btn-home-page-profile {
-    width: 30%;
+    width: 50%;
     background: rgba(58, 12, 65, 0.8);
 }
 

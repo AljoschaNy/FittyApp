@@ -33,7 +33,6 @@ function HomePage({userName, imageUrl}:Readonly<HomeProps>) {
                             </button>
                         </div>
                     </div>
-                    <div className={"test"}></div>
                 </header>
             </div>
             <div className={"position-fix-home"}></div>
@@ -70,10 +69,10 @@ function HomePage({userName, imageUrl}:Readonly<HomeProps>) {
             </div>
             <footer className={"footer-home-container"}>
                 <div className={"footer-home"}>
-                    <button className={"btn-home-page btn-home-page-add"} onClick={() => navigate("/workout/add")}>
+                    <button className={"btn-home-page-add"} onClick={() => navigate("/workout/add")}>
                         <PlusIcon />
                     </button>
-                    <button className={"btn-home-page btn-home-page-profile"} onClick={() => navigate("/profile")}>
+                    <button className={"btn-home-page-profile"} onClick={() => navigate("/profile")}>
                         <ProfileIcon/>
                     </button>
                 </div>
