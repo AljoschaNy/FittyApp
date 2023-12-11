@@ -4,7 +4,6 @@
 
 # Fiturae: Your Digital Fitness Companion
 
-Fiturae: Your Digital Fitness Companion
 Welcome to Fiturae, the innovative web app that takes your fitness tracking to the next level. Developed with passion and technical expertise, Fiturae is more than just an app – it's a comprehensive tool that accompanies and supports you on your fitness journey. Whether you're just starting out or an experienced athlete, Fiturae offers the flexibility and features you need to effectively track, plan, and optimize your workouts. Dive into a world where fitness meets technology, and discover how Fiturae can revolutionize your training routine.
 
 ## Table of Contents
