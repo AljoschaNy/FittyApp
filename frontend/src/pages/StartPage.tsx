@@ -13,7 +13,8 @@ function StartPage () {
             <main className={"main-start"}>
                 <section className={"banner"}>
                     <div className={"banner-video-section"}>
-                        <video className={"banner-video"} src={"/banner-video.mp4"} autoPlay loop muted />
+                        <video className={"banner-video-portrait"} src={"/banner-video-portrait.mp4"} autoPlay loop muted />
+                        <video className={"banner-video-landscape"} src={"/banner-video-landscape.mp4"} autoPlay loop muted />
                         <div className={"video-overlay"}></div>
                     </div>
                     <div className={"banner-text-section"}>
@@ -23,9 +24,6 @@ function StartPage () {
                         <button className={"get-started"} onClick={() => navigate("/home")}>GET STARTED</button>
                     </div>
                 </section>
-                <div className={"center"}>
-                </div>
-
             </main>
         </div>
     )
