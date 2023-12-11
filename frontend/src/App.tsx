@@ -34,19 +34,17 @@ function App() {
     }
 
     return (
-        <>
-            <Routes>
-                <Route path={"/"} element={<StartPage />} />
-                <Route path={"/login"} element={<LoginPage />} />
-                <Route element={<ProtectedRoutes appUser={appUser}/>}>
-                    <Route path={"/home"} element={appUser && <HomeWithWorkouts userId={appUser.id} userName={appUser.name} imageUrl={appUser.imageUrl}/>}/>
-                    <Route path={"/workout/add"} element={appUser && <AddPageWithWorkouts userId={appUser.id}/>}/>
-                    <Route path={"/workout/:id/edit"} element={appUser && <EditPageWithWorkouts userId={appUser.id}/>}/>
-                    <Route path={"/workout/:id"} element={<DetailsPage/>}/>
-                    <Route path={"/profile"} element={appUser && <ProfilePageWithWorkouts appUser={appUser} />} />
-                </Route>
-            </Routes>
-        </>
+        <Routes>
+            <Route path={"/"} element={<StartPage />} />
+            <Route path={"/login"} element={<LoginPage />} />
+            <Route element={<ProtectedRoutes appUser={appUser}/>}>
+                <Route path={"/home"} element={appUser && <HomeWithWorkouts userId={appUser.id} userName={appUser.name} imageUrl={appUser.imageUrl}/>}/>
+                <Route path={"/workout/add"} element={appUser && <AddPageWithWorkouts userId={appUser.id}/>}/>
+                <Route path={"/workout/:id/edit"} element={appUser && <EditPageWithWorkouts userId={appUser.id}/>}/>
+                <Route path={"/workout/:id"} element={<DetailsPage/>}/>
+                <Route path={"/profile"} element={appUser && <ProfilePageWithWorkouts appUser={appUser} />} />
+            </Route>
+        </Routes>
     )
 }
 
