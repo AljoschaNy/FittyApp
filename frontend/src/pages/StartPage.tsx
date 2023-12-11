@@ -5,23 +5,29 @@ function StartPage () {
     const navigate = useNavigate();
 
     return (
-        <>
+        <div className={"start-main-container"}>
             <header className={"header-start"}>
-                <p className={"logo"}>Fiturae</p>
+                <img className={"logo"} src={"/logo2.png"} alt={"logo"}/>
                 <button className={"header-btn-login"} onClick={() => navigate("/home")}>Login</button>
             </header>
-            <main>
+            <main className={"main-start"}>
                 <section className={"banner"}>
-                    <p>Deine Fitness.</p>
-                    <p>Deine Kontrolle.</p>
-                    <p>Dein Erfolg.</p>
+                    <div className={"banner-video-section"}>
+                        <video className={"banner-video"} src={"/banner-video.mp4"} autoPlay loop muted />
+                        <div className={"video-overlay"}></div>
+                    </div>
+                    <div className={"banner-text"}>
+                        <h2>Deine Fitness.</h2>
+                        <h2>Deine Kontrolle.</h2>
+                        <h2>Dein Erfolg.</h2>
+                        <button className={"get-started"} onClick={() => navigate("/home")}>GET STARTED</button>
+                    </div>
                 </section>
                 <div className={"center"}>
-                    <button className={"get-started"} onClick={() => navigate("/home")}>GET STARTED</button>
                 </div>
 
             </main>
-        </>
+        </div>
     )
 }
 

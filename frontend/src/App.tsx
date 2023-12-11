@@ -46,7 +46,6 @@ function App() {
                     <Route path={"/profile"} element={appUser && <ProfilePageWithWorkouts appUser={appUser} />} />
                 </Route>
             </Routes>
-            <div className={"position-fix-bottom"}></div>
         </>
     )
 }

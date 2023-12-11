@@ -106,6 +106,7 @@ function DetailsPage() {
                     <HomeIcon />
                 </button>
             </div>
+            <div className={"position-fix-bottom"}></div>
         </>
     )
 }

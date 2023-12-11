@@ -82,6 +82,7 @@ function HomePage({userName, imageUrl}:Readonly<HomeProps>) {
                 </div>
 
             </footer>
+            <div className={"position-fix-bottom"}></div>
         </>
     )
 }
