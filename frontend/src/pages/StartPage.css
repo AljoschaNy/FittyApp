@@ -1,0 +1,103 @@
+.start-main-container {
+    background: var(--color-1);
+}
+
+.header-start {
+    width: 100%;
+    height: 65px;
+    padding: 0 30px;
+    background: var(--color-1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+}
+
+.main-start {
+    margin-top: 65px;
+}
+
+.logo {
+    width: 100px;
+}
+
+.header-btn-login {
+    padding: 10px 15px;
+    border-radius: 5px;
+    background: none;
+    color: white;
+    border: 1px solid white;
+}
+
+.banner {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: calc(100svh - 65px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.6rem;
+}
+
+.banner-video-section {
+    position: relative;
+}
+
+.banner-video {
+    object-fit: cover;
+    object-position: center 200px;
+
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2px); /* Fügt Unschärfe hinzu */
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.banner-text-section {
+    z-index: 200;
+    position: absolute;
+}
+
+.banner-text {
+    font-size: 2rem;
+}
+
+.center {
+    width: 100%;
+    display: flex;
+}
+
+.get-started {
+    font-size: 1rem;
+    padding: 30px 45px;
+    margin: 30px auto;
+    border: none;
+    border-radius: 5px;
+    color: var(--color-1);
+    background: white;
+}
+
+@media screen and (min-width: 500px){
+    .banner-video-section {
+        width: 100%;
+    }
+
+    .banner-video {
+        width: 100%;
+        object-position: center;
+    }
+}
