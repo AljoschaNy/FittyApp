@@ -16,10 +16,10 @@ function StartPage () {
                         <video className={"banner-video"} src={"/banner-video.mp4"} autoPlay loop muted />
                         <div className={"video-overlay"}></div>
                     </div>
-                    <div className={"banner-text"}>
-                        <h2>Deine Fitness.</h2>
-                        <h2>Deine Kontrolle.</h2>
-                        <h2>Dein Erfolg.</h2>
+                    <div className={"banner-text-section"}>
+                        <p className={"banner-text"}>Deine Fitness.</p>
+                        <p className={"banner-text"}>Deine Kontrolle.</p>
+                        <p className={"banner-text"}>Dein Erfolg.</p>
                         <button className={"get-started"} onClick={() => navigate("/home")}>GET STARTED</button>
                     </div>
                 </section>
