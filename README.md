@@ -1,5 +1,5 @@
-<p >
-  <img src="./frontend/src/assets/logo-full.png" alt="Fiturae Logo" width="400"/> 
+<p align="center">
+  <img src="./frontend/src/assets/github.png" alt="Fiturae Logo" width="200"/> 
 </p>
 
 # Fiturae: Your Digital Fitness Companion
