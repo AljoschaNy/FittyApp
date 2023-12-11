@@ -2,6 +2,7 @@ import {Workout, WorkoutProviderProps} from "../../types/types.ts";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {WorkoutContext} from "./WorkoutContext.tsx";
 import axios from "axios";
+import Loader from "../animation/Loader.tsx";
 
 function WorkoutProvider({ children, userId }:Readonly<WorkoutProviderProps>) {
     const [workouts, setWorkouts] = useState<Workout[]>([]);
@@ -31,7 +32,11 @@ function WorkoutProvider({ children, userId }:Readonly<WorkoutProviderProps>) {
     }), [workouts,setWorkouts,fetchWorkouts]);
 
     if(isFetchingWorkouts) {
-        return <div>Loading...</div>;
+        return (
+            <div className={"page-center"}>
+                <Loader />
+            </div>
+        );
     }
 
     return (

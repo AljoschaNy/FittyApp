@@ -6,6 +6,7 @@ import axios, {AxiosResponse} from "axios";
 import {Workout} from "../types/types.ts";
 import EditIcon from "../components/svg/EditIcon.tsx";
 import HomeIcon from "../components/svg/HomeIcon.tsx";
+import Loader from "../components/animation/Loader.tsx";
 
 function DetailsPage() {
     const {id} = useParams();
@@ -37,9 +38,9 @@ function DetailsPage() {
 
     if (isLoading) {
         return (
-            <section className={"page-state"} >
-                <p></p>
-            </section>
+            <div className={"page-center"}>
+                <Loader />
+            </div>
         )
     }
 

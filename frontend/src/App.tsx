@@ -10,6 +10,7 @@ import AddPageWithWorkouts from "./components/state/AddPageWithWorkouts.tsx";
 import EditPageWithWorkouts from "./components/state/EditPageWithWorkouts.tsx";
 import {AppUser} from "./types/types.ts";
 import ProfilePageWithWorkouts from "./components/state/ProfilePageWithWorkouts.tsx";
+import Loader from "./components/animation/Loader.tsx";
 
 function App() {
     const [appUser, setAppUser] = useState<AppUser | null | undefined>(null);
@@ -30,7 +31,11 @@ function App() {
     }, []);
 
     if(isLoading) {
-        return <div>Loading...</div>
+        return (
+            <div className={"page-center"}>
+                <Loader />
+            </div>
+        )
     }
 
     return (

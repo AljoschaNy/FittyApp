@@ -46,21 +46,19 @@
 .banner-video-section {
     position: relative;
     height: 100%;
+    width: 100%;
 }
 
 .banner-video-portrait,
 .banner-video-landscape {
+    height: inherit;
+    width: inherit;
     object-fit: cover;
     object-position: center;
 }
 
-.banner-video-portrait {
-    height: inherit;
-}
-
 .banner-video-landscape{
     display: none;
-    height: inherit;
 }
 
 .video-overlay {
@@ -82,17 +80,6 @@
     font-size: 2rem;
 }
 
-@media screen and (max-width: 400px) and (max-height: 700px){
-    .banner-video-section {
-        width: 100%;
-    }
-
-    .banner-video-portrait {
-        width: inherit;
-    }
-
-}
-
 @media screen and (min-width: 500px){
     .banner-video-portrait {
         display: none;
@@ -105,16 +92,6 @@
     .get-started {
         font-size: 1.2rem;
         padding: 20px 30px;
-    }
-}
-
-@media screen and (min-width: 1600px){
-    .banner-video-section {
-        width: 100%;
-    }
-
-    .banner-video-landscape {
-        width: inherit;
     }
 }
 
