@@ -32,6 +32,13 @@ html {
     width: 100%;
 }
 
+.page-center {
+    height: 90svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .position-fix-bottom {
     height: 80px;
 }
