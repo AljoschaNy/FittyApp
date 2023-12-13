@@ -9,6 +9,7 @@ function DateInput(props:Readonly<DateInputType>) {
                 <input
                     type={"date"}
                     name={"day"}
+                    value={props.value}
                     onChange={props.onChange}
                     required={true}
                 />

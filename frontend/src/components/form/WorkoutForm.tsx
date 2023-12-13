@@ -109,7 +109,7 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
                             required={true}
                         />
                         <TextInput name={"Description"} value={workout.description} placeholder={"e.g. 60%, 90 sec..."} onChange={handleWorkoutChange} />
-                        <DateInput name={"Day"} onChange={handleWorkoutChange} />
+                        <DateInput name={"Day"} value={workout.day} onChange={handleWorkoutChange} />
                     </section>
                     <section className={"section-exercises"}>
                         <h3>Exercises</h3>

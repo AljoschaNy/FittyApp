@@ -82,6 +82,7 @@ export type TextInputType = {
 
 export type DateInputType = {
     name: string,
+    value: string,
     onChange: (event:React.ChangeEvent<HTMLInputElement>) => void
 }
 
