@@ -1,6 +1,7 @@
 import RightArrow from "../svg/RightArrow.tsx";
 import {WorkoutCardProps} from "../../types/types.ts";
 import {useNavigate} from "react-router-dom";
+import "./WorkoutCard.css";
 
 function WorkoutCard({ workout }:Readonly<WorkoutCardProps>) {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ function WorkoutCard({ workout }:Readonly<WorkoutCardProps>) {
             </div>
             <div className={"workout-card-body"}>
                 <p>{truncateText(workout.description,25)}</p>
-                <p>{workout.plan.length} Exercise(s)</p>
+                {workout.plan.length > 0 && <p>{workout.plan.length} Exercise(s)</p>}
             </div>
             <button
                 className={"icon-bottom-right btn-details"}
