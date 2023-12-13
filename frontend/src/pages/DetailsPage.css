@@ -13,8 +13,10 @@
 }
 
 .details-field {
-    display: inline-block;
-    margin-bottom: 20px;
+    word-wrap: break-word;
+    line-height: 1.3rem;
+    display: block;
+    margin-bottom: 10px;
     padding-bottom: 5px;
     font-weight: bold;
     border-bottom: 2px solid;

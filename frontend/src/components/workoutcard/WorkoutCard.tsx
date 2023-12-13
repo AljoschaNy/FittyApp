@@ -21,7 +21,7 @@ function WorkoutCard({ workout }:Readonly<WorkoutCardProps>) {
                 <p>{workout.day}</p>
             </div>
             <div className={"workout-card-body"}>
-                <p>{truncateText(workout.description,25)}</p>
+                <p>{truncateText(workout.description,20)}</p>
                 {workout.plan.length > 0 && <p>{workout.plan.length} Exercise(s)</p>}
             </div>
             <button
