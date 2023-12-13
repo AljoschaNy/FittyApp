@@ -32,6 +32,8 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
 
     function handleExerciseChange(indexToChange:number, event:React.ChangeEvent<HTMLInputElement>) {
         const {name, value} = event.target;
+
+        if(name === "name") setIsNameError(false)
         const updatedExercises = exercises.map((exercise,index) => {
             return index === indexToChange ? {...exercise, [name]: value} : exercise;
         });
