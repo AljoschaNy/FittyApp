@@ -69,8 +69,6 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
             plan: exercises,
         };
 
-        console.log("Sending data:", newWorkoutData);
-
         formType === "new" && axios.post('/api/workouts', newWorkoutData)
             .then(() => {
                 fetchWorkouts();
