@@ -86,6 +86,11 @@
 }
 
 /* Typography */
+.no-workouts-message {
+    opacity: 0.6;
+    margin-left: 20px;
+}
+
 .header-greeting p {
     display: none;
     margin-left: 30px;
@@ -213,4 +218,3 @@ h2.home-title {
         display: block;
     }
 }
-

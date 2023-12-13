@@ -35,6 +35,7 @@ function HomePage({userName, imageUrl}:Readonly<HomeProps>) {
             <div className={"main-wrapper"}>
                 <div className={"main-wrapper-home"}>
                     <h2 className={"home-title"}>Recent Workouts</h2>
+                    {workouts.length === 0 && <p className={"no-workouts-message"}>No workouts yet.... :(</p>}
                     {workouts.map((workout:Workout) => {
                         return(
                             <WorkoutCard key={workout.id} workout={workout} />
