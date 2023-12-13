@@ -80,6 +80,12 @@ export type TextInputType = {
     onChange: (event:React.ChangeEvent<HTMLInputElement>) => void
 }
 
+export type DateInputType = {
+    name: string,
+    value: string,
+    onChange: (event:React.ChangeEvent<HTMLInputElement>) => void
+}
+
 // State Types
 export type WorkoutContextType = {
     workouts: Workout[],

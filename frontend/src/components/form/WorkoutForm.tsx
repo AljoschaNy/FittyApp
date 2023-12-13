@@ -5,6 +5,7 @@ import axios from "axios";
 import "./WorkoutForm.css";
 import TextInput from "./TextInput.tsx";
 import {WorkoutContext} from "../state/WorkoutContext.tsx";
+import DateInput from "./DateInput.tsx";
 
 function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
     const navigate = useNavigate();
@@ -102,11 +103,11 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
                             value={workout.name}
                             placeholder={"e.g. Push Training..."}
                             onChange={handleWorkoutChange}
-                            maxLength={25}
+                            maxLength={20}
                             required={true}
                         />
                         <TextInput name={"Description"} value={workout.description} placeholder={"e.g. 60%, 90 sec..."} onChange={handleWorkoutChange} />
-                        <TextInput name={"Day"} value={workout.day} onChange={handleWorkoutChange} />
+                        <DateInput name={"Day"} value={workout.day} onChange={handleWorkoutChange} />
                     </section>
                     <section className={"section-exercises"}>
                         <h3>Exercises</h3>

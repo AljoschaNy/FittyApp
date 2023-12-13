@@ -7,6 +7,7 @@ import de.aljoschanyang.capstoneprojectfiturae.repositories.AppUserRepo;
 import de.aljoschanyang.capstoneprojectfiturae.repositories.WorkoutRepo;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,12 +18,14 @@ import static org.mockito.Mockito.*;
 class WorkoutServiceTest {
     private final AppUserRepo mockAppUserRepo = mock(AppUserRepo.class);
     private final WorkoutRepo mockWorkoutRepo = mock(WorkoutRepo.class);
-    private final de.aljoschanyang.capstoneprojectfiturae.services.AppUserService appUserService = new de.aljoschanyang.capstoneprojectfiturae.services.AppUserService(mockAppUserRepo);
-    private final de.aljoschanyang.capstoneprojectfiturae.services.WorkoutService workoutService = new de.aljoschanyang.capstoneprojectfiturae.services.WorkoutService(mockWorkoutRepo, appUserService);
+    private final AppUserService appUserService = new AppUserService(mockAppUserRepo);
+    private final WorkoutService workoutService = new WorkoutService(mockWorkoutRepo, appUserService);
 
-    private final de.aljoschanyang.capstoneprojectfiturae.models.AppUser appUser = de.aljoschanyang.capstoneprojectfiturae.models.AppUser.builder()
+    private final AppUser appUser = AppUser.builder()
             .id("userId")
             .build();
+    private final LocalDate testDate = LocalDate.of(2023,12,15);
+
 
     @Test
     void addWorkout_whenUserExistsInDb_thenReturnWorkout() {
@@ -30,7 +33,7 @@ class WorkoutServiceTest {
                 .id("workoutId")
                 .userId(appUser.id())
                 .name("Test workout")
-                .day(WeekDay.MONDAY)
+                .day(testDate)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -57,7 +60,7 @@ class WorkoutServiceTest {
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId("invalidUserId")
                 .name("Test workout")
-                .day(WeekDay.MONDAY)
+                .day(testDate)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -72,7 +75,7 @@ class WorkoutServiceTest {
                 .id("workoutId")
                 .userId(appUser.id())
                 .name("Test workout")
-                .day(WeekDay.MONDAY)
+                .day(testDate)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -105,7 +108,7 @@ class WorkoutServiceTest {
                 .id("validWorkoutId")
                 .userId("1")
                 .name("Test workout")
-                .day(WeekDay.MONDAY)
+                .day(testDate)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -130,14 +133,14 @@ class WorkoutServiceTest {
                 .id("validWorkoutId")
                 .userId("1")
                 .name("Test workout")
-                .day(WeekDay.MONDAY)
+                .day(testDate)
                 .description("Test description")
                 .plan(List.of())
                 .build();
 
         WorkoutEdit workoutEdit = WorkoutEdit.builder()
                 .name("Changed workout")
-                .day(WeekDay.FRIDAY)
+                .day(testDate)
                 .description("Changed description")
                 .plan(List.of())
                 .build();
@@ -146,7 +149,7 @@ class WorkoutServiceTest {
                 .id("validWorkoutId")
                 .userId("1")
                 .name("Changed workout")
-                .day(WeekDay.FRIDAY)
+                .day(testDate)
                 .description("Changed description")
                 .plan(List.of())
                 .build();
@@ -164,7 +167,7 @@ class WorkoutServiceTest {
     void editWorkout_whenInvalidData_thenThrowException() {
         WorkoutEdit workoutEdit = WorkoutEdit.builder()
                 .name("Changed workout")
-                .day(WeekDay.FRIDAY)
+                .day(testDate)
                 .description("Changed description")
                 .plan(List.of())
                 .build();

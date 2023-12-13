@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Builder
@@ -17,7 +18,7 @@ public record Workout(
         @Field("workout_name")
         String name,
         @Field("workout_day")
-        WeekDay day,
+        LocalDate day,
         @Field("workout_description")
         String description,
         @Field("workout_plan")
