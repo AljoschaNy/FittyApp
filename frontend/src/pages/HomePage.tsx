@@ -37,7 +37,7 @@ function HomePage({userName, imageUrl}:Readonly<HomeProps>) {
                     <h2 className={"home-title"}>Recent Workouts</h2>
                     {workouts.map((workout:Workout) => {
                         return(
-                            <WorkoutCard workout={workout} />
+                            <WorkoutCard key={workout.id} workout={workout} />
                         )
                     })}
                 </div>

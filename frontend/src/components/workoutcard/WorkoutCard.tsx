@@ -14,7 +14,7 @@ function WorkoutCard({ workout }:Readonly<WorkoutCardProps>) {
     }
 
     return (
-        <div key={workout.id} className={"workout-card"}>
+        <div className={"workout-card"}>
             <div className={"workout-card-head"}>
                 <h3>{workout.name}</h3>
                 <p>{workout.day}</p>
