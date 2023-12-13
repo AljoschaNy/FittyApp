@@ -12,6 +12,7 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
     const [exercises, setExercises] = useState<WorkoutExercise[]>(initialWorkout.plan);
     const [nextId, setNextId] = useState(0);
     const [workout, setWorkout] = useState<Workout>(initialWorkout);
+    const [isNameError, setIsNameError] = useState(false);
 
     useEffect(() => {
         if (initialWorkout.plan.length > 0) {
@@ -37,6 +38,12 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
     }
 
     function addNewExerciseForm() {
+        if (exercises.length > 0 && exercises[exercises.length - 1].name === "") {
+            setIsNameError(true);
+            return;
+        }
+        setIsNameError(false);
+
         setExercises([...exercises, {
             id: nextId,
             name: "",
@@ -49,6 +56,9 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
     }
 
     function deleteExerciseForm(indexToDelete:number) {
+        if(indexToDelete === exercises.length - 1) {
+            setIsNameError(false);
+        }
         setExercises(exercises.filter((_exercise:WorkoutExercise,index:number) => index !== indexToDelete))
     }
 
@@ -87,7 +97,14 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
             <main className={"main-add-page"}>
                 <form id={"workout-form"} onSubmit={handleSubmit}>
                     <section className={"section-workout-details"}>
-                        <TextInput name={"Name"} value={workout.name} placeholder={"e.g. Push Training..."} onChange={handleWorkoutChange} />
+                        <TextInput
+                            name={"Name"}
+                            value={workout.name}
+                            placeholder={"e.g. Push Training..."}
+                            onChange={handleWorkoutChange}
+                            maxLength={25}
+                            required={true}
+                        />
                         <TextInput name={"Description"} value={workout.description} placeholder={"e.g. 60%, 90 sec..."} onChange={handleWorkoutChange} />
                         <TextInput name={"Day"} value={workout.day} onChange={handleWorkoutChange} />
                     </section>
@@ -96,18 +113,22 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
                         <div className={"exercise-list"}>
                             {exercises.map((exercise:WorkoutExercise,index) => {
                                 const exerciseKey = index+1;
+                                const showError = isNameError && index === exercises.length - 1;
 
                                 return (
                                 <div className={"exercise-form"} key={`${exerciseKey}`}>
                                     <div className={"exercise-title"}>
-                                        <label>
+                                        <label className={showError ? "error" : ""}>
                                             <p>Name</p>
                                             <input
                                                 type={"text"}
                                                 name={"name"}
                                                 value={exercise.name}
+                                                maxLength={25}
                                                 onChange={(event) => handleExerciseChange(index,event)}
+                                                required={exercises.length > 0}
                                             />
+                                            {showError && <p className={"error-message"}>Please fill out the name</p> }
                                         </label><br/>
                                     </div>
                                     <div className={"exercise-numbers"}>
@@ -117,6 +138,8 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
                                                 type={"number"}
                                                 name={"setCount"}
                                                 value={exercise.setCount}
+                                                min={1}
+                                                max={20}
                                                 onChange={(event) => handleExerciseChange(index,event)}
                                             />
                                         </label><br/>
@@ -126,6 +149,8 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
                                                 type={"number"}
                                                 name={"repsPerSet"}
                                                 value={exercise.repsPerSet}
+                                                min={1}
+                                                max={200}
                                                 onChange={(event) => handleExerciseChange(index,event)}
                                             />
                                         </label><br/>
@@ -136,6 +161,8 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
                                                     type={"number"}
                                                     name={"weightInKg"}
                                                     value={exercise.weightInKg}
+                                                    min={0}
+                                                    max={500}
                                                     onChange={(event) => handleExerciseChange(index,event)}
                                                 />
                                                 <span>Kg</span>
@@ -148,6 +175,8 @@ function WorkoutForm({formType, initialWorkout}: Readonly<WorkoutFormType>) {
                                                     type={"number"}
                                                     name={"breakInSec"}
                                                     value={exercise.breakInSec}
+                                                    min={0}
+                                                    max={500}
                                                     onChange={(event) => handleExerciseChange(index,event)}
                                                 />
                                                 <span>Sec</span>

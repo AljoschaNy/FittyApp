@@ -53,6 +53,10 @@ export type AddPageProps = {
 }
 
 // Component Types
+export type WorkoutCardProps = {
+    workout: Workout
+}
+
 export type WorkoutFormType = {
     formType: "new" | "edit",
     initialWorkout: Workout
@@ -71,6 +75,8 @@ export type TextInputType = {
     name: string,
     value: string,
     placeholder?: string,
+    maxLength?:number,
+    required?: boolean,
     onChange: (event:React.ChangeEvent<HTMLInputElement>) => void
 }
 

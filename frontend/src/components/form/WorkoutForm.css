@@ -144,3 +144,14 @@
     border-radius: 50%;
     border: none;
 }
+
+/* Error Styles */
+.error input {
+    border: 2px solid #d01e1e;
+}
+
+.error-message {
+    margin-top: 5px;
+    color: #d01e1e;
+    font-size: 0.8em;
+}

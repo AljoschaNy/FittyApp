@@ -12,6 +12,8 @@ function TextInput(props:Readonly<TextInputType>) {
                     placeholder={props.placeholder}
                     value={props.value}
                     onChange={(event:React.ChangeEvent<HTMLInputElement>) => props.onChange(event)}
+                    {...(props.maxLength && {maxLength : props.maxLength})}
+                    {...(props.required && {required : props.required})}
                 />
             </label>
             <br/>
