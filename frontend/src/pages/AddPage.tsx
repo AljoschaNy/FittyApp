@@ -8,7 +8,7 @@ function AddPage({userId}:Readonly<AddPageProps>) {
         userId,
         name: "",
         description: "",
-        day: "MONDAY",
+        day: "",
         plan: []
     }
 
