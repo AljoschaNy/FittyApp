@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -35,18 +36,19 @@ class WorkoutControllerTest {
     private ObjectMapper objectMapper;
 
     private static final String BASE_URI = "/api/workouts";
-    private final AppUser VALID_APP_USER = new AppUser("validUserId", "User1","email","imgUrl");
+    private final AppUser validAppUser = new AppUser("validUserId", "User1","email","imgUrl");
+    private final LocalDate testDate = LocalDate.of(2023,12,15);
 
 
     @Test
     @DirtiesContext
     void addWorkout_whenUserExistsInDb_thenReturnWorkout() throws Exception {
-        appUserRepo.save(VALID_APP_USER);
+        appUserRepo.save(validAppUser);
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
-                .userId(VALID_APP_USER.id())
+                .userId(validAppUser.id())
                 .name("Test Workout")
-                .day(WeekDay.MONDAY)
+                .day(testDate)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -69,7 +71,7 @@ class WorkoutControllerTest {
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
                 .userId("invalidUserId")
                 .name("Test Workout")
-                .day(WeekDay.MONDAY)
+                .day(testDate)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -85,12 +87,12 @@ class WorkoutControllerTest {
     @Test
     @DirtiesContext
     void getAllWorkoutsByUserId_whenUserExists_thenReturnWorkouts() throws Exception {
-        appUserRepo.save(VALID_APP_USER);
+        appUserRepo.save(validAppUser);
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
-                .userId(VALID_APP_USER.id())
+                .userId(validAppUser.id())
                 .name("Test Workout")
-                .day(WeekDay.MONDAY)
+                .day(testDate)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -107,7 +109,7 @@ class WorkoutControllerTest {
         List<Workout> expected = List.of(workout);
         String expectedAsJson = objectMapper.writeValueAsString(expected);
 
-        mockMvc.perform(get(BASE_URI + "/" + VALID_APP_USER.id()))
+        mockMvc.perform(get(BASE_URI + "/" + validAppUser.id()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedAsJson));
     }
@@ -125,12 +127,12 @@ class WorkoutControllerTest {
     @Test
     @DirtiesContext
     void getWorkoutById_whenIdIsValid_thenReturnWorkout() throws Exception {
-        appUserRepo.save(VALID_APP_USER);
+        appUserRepo.save(validAppUser);
 
         WorkoutDetails workoutDetails = WorkoutDetails.builder()
-                .userId(VALID_APP_USER.id())
+                .userId(validAppUser.id())
                 .name("Test Workout")
-                .day(WeekDay.MONDAY)
+                .day(testDate)
                 .description("Test description")
                 .plan(List.of())
                 .build();
@@ -167,14 +169,14 @@ class WorkoutControllerTest {
                 .id("1")
                 .userId("User1")
                 .name("Test Workout")
-                .day(WeekDay.MONDAY)
+                .day(testDate)
                 .description("Test description")
                 .plan(List.of())
                 .build();
 
         WorkoutEdit workoutEdit = WorkoutEdit.builder()
                 .name("Changed Workout")
-                .day(WeekDay.FRIDAY)
+                .day(testDate)
                 .description("Changed description")
                 .plan(List.of())
                 .build();
@@ -204,7 +206,7 @@ class WorkoutControllerTest {
     void editWorkout_whenInvalidData_thenThrowException() throws Exception {
         WorkoutEdit workoutEdit = WorkoutEdit.builder()
                 .name("Changed Workout")
-                .day(WeekDay.FRIDAY)
+                .day(testDate)
                 .description("Changed description")
                 .plan(List.of())
                 .build();
@@ -226,7 +228,7 @@ class WorkoutControllerTest {
                 .id("1")
                 .userId("User1")
                 .name("Test")
-                .day(WeekDay.MONDAY)
+                .day(testDate)
                 .description("Test description")
                 .plan(List.of())
                 .build();
