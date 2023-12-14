@@ -70,9 +70,13 @@ function DetailsPage() {
             <HeaderPages pageTitle={"Details"} />
             <div className={"main-wrapper workout-details"}>
                 <p className={"details-field"}>{workout.name}</p><br/>
-                <p className={"details-field"}>{workout.description}</p><br/>
+                {workout.description.length >0 &&
+                    <div>
+                        <p className={"details-field"}>{workout.description}</p>
+                        <br/>
+                    </div>}
                 <p className={"details-field"}>{workout.day}</p><br/>
-                <h3 className={"exercises-title"}>Exercises</h3>
+                {workout.plan.length > 0 && <h3 className={"exercises-title"}>Exercises</h3>}
                     {workout.plan.map((exercise,index) => {
                         const exerciseId = index+1;
 
